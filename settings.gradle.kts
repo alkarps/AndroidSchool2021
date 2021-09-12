@@ -9,4 +9,4 @@ dependencyResolutionManagement {
 rootProject.name = "AndroidSchool2021"
 
 
-include(":app")
+include(":hw01")

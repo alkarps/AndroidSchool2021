@@ -1,4 +1,4 @@
-package ru.alkarps.android.school2021
+package ru.alkarps.android.school2021.hw01
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
