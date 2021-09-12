@@ -1,4 +1,4 @@
-package ru.alkarps.android.school2021
+package ru.alkarps.android.school2021.hw01
 
 import org.junit.Test
 

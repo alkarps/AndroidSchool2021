@@ -7,7 +7,7 @@ android {
     compileSdk = 30
 
     defaultConfig {
-        applicationId ="ru.alkarps.android.school2021"
+        applicationId ="ru.alkarps.android.school2021.hw01"
         minSdk =21
         targetSdk =30
         versionCode =1
