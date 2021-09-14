@@ -7,11 +7,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 abstract class AbstractActivity(
-    private val headerText: String,
-    private val needAddCount: Boolean = false
+    private val headerText: String
 ) : AppCompatActivity() {
-    protected var count = 0
-    private var hasOutIncome = false
+    private lateinit var inCallTextView: TextView
+    private lateinit var outCallTextView: TextView
+    private var outCallCount = 0
+    private var inCallCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,25 +21,43 @@ abstract class AbstractActivity(
         val header = findViewById<TextView>(R.id.header_title)
         header.text = headerText
 
-        var message = intent.getStringExtra(OUT_APP_MESSAGE_ID)
-        if (message != null) hasOutIncome = true
-        else message = intent.getStringExtra(IN_APP_MESSAGE_ID) ?: ""
+        inCallTextView = findViewById(R.id.text_message_view_in_call_count)
+        outCallTextView = findViewById(R.id.text_message_view_out_call_count)
 
-        findViewById<TextView>(R.id.text_message_view).apply {
-            text = message
-        }
+        updateTextViewIfNeed()
+
         setButtonListener(R.id.button_to_main_activity, MainActivity::class.java)
         setButtonListener(R.id.button_to_single_top_activity, SingleTopActivity::class.java)
         setButtonListener(R.id.button_to_single_task_activity, SingleTaskActivity::class.java)
     }
 
+    private fun updateTextViewIfNeed() {
+        intent.getStringExtra(OUT_APP_MESSAGE_ID)?.apply {
+            outCallCount++
+            outCallTextView.apply {
+                text = "Количество вызово извне приложения: $outCallCount"
+            }
+        } ?: intent.getStringExtra(IN_APP_MESSAGE_ID).apply {
+            inCallCount++
+
+            inCallTextView.apply {
+                text = "Количество вызово внутри приложения: $inCallCount"
+            }
+        }
+    }
+
     private fun setButtonListener(id: Int, clazz: Class<*>) {
         findViewById<Button>(id).setOnClickListener {
             val intent = Intent(this, clazz).apply {
-                putExtra(IN_APP_MESSAGE_ID, "Это сообщение отправлено внутри приложения")
+                putExtra(IN_APP_MESSAGE_ID, IN_APP_MESSAGE_ID)
             }
             startActivity(intent)
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        updateTextViewIfNeed()
     }
 
     companion object Const {
