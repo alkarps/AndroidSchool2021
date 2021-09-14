@@ -7,7 +7,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 abstract class AbstractActivity(
-    private val headerText: String
+    private val headerText: String,
+    private val isSingleActivity:Boolean = true
 ) : AppCompatActivity() {
     private lateinit var inCallTextView: TextView
     private lateinit var outCallTextView: TextView
@@ -31,15 +32,20 @@ abstract class AbstractActivity(
         setButtonListener(R.id.button_to_single_task_activity, SingleTaskActivity::class.java)
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        updateTextViewIfNeed()
+    }
+
     private fun updateTextViewIfNeed() {
-        intent.getStringExtra(OUT_APP_MESSAGE_ID)?.apply {
+        intent.data?.getQueryParameter(OUT_APP_MESSAGE_ID)?.apply {
             outCallCount++
             outCallTextView.apply {
                 text = "Количество вызово извне приложения: $outCallCount"
             }
-        } ?: intent.getStringExtra(IN_APP_MESSAGE_ID).apply {
+        }
+        intent.getStringExtra(IN_APP_MESSAGE_ID)?.apply {
             inCallCount++
-
             inCallTextView.apply {
                 text = "Количество вызово внутри приложения: $inCallCount"
             }
@@ -53,11 +59,6 @@ abstract class AbstractActivity(
             }
             startActivity(intent)
         }
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        updateTextViewIfNeed()
     }
 
     companion object Const {
