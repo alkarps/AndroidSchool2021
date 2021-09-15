@@ -34,6 +34,7 @@ abstract class AbstractActivity(
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+        setIntent(intent)
         updateTextViewIfNeed()
     }
 
