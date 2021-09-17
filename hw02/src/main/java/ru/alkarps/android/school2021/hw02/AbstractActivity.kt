@@ -1,18 +1,18 @@
 package ru.alkarps.android.school2021.hw02
 
 import android.content.Intent
+import android.content.Intent.ACTION_VIEW
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 abstract class AbstractActivity(
-    private val headerText: String,
-    private val isSingleActivity:Boolean = true
+    private val headerText: String
 ) : AppCompatActivity() {
     private lateinit var inCallTextView: TextView
     private lateinit var outCallTextView: TextView
-    private var outCallCount = 0
+    private var outCallText: String? = null
     private var inCallCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,16 +39,20 @@ abstract class AbstractActivity(
     }
 
     private fun updateTextViewIfNeed() {
-        intent.data?.getQueryParameter(OUT_APP_MESSAGE_ID)?.apply {
-            outCallCount++
-            outCallTextView.apply {
-                text = "Количество вызово извне приложения: $outCallCount"
-            }
-        }
         intent.getStringExtra(IN_APP_MESSAGE_ID)?.apply {
             inCallCount++
             inCallTextView.apply {
                 text = "Количество вызово внутри приложения: $inCallCount"
+            }
+        }
+        if (intent.action == ACTION_VIEW) intent.data?.getQueryParameter(OUT_APP_MESSAGE_ID).apply {
+            var message =
+                if (outCallText != null) "Предыдущее полученное сообщение: \"$outCallText\""
+                else ""
+            outCallText = this ?: "null"
+            message = "Сообщение полученное извне приложения: \"$outCallText\". $message"
+            outCallTextView.apply {
+                text = message
             }
         }
     }
