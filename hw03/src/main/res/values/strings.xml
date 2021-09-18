@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">hw03</string>
+    <string name="label">Приложение перевода русского в транслит и обратно</string>
+    <string name="russian_block_editor">Введите текст на русском</string>
+    <string name="russian_block_button">В транслит</string>
+    <string name="translit_block_editor">Vvedite tekst na translite</string>
+    <string name="translit_block_button">В русский</string>
+    <string name="allowed_russian_char">аАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛмМнНоОпПрРсСтТуУфФхХцЦчЧшШщЩыЫьЬъЪэЭюЮяЯ </string>
+    <string name="allowed_translit_char">aAbBvVgGdDeEzZhHiIkKlLmMnNoOpPrRsStTfFcCyYuU </string>
 </resources>
