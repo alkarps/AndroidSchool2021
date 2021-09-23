@@ -21,7 +21,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun translate(source: TextInputEditText, destination: TextInputEditText) {
-        val newText = source.text?.let { TranslateService.translate(it) } ?: ""
-        destination.setText(newText, TextView.BufferType.EDITABLE)
+        try {
+            val newText = source.text?.let { TranslateService.translate(it) } ?: ""
+            destination.setText(newText, TextView.BufferType.EDITABLE)
+        } catch (e: RuntimeException) {
+            source.error = "Ошибка в тексте. Пожалуйста, проверьте корректность текста."
+        }
     }
 }
