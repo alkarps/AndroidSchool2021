@@ -5,6 +5,6 @@
     <string name="russian_block_button">В транслит</string>
     <string name="translit_block_editor">Vvedite tekst na translite</string>
     <string name="translit_block_button">В русский</string>
-    <string name="allowed_russian_char">аАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛмМнНоОпПрРсСтТуУфФхХцЦчЧшШщЩыЫьЬъЪэЭюЮяЯ </string>
-    <string name="allowed_translit_char">aAbBvVgGdDeEzZhHiIkKlLmMnNoOpPrRsStTfFcCyYuU </string>
+    <string name="allowed_russian_char">аАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛмМнНоОпПрРсСтТуУфФхХцЦчЧшШщЩыЫьЬъЪэЭюЮ яЯ</string>
+    <string name="allowed_translit_char">aAbBvVgGdDeEzZhHiIkKlLmMnNoOpPrRsStTfFcCyY uU</string>
 </resources>
