@@ -25,8 +25,8 @@
             android:id="@+id/win_counter_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/counter_text_size"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/counter_text_size" />
     </LinearLayout>
 
     <LinearLayout
@@ -47,9 +47,89 @@
             android:id="@+id/defeat_counter_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/counter_text_size"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/counter_text_size" />
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="360dp"
+        android:layout_height="360dp"
+        android:layout_gravity="center"
+        android:background="@drawable/battlefield">
+
+        <ImageView
+            android:id="@+id/left_top_position"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="start|top"
+            android:background="@android:color/transparent"
+            android:src="@drawable/position" />
+
+        <ImageView
+            android:id="@+id/center_top_position"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="top|center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/position" />
+
+        <ImageView
+            android:id="@+id/right_top_position"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="top|end"
+            android:background="@android:color/transparent"
+            android:src="@drawable/position" />
+
+        <ImageView
+            android:id="@+id/left_center_position"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="start|center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/position" />
+
+        <ImageView
+            android:id="@+id/center_center_position"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center|center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/position" />
+
+        <ImageView
+            android:id="@+id/right_center_position"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center|end"
+            android:background="@android:color/transparent"
+            android:src="@drawable/position" />
+
+        <ImageView
+            android:id="@+id/left_bottom_position"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="start|bottom"
+            android:background="@android:color/transparent"
+            android:src="@drawable/position" />
+
+        <ImageView
+            android:id="@+id/center_bottom_position"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom|center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/position" />
+
+        <ImageView
+            android:id="@+id/right_bottom_position"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom|end"
+            android:background="@android:color/transparent"
+            android:src="@drawable/position" />
+
+    </FrameLayout>
 
 
 </FrameLayout>
