@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">hw04</string>
+    <string name="count_wins">Count wins</string>
+    <string name="count_defeats">Count defeats</string>
+    <dimen name="counter_image_size">72sp</dimen>
+    <dimen name="counter_text_size">50sp</dimen>
 </resources>
