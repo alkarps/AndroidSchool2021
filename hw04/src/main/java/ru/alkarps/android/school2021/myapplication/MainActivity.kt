@@ -75,6 +75,14 @@ class MainActivity : AppCompatActivity() {
             this.isSelected = false
         }
         view.setOnClickListener {
+            if (winCounter == 3) {
+                winCounter = 0
+                updateWinCounter()
+            }
+            if (defeatCounter == 3) {
+                defeatCounter = 0
+                updateDefeatCounter()
+            }
             if (checkAndSetPressedStatus(it as ImageView)) {
                 val playerStepPosition = getCurrentPosition(it.id)
                 if (checkOnPlayerWin(playerStepPosition)) {
