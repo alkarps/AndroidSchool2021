@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">hw05</string>
+    <string name="add_basket">Добавить корзину</string>
+    <string name="remove_all_baskets">Удалить все корзины</string>
 </resources>
