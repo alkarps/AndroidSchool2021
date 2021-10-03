@@ -19,7 +19,9 @@ class BasketRepository(private val submitList: (List<BasketItem>) -> Unit) {
             Log.e(TAG, "${it.index} : ${it.value.getTypeId()}")
         }
         if (baskets.size > 1) {
-            (baskets.last() as Counter).applesCount = baskets.count { it is Apple }
+            baskets.removeLast()
+            val applesCount = baskets.count { it is Apple }
+            baskets.add(Counter(applesCount = applesCount))
         }
         submitList.invoke(baskets.toList())
     }
@@ -48,9 +50,8 @@ class BasketRepository(private val submitList: (List<BasketItem>) -> Unit) {
     }
 
     fun removeAllBaskets() {
-        val counter = baskets.last()
         baskets.clear()
-        baskets.add(counter)
+        baskets.add(Counter())
         submit()
     }
 
