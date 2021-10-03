@@ -6,4 +6,5 @@
     <string name="add_apple_to_basket">Положить яблоко</string>
     <string name="apple_item_label">Яблоко</string>
     <string name="remove_apple_from_basket">Съесть</string>
+    <string name="apple_count_label">Сумма:</string>
 </resources>

@@ -7,25 +7,25 @@
 
     <ImageView
         android:id="@+id/basket_image"
-        android:gravity="center"
-        android:layout_marginStart="8dp"
         android:layout_width="40dp"
         android:layout_height="46dp"
-        android:src="@drawable/basket"/>
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:src="@drawable/basket" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
         android:text="@string/basket_item_label" />
 
     <Button
         android:id="@+id/add_apple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
         android:layout_marginEnd="8dp"
+        android:padding="8dp"
         android:text="@string/add_apple_to_basket" />
 </LinearLayout>
