@@ -38,8 +38,17 @@ class BasketRepository(private val submitList: (List<BasketItem>) -> Unit) {
     }
 
     fun removeApple(apple: BasketItem) {
-        (apple as Apple).basket.apples--
-        baskets.remove(apple)
+        baskets.remove(apple as Apple)
+        val newBasket = Basket(apples = apple.basket.apples - 1)
+        val replacingPosition = mutableListOf(baskets.indexOf((apple).basket))
+        replacingPosition.addAll(baskets.withIndex()
+            .filter { it.value is Apple && (it.value as Apple).basket == apple.basket }
+            .map { it.index })
+        replacingPosition.forEach {
+            val removed = baskets.removeAt(it)
+            if(removed is Basket) baskets.add(it, newBasket)
+            else baskets.add(it, Apple(basket = newBasket))
+        }
         submit()
     }
 
