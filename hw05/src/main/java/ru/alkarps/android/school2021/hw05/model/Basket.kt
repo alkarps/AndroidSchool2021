@@ -1,7 +1,11 @@
 package ru.alkarps.android.school2021.hw05.model
 
-class Basket {
+import ru.alkarps.android.school2021.hw05.model.BasketItem.Companion.BASKET_TYPE
+
+class Basket : BasketItem {
     private var apples = 0
+
+    override fun getTypeId(): Int = BASKET_TYPE
 
     fun addApple() {
         if (apples < 3) apples++
