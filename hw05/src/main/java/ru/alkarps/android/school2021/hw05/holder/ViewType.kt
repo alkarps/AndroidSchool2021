@@ -16,9 +16,11 @@ enum class ViewType(
 
     fun getTypeId() = typeId
 
-    fun initHolder(parent: ViewGroup): BasketViewHolder {
+    fun initHolder(parent: ViewGroup, basketListener: BasketListener): BasketViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
-        return holderConstructor.invoke(view)
+        val holder = holderConstructor.invoke(view)
+        holder.setBasketListener(basketListener)
+        return holder
     }
 
     companion object {
