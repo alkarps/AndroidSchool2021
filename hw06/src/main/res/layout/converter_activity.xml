@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".main.MainActivity">
+    tools:context=".converter.ConverterActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/converters_list"
+        android:id="@+id/converter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
