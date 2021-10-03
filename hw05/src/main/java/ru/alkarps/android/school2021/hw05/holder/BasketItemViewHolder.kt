@@ -11,7 +11,6 @@ class BasketItemViewHolder(
     itemView: View,
     listener: BasketListener
 ) : BasketViewHolder(itemView, listener) {
-
     private val image: ImageView = itemView.findViewById(R.id.basket_image)
     private val button: Button = itemView.findViewById(R.id.add_apple)
 

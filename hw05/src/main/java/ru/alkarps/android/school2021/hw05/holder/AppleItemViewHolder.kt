@@ -9,8 +9,8 @@ class AppleItemViewHolder(
     itemView: View,
     listener: BasketListener
 ) : BasketViewHolder(itemView, listener) {
-
     private val button: Button = itemView.findViewById(R.id.remove_apple)
+
     override fun onBind(item: BasketItem) {
         button.setOnClickListener { listener.removeApple(item) }
     }
