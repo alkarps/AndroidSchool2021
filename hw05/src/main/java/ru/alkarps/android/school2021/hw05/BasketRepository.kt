@@ -1,9 +1,11 @@
 package ru.alkarps.android.school2021.hw05
 
+import android.os.Parcelable
 import ru.alkarps.android.school2021.hw05.model.Apple
 import ru.alkarps.android.school2021.hw05.model.Basket
 import ru.alkarps.android.school2021.hw05.model.BasketItem
 import ru.alkarps.android.school2021.hw05.model.Counter
+import java.util.*
 
 class BasketRepository(private val submitList: (List<BasketItem>) -> Unit) {
     private val baskets: MutableList<BasketItem> = mutableListOf(Counter())
@@ -46,7 +48,7 @@ class BasketRepository(private val submitList: (List<BasketItem>) -> Unit) {
             .map { it.index })
         replacingPosition.forEach {
             val removed = baskets.removeAt(it)
-            if(removed is Basket) baskets.add(it, newBasket)
+            if (removed is Basket) baskets.add(it, newBasket)
             else baskets.add(it, Apple(basket = newBasket))
         }
         submit()
@@ -55,6 +57,14 @@ class BasketRepository(private val submitList: (List<BasketItem>) -> Unit) {
     fun removeAllBaskets() {
         baskets.clear()
         baskets.add(Counter())
+        submit()
+    }
+
+    fun getData(): ArrayList<BasketItem> = ArrayList(baskets.toList())
+
+    fun restore(data: ArrayList<BasketItem>) {
+        baskets.clear()
+        baskets.addAll(data)
         submit()
     }
 }

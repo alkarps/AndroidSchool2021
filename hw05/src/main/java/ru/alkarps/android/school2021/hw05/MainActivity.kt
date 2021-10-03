@@ -23,6 +23,18 @@ class MainActivity : AppCompatActivity(), BasketListener {
         findViewById<Button>(R.id.remove_all_baskets).setOnClickListener { repository.removeAllBaskets() }
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        if (savedInstanceState.containsKey(DATA_KEY)) {
+            repository.restore(savedInstanceState.getParcelableArrayList(DATA_KEY)!!)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(DATA_KEY, repository.getData())
+    }
+
     private fun showAlarm() {
         val message = "Жадность наносит вред не только репутации человека, но и его здоровью!"
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
@@ -36,5 +48,9 @@ class MainActivity : AppCompatActivity(), BasketListener {
 
     override fun removeApple(apple: BasketItem) {
         repository.removeApple(apple)
+    }
+
+    companion object {
+        const val DATA_KEY = "BasketsKey"
     }
 }
