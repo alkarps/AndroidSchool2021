@@ -1,11 +1,11 @@
 package ru.alkarps.android.school2021.hw05.model
 
-import ru.alkarps.android.school2021.hw05.model.BasketItem.Companion.COUNTER_TYPE
+import ru.alkarps.android.school2021.hw05.holder.ViewType
 
 class Counter : BasketItem {
     private var applesCount: Int = 0
 
-    override fun getTypeId(): Int = COUNTER_TYPE
+    override fun getTypeId(): Int = ViewType.COUNTER.getTypeId()
 
     fun resetCounter() {
         applesCount = 0

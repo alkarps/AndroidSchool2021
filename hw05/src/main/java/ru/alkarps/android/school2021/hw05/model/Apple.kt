@@ -1,7 +1,7 @@
 package ru.alkarps.android.school2021.hw05.model
 
-import ru.alkarps.android.school2021.hw05.model.BasketItem.Companion.APPLE_TYPE
+import ru.alkarps.android.school2021.hw05.holder.ViewType
 
 class Apple : BasketItem {
-    override fun getTypeId(): Int = APPLE_TYPE
+    override fun getTypeId(): Int = ViewType.APPLE.getTypeId()
 }
