@@ -3,7 +3,7 @@
     <string name="add_basket">Добавить корзину</string>
     <string name="remove_all_baskets">Удалить все корзины</string>
     <string name="basket_item_label">Корзина</string>
-    <string name="add_apple_to_basket">Добавить яблоко</string>
+    <string name="add_apple_to_basket">Положить яблоко</string>
     <string name="apple_item_label">Яблоко</string>
-    <string name="remove_apple_from_basket">Съесть яблоко</string>
+    <string name="remove_apple_from_basket">Съесть</string>
 </resources>
