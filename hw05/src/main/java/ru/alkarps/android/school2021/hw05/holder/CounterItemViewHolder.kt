@@ -6,11 +6,12 @@ import ru.alkarps.android.school2021.hw05.R
 import ru.alkarps.android.school2021.hw05.model.BasketItem
 import ru.alkarps.android.school2021.hw05.model.Counter
 
-class CounterItemViewHolder(itemView: View) : BasketViewHolder(itemView) {
-    override fun onBind(position: Int, item: BasketItem) {
+class CounterItemViewHolder(
+    itemView: View,
+    listener: BasketListener
+) : BasketViewHolder(itemView, listener) {
+    override fun onBind(item: BasketItem) {
         val counter = (item as Counter).applesCount.toString()
         itemView.findViewById<TextView>(R.id.apple_counter).text = counter
     }
-
-    override fun setBasketListener(listener: BasketListener) {}
 }

@@ -21,12 +21,13 @@ class BasketAdapter(
     }
 
     override fun onBindViewHolder(holder: BasketViewHolder, position: Int) {
-        holder.onBind(position, getItem(position))
+        holder.onBind(getItem(position))
     }
 
     private class DiffCallback : DiffUtil.ItemCallback<BasketItem>() {
-        override fun areItemsTheSame(old: BasketItem, new: BasketItem) = old == new
+        override fun areItemsTheSame(old: BasketItem, new: BasketItem) = old.getId() == new.getId()
 
-        override fun areContentsTheSame(old: BasketItem, new: BasketItem) = old == new
+        override fun areContentsTheSame(old: BasketItem, new: BasketItem) =
+            old.getId() == new.getId()
     }
 }

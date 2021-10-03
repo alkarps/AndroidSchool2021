@@ -8,7 +8,7 @@ import ru.alkarps.android.school2021.hw05.R
 enum class ViewType(
     private val typeId: Int,
     private val layoutId: Int,
-    private val holderConstructor: (View) -> BasketViewHolder
+    private val holderConstructor: (View, BasketListener) -> BasketViewHolder
 ) {
     BASKET(0, R.layout.basket_item_layout, ::BasketItemViewHolder),
     APPLE(1, R.layout.apple_item_layout, ::AppleItemViewHolder),
@@ -18,9 +18,7 @@ enum class ViewType(
 
     fun initHolder(parent: ViewGroup, basketListener: BasketListener): BasketViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
-        val holder = holderConstructor.invoke(view)
-        holder.setBasketListener(basketListener)
-        return holder
+        return holderConstructor.invoke(view, basketListener)
     }
 
     companion object {

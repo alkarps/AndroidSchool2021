@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import ru.alkarps.android.school2021.hw05.holder.BasketListener
+import ru.alkarps.android.school2021.hw05.model.BasketItem
 
 class MainActivity : AppCompatActivity(), BasketListener {
     private lateinit var repository: BasketRepository
@@ -22,15 +23,18 @@ class MainActivity : AppCompatActivity(), BasketListener {
         findViewById<Button>(R.id.remove_all_baskets).setOnClickListener { repository.removeAllBaskets() }
     }
 
-    private fun showAlarm(message: String) {
+    private fun showAlarm() {
+        val message = "Жадность наносит вред не только репутации человека, но и его здоровью!"
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
-    override fun addApple(position: Int) {
-        repository.addApple(position)
+    override fun addApple(basket: BasketItem) {
+        if (!repository.addApple(basket)) {
+            showAlarm()
+        }
     }
 
-    override fun removeApple(position: Int) {
-        repository.removeApple(position)
+    override fun removeApple(apple: BasketItem) {
+        repository.removeApple(apple)
     }
 }
