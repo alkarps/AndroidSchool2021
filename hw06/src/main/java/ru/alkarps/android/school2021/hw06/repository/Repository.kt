@@ -5,8 +5,8 @@ import ru.alkarps.android.school2021.hw06.model.Quantity
 
 class Repository {
     val quantities = listOf(
-        Quantity(R.string.speed),
-        Quantity(R.string.distance),
-        Quantity(R.string.volume)
+        Quantity(R.string.speed, arrayOf()),
+        Quantity(R.string.distance, arrayOf()),
+        Quantity(R.string.volume, arrayOf())
     )
 }

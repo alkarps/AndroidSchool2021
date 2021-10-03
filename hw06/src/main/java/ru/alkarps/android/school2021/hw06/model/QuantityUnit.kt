@@ -5,4 +5,4 @@ import androidx.annotation.StringRes
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class Quantity(@StringRes val label: Int, val units: Array<QuantityUnit>) : Parcelable
+data class QuantityUnit(@StringRes val label: Int) : Parcelable

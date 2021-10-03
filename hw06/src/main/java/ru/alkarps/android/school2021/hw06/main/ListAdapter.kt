@@ -9,7 +9,8 @@ import ru.alkarps.android.school2021.hw06.R
 import ru.alkarps.android.school2021.hw06.model.Quantity
 
 class ListAdapter(
-    private val quantities: List<Quantity>
+    private val quantities: List<Quantity>,
+    private val sender: (Quantity) -> Unit
 ) : RecyclerView.Adapter<ListAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -19,7 +20,7 @@ class ListAdapter(
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.onBind(quantities[position % quantities.size])
+        holder.onBind(quantities[position % quantities.size], sender)
     }
 
     override fun getItemCount(): Int = Int.MAX_VALUE
@@ -27,8 +28,9 @@ class ListAdapter(
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val text: TextView = itemView.findViewById(R.id.list_item_label)
 
-        fun onBind(quantity: Quantity) {
+        fun onBind(quantity: Quantity, sender: (Quantity) -> Unit) {
             text.setText(quantity.label)
+            text.setOnClickListener { sender.invoke(quantity) }
         }
     }
 }
