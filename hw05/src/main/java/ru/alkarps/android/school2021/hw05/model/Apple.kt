@@ -4,7 +4,8 @@ import ru.alkarps.android.school2021.hw05.holder.ViewType
 import java.util.*
 
 data class Apple(
-    private val id: String = UUID.randomUUID().toString()
+    private val id: String = UUID.randomUUID().toString(),
+    val basket: Basket
 ) : BasketItem {
     override fun getId(): String = id
     override fun getTypeId(): Int = ViewType.APPLE.getTypeId()

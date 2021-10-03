@@ -36,7 +36,7 @@ class BasketRepository(private val submitList: (List<BasketItem>) -> Unit) {
         Log.e(TAG, "add apple to basket $basket")
         val position = baskets.indexOf(basket as Basket)
         if (basket.apples < 3) {
-            baskets.add(position + 1, Apple())
+            baskets.add(position + 1, Apple(basket = basket))
             basket.apples++
             submit()
             return true
@@ -45,7 +45,8 @@ class BasketRepository(private val submitList: (List<BasketItem>) -> Unit) {
     }
 
     fun removeApple(apple: BasketItem) {
-        baskets.remove(apple as Apple)
+        (apple as Apple).basket.apples--
+        baskets.remove(apple)
         submit()
     }
 
