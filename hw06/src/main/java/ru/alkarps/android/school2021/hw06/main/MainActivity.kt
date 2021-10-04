@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun startConverterActivity(quantity: Quantity) {
         val intent = Intent(this, ConverterActivity::class.java).apply {
-            putExtra(Const.QUANTITY_INTENT_KEY, quantity.units)
+            putExtra(Const.QUANTITY_INTENT_KEY, quantity)
         }
         startActivity(intent)
     }
