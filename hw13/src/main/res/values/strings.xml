@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">hw13</string>
+    <string name="button_label">Создать третий фрагмент</string>
 </resources>
