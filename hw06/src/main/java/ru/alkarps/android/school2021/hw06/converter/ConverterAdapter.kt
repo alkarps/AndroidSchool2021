@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.alkarps.android.school2021.hw06.R
-import ru.alkarps.android.school2021.hw06.model.ConverterValue
+import ru.alkarps.android.school2021.hw06.model.QuantityValue
 import ru.alkarps.android.school2021.hw06.model.Quantity
 
 class ConverterAdapter(
@@ -13,7 +13,7 @@ class ConverterAdapter(
     private val updateInBackground: (DiffUtil.DiffResult, ConverterAdapter) -> Unit
 ) : RecyclerView.Adapter<ConverterViewHolder>() {
     private val converter = Converter()
-    private var values: List<ConverterValue> = converter.startList(quantity.units)
+    private var values: List<QuantityValue> = converter.startList(quantity.units)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConverterViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -27,7 +27,7 @@ class ConverterAdapter(
 
     override fun getItemCount(): Int = values.size
 
-    private fun setFirst(mustBeFirst: ConverterValue) {
+    private fun setFirst(mustBeFirst: QuantityValue) {
         val new = values.toMutableList()
         new.remove(mustBeFirst)
         new.add(0, mustBeFirst)
@@ -39,7 +39,7 @@ class ConverterAdapter(
         update(new)
     }
 
-    private fun update(new: List<ConverterValue>) {
+    private fun update(new: List<QuantityValue>) {
         val callback = ConverterDiffUtilCallback(values, new)
         val diff = DiffUtil.calculateDiff(callback)
         values = new

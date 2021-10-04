@@ -1,11 +1,11 @@
 package ru.alkarps.android.school2021.hw06.converter
 
-import ru.alkarps.android.school2021.hw06.model.ConverterValue
+import ru.alkarps.android.school2021.hw06.model.QuantityValue
 import ru.alkarps.android.school2021.hw06.model.QuantityUnit
 import java.math.RoundingMode
 
 class Converter {
-    fun convert(old: List<ConverterValue>): List<ConverterValue> {
+    fun convert(old: List<QuantityValue>): List<QuantityValue> {
         var new = old.toMutableList()
         val base = new.removeFirst()
         val baseValue = base.getBaseValue()
@@ -16,7 +16,7 @@ class Converter {
     }
 
     fun startList(units: List<QuantityUnit>) =
-        convert(units.map { ConverterValue(it, 100.0) })
+        convert(units.map { QuantityValue(it, 100.0) })
 
     private fun around(value: Double) =
         value.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()

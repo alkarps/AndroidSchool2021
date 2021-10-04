@@ -1,11 +1,11 @@
 package ru.alkarps.android.school2021.hw06.converter
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.alkarps.android.school2021.hw06.model.ConverterValue
+import ru.alkarps.android.school2021.hw06.model.QuantityValue
 
 class ConverterDiffUtilCallback(
-    private val old: List<ConverterValue>,
-    private val new: List<ConverterValue>
+    private val old: List<QuantityValue>,
+    private val new: List<QuantityValue>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = old.size
 

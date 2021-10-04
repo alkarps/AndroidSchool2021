@@ -6,17 +6,17 @@ import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import ru.alkarps.android.school2021.hw06.R
-import ru.alkarps.android.school2021.hw06.model.ConverterValue
+import ru.alkarps.android.school2021.hw06.model.QuantityValue
 
 class ConverterViewHolder(
     itemView: View,
-    private val toFirst: (ConverterValue) -> Unit,
+    private val toFirst: (QuantityValue) -> Unit,
     private val updateOnChange: () -> Unit
 ) : RecyclerView.ViewHolder(itemView) {
     private val label: TextView = itemView.findViewById(R.id.converter_item_label)
     private val edit: EditText = itemView.findViewById(R.id.converter_item_edit)
 
-    fun onBind(value: ConverterValue) {
+    fun onBind(value: QuantityValue) {
         label.setText(value.unit.label)
         edit.setText(value.value.toBigDecimal().toPlainString())
         edit.setOnFocusChangeListener { _, hasFocus ->
