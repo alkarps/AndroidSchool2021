@@ -1,11 +1,7 @@
 package ru.alkarps.android.school2021.hw06.converter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
-import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.alkarps.android.school2021.hw06.R
@@ -15,18 +11,17 @@ import ru.alkarps.android.school2021.hw06.model.Quantity
 class ConverterAdapter(
     quantity: Quantity,
     private val updateInBackground: (DiffUtil.DiffResult, ConverterAdapter) -> Unit
-) :
-    RecyclerView.Adapter<ConverterAdapter.Holder>() {
+) : RecyclerView.Adapter<ConverterViewHolder>() {
     private val converter = Converter()
     private var values: List<ConverterValue> = converter.startList(quantity.units)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConverterViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.converter_item_layout, parent, false)
-        return Holder(view, this::setFirst, this::updateValues)
+        return ConverterViewHolder(view, this::setFirst, this::updateValues)
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
+    override fun onBindViewHolder(holder: ConverterViewHolder, position: Int) {
         holder.onBind(values[position])
     }
 
@@ -49,44 +44,5 @@ class ConverterAdapter(
         val diff = DiffUtil.calculateDiff(callback)
         values = new
         updateInBackground(diff, this)
-    }
-
-    class Holder(
-        itemView: View,
-        private val toFirst: (ConverterValue) -> Unit,
-        private val updateOnChange: () -> Unit
-    ) : RecyclerView.ViewHolder(itemView) {
-        private val label: TextView = itemView.findViewById(R.id.converter_item_label)
-        private val edit: EditText = itemView.findViewById(R.id.converter_item_edit)
-
-        fun onBind(value: ConverterValue) {
-            label.setText(value.unit.label)
-            edit.setText(value.value.toBigDecimal().toPlainString())
-            edit.setOnFocusChangeListener { v, hasFocus ->
-                if (hasFocus) toFirst(value)
-            }
-            edit.doOnTextChanged { text, start, before, count ->
-                value.value = if (text.isNullOrBlank()) 0.0
-                else text.toString().apply {
-                    if (this.last() == 'E') substring(0, length)
-                }.toDouble()
-                updateOnChange()
-            }
-        }
-    }
-
-    class ConverterDiffUtilCallback(
-        private val old: List<ConverterValue>,
-        private val new: List<ConverterValue>
-    ) : DiffUtil.Callback() {
-        override fun getOldListSize(): Int = old.size
-
-        override fun getNewListSize(): Int = new.size
-
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-            old[oldItemPosition] == new[newItemPosition]
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-            old[oldItemPosition] == new[newItemPosition]
     }
 }
