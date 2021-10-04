@@ -15,7 +15,8 @@ class Converter {
         return new
     }
 
-    fun startList(units: List<QuantityUnit>) = convert(units.map { ConverterValue(it, 100.0) })
+    fun startList(units: List<QuantityUnit>) =
+        convert(units.map { ConverterValue(it, 100.0) })
 
     private fun around(value: Double) =
         value.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
