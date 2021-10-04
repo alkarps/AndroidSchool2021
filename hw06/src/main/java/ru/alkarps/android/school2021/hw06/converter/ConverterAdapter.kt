@@ -66,9 +66,10 @@ class ConverterAdapter(
                 if (hasFocus) toFirst(value)
             }
             edit.doOnTextChanged { text, start, before, count ->
-                value.value = text?.toString()?.apply {
+                value.value = if (text.isNullOrBlank()) 0.0
+                else text.toString().apply {
                     if (this.last() == 'E') substring(0, length)
-                }?.toDoubleOrNull() ?: 0.0
+                }.toDouble()
                 updateOnChange()
             }
         }
