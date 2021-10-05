@@ -15,6 +15,10 @@ class TextFragment : Fragment(R.layout.text_fragment_layout) {
         text.text = arguments?.getString(TEXT_KEY)
     }
 
+    fun setText(text: String) {
+        this.text.text = text
+    }
+
     companion object {
         private const val TEXT_KEY = "TEXT_KEY"
 
