@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">hw14</string>
+    <string name="add_button">Добавить</string>
+    <string name="remove_button">Вычесть</string>
+    <string name="params_label">Параметры добавления нового фрагмента:</string>
+    <string name="commit_operation_add_label">add</string>
+    <string name="commit_operation_replace_label">replace</string>
+    <string name="add_to_backstack_flag_label">add to backstack</string>
+    <string name="counter_label">Количество фрагментов в стеке:</string>
 </resources>
