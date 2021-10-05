@@ -20,8 +20,9 @@ class MainActivity : AppCompatActivity(), OperationApi {
 
     override fun addTransaction(addOperation: Boolean, needAddToBackstack: Boolean) {
         supportFragmentManager.beginTransaction().apply {
-            if (addOperation) add(R.id.display_fragment, DisplayFragment.newInstance())
-            else replace(R.id.display_fragment, DisplayFragment.newInstance())
+            val displayFragment = DisplayFragment.newInstance(addOperation)
+            if (addOperation) add(R.id.display_fragment, displayFragment)
+            else replace(R.id.display_fragment, displayFragment)
             if (needAddToBackstack) addToBackStack(BACK_STACK_NAME)
             setTransition(TRANSIT_FRAGMENT_OPEN)
         }.commit()
