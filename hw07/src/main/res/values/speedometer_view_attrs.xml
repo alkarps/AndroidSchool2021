@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SpeedometerView">
+        <attr name="maxSpeed" format="integer" />
+        <attr name="color_speed_low" format="color" />
+        <attr name="color_speed_mid" format="color" />
+        <attr name="color_speed_high" format="color" />
+        <attr name="color_arrow" format="color" />
+        <attr name="color_scale" format="color" />
+    </declare-styleable>
+    
+    <attr name="speedometerViewDefaultAttr" format="reference"/>
+</resources>

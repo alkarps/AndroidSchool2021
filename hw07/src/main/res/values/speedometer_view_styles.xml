@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SpeedometerViewDefaultStyle">
+        <item name="maxSpeed">500</item>
+        <item name="color_speed_low">@android:color/holo_green_light</item>
+        <item name="color_speed_mid">@android:color/holo_orange_light</item>
+        <item name="color_speed_high">@android:color/holo_red_light</item>
+        <item name="color_arrow">?colorPrimary</item>
+        <item name="color_scale">?colorSecondary</item>
+    </style>
+</resources>
