@@ -1,26 +1,15 @@
 package ru.alkarps.android.school2021.hw15.timer
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.HandlerThread
-import android.os.Looper
 import android.view.View
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import ru.alkarps.android.school2021.hw15.R
 import ru.alkarps.android.school2021.hw15.TimerApi
 
-class TimerDisplayFragment : Fragment(R.layout.timer_display_fragment_layout) {
-    private val timerHandler: Handler
+abstract class TimerDisplayFragment : Fragment(R.layout.timer_display_fragment_layout) {
     private var displayTime: TextView? = null
     private var currentTime = -1
-
-    init {
-        val thread = HandlerThread("timer")
-        thread.start()
-        timerHandler = Handler(thread.looper)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         displayTime = view.findViewById(R.id.timer_display)
@@ -28,27 +17,35 @@ class TimerDisplayFragment : Fragment(R.layout.timer_display_fragment_layout) {
         updateDisplayTime()
     }
 
+    override fun onStart() {
+        super.onStart()
+        startThreads()
+    }
+
+    abstract fun startThreads()
+
     override fun onDestroy() {
         super.onDestroy()
-        timerHandler.removeCallbacksAndMessages(null)
+        destroyThreads()
         displayTime = null
     }
 
-    override fun onStart() {
-        super.onStart()
-        updateCurrentTime()
-    }
+    abstract fun destroyThreads()
 
-    private fun updateCurrentTime() {
+    protected fun updateCurrentTime() {
         if (currentTime > 0) {
             currentTime--
             displayTime?.post { updateDisplayTime() }
-            timerHandler.postDelayed({ updateCurrentTime() }, 1000L)
+            sendNextMessage()
         } else {
-            Looper.myLooper()?.quitSafely()
+            finishingIfTimeOut()
             displayTime?.post { returnControlPanel() }
         }
     }
+
+    abstract fun sendNextMessage()
+
+    abstract fun finishingIfTimeOut()
 
     private fun returnControlPanel() {
         (activity as TimerApi).stop()
@@ -59,9 +56,6 @@ class TimerDisplayFragment : Fragment(R.layout.timer_display_fragment_layout) {
     }
 
     companion object {
-        private const val TIME_KEY = "TimeKey"
-        fun newInstance(startTime: Int): TimerDisplayFragment = TimerDisplayFragment().apply {
-            arguments = bundleOf(TIME_KEY to startTime)
-        }
+        const val TIME_KEY = "TimeKey"
     }
 }
