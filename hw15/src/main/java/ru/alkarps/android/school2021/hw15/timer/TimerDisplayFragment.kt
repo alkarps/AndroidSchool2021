@@ -3,6 +3,7 @@ package ru.alkarps.android.school2021.hw15.timer
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ru.alkarps.android.school2021.hw15.R
@@ -16,9 +17,10 @@ abstract class TimerDisplayFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.i(logTag, "View created")
-        displayTime = view.findViewById(R.id.timer_display)
         currentTime = AtomicInteger(arguments?.getInt(TIME_KEY) ?: -1)
+        displayTime = view.findViewById(R.id.timer_display)
         updateDisplayTime()
+        view.findViewById<Button>(R.id.timer_exit).setOnClickListener { exiting() }
     }
 
     override fun onStart() {
@@ -46,10 +48,15 @@ abstract class TimerDisplayFragment(
             sendNextMessage()
             Log.i(logTag, "Finish updating current time with new value = $currentTime")
         } else {
-            finishingIfTimeOut()
-            displayTime?.post { returnControlPanel() }
             Log.i(logTag, "Ending updating current time and start exit")
+            finishingIfTimeOut()
+            exiting()
         }
+    }
+
+    private fun exiting() {
+        Log.i(logTag, "Run exiting")
+        displayTime?.post { returnControlPanel() }
     }
 
     abstract fun sendNextMessage()

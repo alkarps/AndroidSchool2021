@@ -10,4 +10,10 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="120sp" />
+
+    <Button
+        android:id="@+id/timer_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/timer_exit_label" />
 </LinearLayout>

@@ -3,4 +3,5 @@
     <string name="start_timer_label">Запустить таймер</string>
     <string name="set_up_thread_service_handler_label">Handler</string>
     <string name="set_up_thread_service_scheduler_label">Scheduler executor</string>
+    <string name="timer_exit_label">Остановить таймер</string>
 </resources>
