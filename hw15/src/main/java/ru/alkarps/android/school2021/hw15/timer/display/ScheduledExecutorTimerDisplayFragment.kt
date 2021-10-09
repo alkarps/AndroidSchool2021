@@ -3,13 +3,15 @@ package ru.alkarps.android.school2021.hw15.timer.display
 import androidx.core.os.bundleOf
 import ru.alkarps.android.school2021.hw15.timer.TimerDisplayFragment
 import java.util.concurrent.Executors
+import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 
 class ScheduledExecutorTimerDisplayFragment : TimerDisplayFragment() {
     private val service = Executors.newSingleThreadScheduledExecutor()
+    private lateinit var task: Future<*>
 
     override fun startThreads() {
-        service.scheduleAtFixedRate({ updateCurrentTime() }, 0, 1, TimeUnit.SECONDS)
+        task = service.scheduleAtFixedRate({ updateCurrentTime() }, 0, 1, TimeUnit.SECONDS)
     }
 
     override fun destroyThreads() {
@@ -19,7 +21,7 @@ class ScheduledExecutorTimerDisplayFragment : TimerDisplayFragment() {
     override fun sendNextMessage() {}
 
     override fun finishingIfTimeOut() {
-        service.shutdownNow()
+        task.cancel(true)
     }
 
     companion object {
