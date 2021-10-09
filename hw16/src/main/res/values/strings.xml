@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">hw16</string>
+    <string name="client_choice_label">Выбор клиента:</string>
+    <string name="client_choice_url_label">UrlConnection</string>
+    <string name="client_choice_ok_label">OkHttp</string>
+    <string name="post_label">POST-запрос</string>
+    <string name="get_label">GET-запрос</string>
+    <string name="result_label">Результат:</string>
 </resources>
