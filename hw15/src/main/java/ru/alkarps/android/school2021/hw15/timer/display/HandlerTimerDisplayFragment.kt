@@ -6,7 +6,7 @@ import android.os.Looper
 import androidx.core.os.bundleOf
 import ru.alkarps.android.school2021.hw15.timer.TimerDisplayFragment
 
-class HandlerTimerDisplayFragment : TimerDisplayFragment() {
+class HandlerTimerDisplayFragment : TimerDisplayFragment("HandlerTimerDisplayFragment") {
     private val timerHandler: Handler = Handler(
         HandlerThread("timer").apply { this.start() }.looper
     )

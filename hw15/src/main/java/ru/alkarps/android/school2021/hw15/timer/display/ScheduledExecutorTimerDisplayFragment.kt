@@ -6,7 +6,8 @@ import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 
-class ScheduledExecutorTimerDisplayFragment : TimerDisplayFragment() {
+class ScheduledExecutorTimerDisplayFragment
+    : TimerDisplayFragment("ScheduledExecutorTimerDisplayFragment") {
     private val service = Executors.newSingleThreadScheduledExecutor()
     private lateinit var task: Future<*>
 
