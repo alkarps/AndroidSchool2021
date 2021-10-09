@@ -6,17 +6,18 @@ import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ru.alkarps.android.school2021.hw15.R
+import java.util.concurrent.atomic.AtomicInteger
 
 abstract class TimerDisplayFragment(
     private val logTag: String = "TimerDisplayFragment"
 ) : Fragment(R.layout.timer_display_fragment_layout) {
     private var displayTime: TextView? = null
-    private var currentTime = -1
+    private var currentTime = AtomicInteger(-1)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.i(logTag, "View created")
         displayTime = view.findViewById(R.id.timer_display)
-        currentTime = arguments?.getInt(TIME_KEY) ?: -1
+        currentTime = AtomicInteger(arguments?.getInt(TIME_KEY) ?: -1)
         updateDisplayTime()
     }
 
@@ -39,8 +40,8 @@ abstract class TimerDisplayFragment(
 
     protected fun updateCurrentTime() {
         Log.i(logTag, "Start updating current time with value = $currentTime")
-        if (currentTime > 0) {
-            currentTime--
+        if (currentTime.get() > 0) {
+            currentTime.decrementAndGet()
             displayTime?.post { updateDisplayTime() }
             sendNextMessage()
             Log.i(logTag, "Finish updating current time with new value = $currentTime")
