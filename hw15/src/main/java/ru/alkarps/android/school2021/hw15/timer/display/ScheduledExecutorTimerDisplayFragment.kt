@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit
 
 class ScheduledExecutorTimerDisplayFragment : TimerDisplayFragment() {
     private val service = Executors.newSingleThreadScheduledExecutor()
+
     override fun startThreads() {
         service.scheduleAtFixedRate({ updateCurrentTime() }, 0, 1, TimeUnit.SECONDS)
     }

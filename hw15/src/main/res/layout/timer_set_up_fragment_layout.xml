@@ -12,6 +12,25 @@
         android:inputType="number"
         android:textSize="120sp" />
 
+    <RadioGroup
+        android:id="@+id/set_up_thread_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/set_up_thread_service_handler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/set_up_thread_service_handler_label" />
+
+        <RadioButton
+            android:id="@+id/set_up_thread_service_scheduler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/set_up_thread_service_scheduler_label" />
+    </RadioGroup>
+
     <Button
         android:id="@+id/start_timer"
         android:layout_width="match_parent"
