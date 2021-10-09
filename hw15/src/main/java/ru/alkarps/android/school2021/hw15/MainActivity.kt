@@ -3,6 +3,8 @@ package ru.alkarps.android.school2021.hw15
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import ru.alkarps.android.school2021.hw15.timer.TimerApi
+import ru.alkarps.android.school2021.hw15.timer.TimerDisplayFragment
 import ru.alkarps.android.school2021.hw15.timer.TimerSetUpFragment
 import ru.alkarps.android.school2021.hw15.timer.display.HandlerTimerDisplayFragment
 
@@ -25,8 +27,8 @@ class MainActivity : AppCompatActivity(), TimerApi {
             .commitNow()
     }
 
-    override fun start(startTime: Int) {
-        displayFragment(HandlerTimerDisplayFragment.newInstance(startTime))
+    override fun start(displayFragment: TimerDisplayFragment) {
+        displayFragment(displayFragment)
     }
 
     override fun stop() {

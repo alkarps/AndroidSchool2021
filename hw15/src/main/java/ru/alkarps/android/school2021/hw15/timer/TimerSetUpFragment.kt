@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import ru.alkarps.android.school2021.hw15.R
-import ru.alkarps.android.school2021.hw15.TimerApi
+import ru.alkarps.android.school2021.hw15.timer.display.HandlerTimerDisplayFragment
 
 class TimerSetUpFragment : Fragment(R.layout.timer_set_up_fragment_layout) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -16,7 +16,7 @@ class TimerSetUpFragment : Fragment(R.layout.timer_set_up_fragment_layout) {
         view.findViewById<Button>(R.id.start_timer).setOnClickListener {
             val startTime = startValueEdit.text.toString().toIntOrNull() ?: 0
             if (startTime > 0) {
-                timerApi.start(startTime)
+                timerApi.start(HandlerTimerDisplayFragment.newInstance(startTime))
             } else {
                 startValueEdit.setText("0")
             }

@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import ru.alkarps.android.school2021.hw15.R
-import ru.alkarps.android.school2021.hw15.TimerApi
 
 abstract class TimerDisplayFragment : Fragment(R.layout.timer_display_fragment_layout) {
     private var displayTime: TextView? = null
