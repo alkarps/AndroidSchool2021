@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger
 abstract class TimerDisplayFragment(
     private val logTag: String = "TimerDisplayFragment"
 ) : Fragment(R.layout.timer_display_fragment_layout) {
-    private var displayTime: TextView? = null
+    private lateinit var displayTime: TextView
     private var currentTime = AtomicInteger(-1)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,7 +35,6 @@ abstract class TimerDisplayFragment(
         Log.i(logTag, "Destroy display fragment")
         super.onDestroy()
         destroyThreads()
-        displayTime = null
     }
 
     abstract fun destroyThreads()
@@ -44,7 +43,7 @@ abstract class TimerDisplayFragment(
         Log.i(logTag, "Start updating current time with value = $currentTime")
         if (currentTime.get() > 0) {
             currentTime.decrementAndGet()
-            displayTime?.post { updateDisplayTime() }
+            displayTime.post { updateDisplayTime() }
             sendNextMessage()
             Log.i(logTag, "Finish updating current time with new value = $currentTime")
         } else {
@@ -56,7 +55,7 @@ abstract class TimerDisplayFragment(
 
     private fun exiting() {
         Log.i(logTag, "Run exiting")
-        displayTime?.post { returnControlPanel() }
+        displayTime.post { returnControlPanel() }
     }
 
     abstract fun sendNextMessage()
@@ -70,7 +69,7 @@ abstract class TimerDisplayFragment(
 
     private fun updateDisplayTime() {
         Log.i(logTag, "Updating display time with value = $currentTime")
-        displayTime!!.text = currentTime.toString()
+        displayTime.text = "$currentTime"
     }
 
     companion object {
