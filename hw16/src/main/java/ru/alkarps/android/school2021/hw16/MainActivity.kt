@@ -32,6 +32,11 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.post).setOnClickListener { restClientHandler.post { doPost() } }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        restClientHandler.removeCallbacksAndMessages(null)
+    }
+
     private fun doGet() {
         doCall { client.doGet() }
     }
