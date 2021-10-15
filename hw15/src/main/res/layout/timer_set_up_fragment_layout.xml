@@ -29,6 +29,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/set_up_thread_service_scheduler_label" />
+
+        <RadioButton
+            android:id="@+id/set_up_thread_service_rx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/set_up_thread_service_rx_label" />
     </RadioGroup>
 
     <Button
