@@ -7,31 +7,33 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import ru.alkarps.android.school2021.hw16.client.RestClient
-import ru.alkarps.android.school2021.hw16.client.impl.OkRestClient
-import ru.alkarps.android.school2021.hw16.client.impl.UrlRestClient
-import ru.alkarps.android.school2021.hw16.concurrency.impl.HandlerConcurrencyEngine
+import ru.alkarps.android.school2021.hw16.concurrency.ConcurrencyEngine
 
 class MainActivity : AppCompatActivity() {
-    private val restClientHandler = HandlerConcurrencyEngine()
+    private lateinit var concurrencyEngine: ConcurrencyEngine
     private lateinit var client: RestClient
     private lateinit var responseView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        client = UrlRestClient()
+        client = RestClient.createClient(R.id.client_choice_url)
+        concurrencyEngine = ConcurrencyEngine.createClient(R.id.concurrency_choice_handler)
         responseView = findViewById(R.id.response)
         responseView.movementMethod = ScrollingMovementMethod()
-        findViewById<RadioGroup>(R.id.client_choice).setOnCheckedChangeListener { _, currentId ->
-            client = if (currentId == R.id.client_choice_url) UrlRestClient() else OkRestClient()
+        findViewById<RadioGroup>(R.id.concurrency_choice).setOnCheckedChangeListener { _, currentId ->
+            concurrencyEngine = ConcurrencyEngine.createClient(currentId)
         }
-        findViewById<Button>(R.id.get).setOnClickListener { restClientHandler.doJob { doGet() } }
-        findViewById<Button>(R.id.post).setOnClickListener { restClientHandler.doJob { doPost() } }
+        findViewById<RadioGroup>(R.id.client_choice).setOnCheckedChangeListener { _, currentId ->
+            client = RestClient.createClient(currentId)
+        }
+        findViewById<Button>(R.id.get).setOnClickListener { concurrencyEngine.doJob { doGet() } }
+        findViewById<Button>(R.id.post).setOnClickListener { concurrencyEngine.doJob { doPost() } }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        restClientHandler.destroy()
+        concurrencyEngine.destroy()
     }
 
     private fun doGet() {

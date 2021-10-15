@@ -9,6 +9,33 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/concurrency_choice_label" />
+
+    <RadioGroup
+        android:id="@+id/concurrency_choice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/concurrency_choice_handler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:checked="true"
+            android:text="@string/concurrency_choice_handler_label" />
+
+        <RadioButton
+            android:id="@+id/concurrency_choice_rx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/concurrency_choice_rx_label" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/client_choice_label" />
 
     <RadioGroup

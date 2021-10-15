@@ -6,4 +6,7 @@
     <string name="post_label">POST-запрос</string>
     <string name="get_label">GET-запрос</string>
     <string name="result_label">Результат:</string>
+    <string name="concurrency_choice_label">Выбор режима многопоточности:</string>
+    <string name="concurrency_choice_handler_label">Handler</string>
+    <string name="concurrency_choice_rx_label">RxAndroid</string>
 </resources>
