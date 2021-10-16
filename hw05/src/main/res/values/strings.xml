@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">hw05</string>
+    <string name="add_basket">Добавить корзину</string>
+    <string name="remove_all_baskets">Удалить все корзины</string>
+    <string name="basket_item_label">Корзина</string>
+    <string name="add_apple_to_basket">Положить яблоко</string>
+    <string name="apple_item_label">Яблоко</string>
+    <string name="remove_apple_from_basket">Съесть</string>
+    <string name="apple_count_label">Сумма:</string>
+</resources>
