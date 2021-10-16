@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">hw06</string>
+    <string name="speed">Скорость</string>
+    <string name="speed_m_in_s">Метр в секунду</string>
+    <string name="speed_m_in_m">Метр в минуту</string>
+    <string name="speed_m_in_h">Метр в час</string>
+    <string name="speed_km_in_s">Километр в секунду</string>
+    <string name="speed_km_in_m">Километр в минуту</string>
+    <string name="speed_km_in_h">Километр в час</string>
+    <string name="speed_ml_in_s">Миль в секунду</string>
+    <string name="speed_ml_in_m">Миль в минуту</string>
+    <string name="speed_ml_in_h">Миль в час</string>
+    <string name="volume">Объем</string>
+    <string name="volume_m">Куб. метр</string>
+    <string name="volume_dm">Куб. дециметр</string>
+    <string name="volume_sm">Куб. сантиметр</string>
+    <string name="volume_mm">Куб. милиметр</string>
+    <string name="volume_ft">Куб. фут</string>
+    <string name="volume_yd">Куб. ярд</string>
+    <string name="volume_l">Литр</string>
+    <string name="volume_b">Барруль</string>
+    <string name="distance">Расстояние</string>
+    <string name="distance_m">Метр</string>
+    <string name="distance_km">Километр</string>
+    <string name="distance_sm">Сантиметр</string>
+    <string name="distance_dm">Дециметр</string>
+    <string name="distance_mm">Миллиметр</string>
+    <string name="distance_ml">Миля</string>
+    <string name="distance_ft">Фут</string>
+    <string name="distance_yd">Ярд</string>
+    <string name="distance_d">Дюйм</string>
+</resources>
