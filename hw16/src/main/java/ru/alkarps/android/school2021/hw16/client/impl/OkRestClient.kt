@@ -35,8 +35,10 @@ class OkRestClient : RestClient {
         Log.w(TAG, request.toString())
         val response = client.newCall(request).execute()
         Log.w(TAG, response.toString())
-        return if (response.code != 200) "Response code: ${response.code}"
-        else response.body?.string() ?: ""
+        return if (response.code != 200) {
+            response.body?.close()
+            "Response code: ${response.code}"
+        } else response.body?.string() ?: ""
     }
 
     companion object {
