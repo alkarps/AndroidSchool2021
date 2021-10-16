@@ -23,8 +23,9 @@ class UrlRestClient : RestClient {
             connection.connect()
             val responseCode = connection.responseCode
             if (responseCode != 200) "Response code: $responseCode" else {
-                BufferedReader(InputStreamReader(connection.inputStream))
-                    .lineSequence().joinToString("\n")
+                BufferedReader(InputStreamReader(connection.inputStream)).use {
+                    it.lineSequence().joinToString("\n")
+                }
             }
         } catch (e: Exception) {
             Log.e(TAG, e.message, e)
@@ -49,9 +50,9 @@ class UrlRestClient : RestClient {
         if (post) {
             connection.requestMethod = "POST"
             connection.doOutput = true
-            BufferedWriter(OutputStreamWriter(connection.outputStream)).apply {
-                write("q=Hello%2C%20world!&target=ru&source=en")
-                flush()
+            BufferedWriter(OutputStreamWriter(connection.outputStream)).use {
+                it.write("q=Hello%2C%20world!&target=ru&source=en")
+                it.flush()
             }
         }
         return connection
