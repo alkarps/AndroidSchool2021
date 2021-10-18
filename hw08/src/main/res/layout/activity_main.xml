@@ -1,18 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ru.alkarps.android.school2021.hw08.draw.DrawView
+        android:id="@+id/draw"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RadioGroup
+        android:id="@+id/color_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <RadioButton
+            android:id="@+id/color_picker_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Black"/>
+        <RadioButton
+            android:id="@+id/color_picker_red"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Red"/>
+        <RadioButton
+            android:id="@+id/color_picker_yellow"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Yellow"/>
+        <RadioButton
+            android:id="@+id/color_picker_green"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Green"/>
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_rect"
+            android:padding="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_rect_label"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/btn_line"
+            android:padding="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_line_label"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/btn_curve"
+            android:padding="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_curve_label"
+            android:layout_weight="1"/>
+
+        <Button
+            android:padding="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:id="@+id/btn_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_reset_label"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_gravity="center"
+            android:id="@+id/btn_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_colorize_24"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</LinearLayout>
