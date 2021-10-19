@@ -34,6 +34,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_line).setOnClickListener {
             drawView.changeShape(EnumShapeFactory.LINE)
         }
+        findViewById<Button>(R.id.btn_pen).setOnClickListener {
+            drawView.changeShape(EnumShapeFactory.PEN)
+        }
     }
 
     private fun initColorControl(drawView: DrawView) {
