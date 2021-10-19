@@ -4,18 +4,20 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.Path
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import ru.alkarps.android.school2021.hw08.draw.factory.EnumShapeFactory
 
 class DrawView(context: Context?, attributeSet: AttributeSet?) :
     View(context, attributeSet) {
     private val mPaint = Paint().apply {
         isAntiAlias = true
     }
-    private val mPath = Path()
+    private val drawnShapes = mutableListOf<DrawableShape>()
+    private lateinit var currentShape: DrawableShape
+    private var currentShapeFactory: DrawableShapeFactory = EnumShapeFactory.LINE
 
     init {
         setUpPaint()
@@ -28,11 +30,12 @@ class DrawView(context: Context?, attributeSet: AttributeSet?) :
         val y = event.y
         return when (action) {
             MotionEvent.ACTION_DOWN -> {
-                mPath.moveTo(x, y)
+                currentShape = currentShapeFactory.newShape(x, y)
+                drawnShapes.add(currentShape)
                 true
             }
-            MotionEvent.ACTION_MOVE -> {
-                mPath.lineTo(x, y)
+            MotionEvent.ACTION_MOVE, MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                currentShape.setSecondPoint(x, y)
                 invalidate()
                 true
             }
@@ -42,12 +45,16 @@ class DrawView(context: Context?, attributeSet: AttributeSet?) :
     }
 
     override fun onDraw(canvas: Canvas) {
-        canvas.drawPath(mPath, mPaint)
+        drawnShapes.forEach { it.draw(canvas, mPaint) }
     }
 
     fun reset() {
-        mPath.reset()
+        drawnShapes.clear()
         invalidate()
+    }
+
+    fun changeShape(newFactory: DrawableShapeFactory) {
+        currentShapeFactory = newFactory
     }
 
     private fun setUpPaint(color: Int = Color.CYAN, strokeWidth: Float = 10F) {
@@ -58,7 +65,7 @@ class DrawView(context: Context?, attributeSet: AttributeSet?) :
         }
     }
 
-    companion object{
+    companion object {
         const val TAG = "DrawView"
     }
 }

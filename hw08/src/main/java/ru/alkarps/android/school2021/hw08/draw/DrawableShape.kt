@@ -9,19 +9,13 @@ import android.graphics.Paint
  */
 interface DrawableShape {
     /**
-     * Начальная точка фигуры
-     *
-     * @param x X координата
-     * @param y Y координата
-     */
-    fun setFirstPoint(x: Float, y: Float)
-    /**
      * Конечная точка фигуры
      *
      * @param x X координата
      * @param y Y координата
      */
     fun setSecondPoint(x: Float, y: Float)
+
     /**
      * Отрисовка фигуры
      *
