@@ -5,5 +5,5 @@ package ru.alkarps.android.school2021.hw08.draw
  *
  */
 interface DrawableShapeFactory {
-    fun newShape(x: Float, y: Float): DrawableShape
+    fun newShape(x: Float, y: Float, paint: Int): DrawableShape
 }

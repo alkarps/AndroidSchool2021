@@ -16,78 +16,92 @@
         android:id="@+id/color_picker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
-        <RadioButton
-            android:id="@+id/color_picker_black"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Black"/>
+        android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/color_picker_red"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Red"/>
+            android:layout_weight="1"
+            android:button="@null"/>
+
         <RadioButton
             android:id="@+id/color_picker_yellow"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Yellow"/>
+            android:layout_weight="1"
+            android:button="@null"/>
+
         <RadioButton
             android:id="@+id/color_picker_green"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Green"/>
+            android:layout_weight="1"
+            android:button="@null"/>
+
+        <RadioButton
+            android:id="@+id/color_picker_cyan"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"/>
+
+        <RadioButton
+            android:id="@+id/color_picker_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"/>
+
+        <RadioButton
+            android:id="@+id/color_picker_black"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null" />
     </RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_rect"
-            android:padding="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_rect_label"
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/btn_line"
-            android:padding="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_line_label"
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/btn_curve"
-            android:padding="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_curve_label"
-            android:layout_weight="1"/>
 
         <Button
-            android:padding="4dp"
-            android:layout_marginStart="4dp"
+            android:id="@+id/btn_rect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:text="@string/btn_rect_label" />
+
+        <Button
+            android:id="@+id/btn_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:text="@string/btn_line_label" />
+
+        <Button
+            android:id="@+id/btn_curve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:text="@string/btn_curve_label" />
+
+        <Button
             android:id="@+id/btn_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_reset_label"
-            android:layout_weight="1" />
-
-        <ImageButton
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
-            android:layout_gravity="center"
-            android:id="@+id/btn_color"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_colorize_24"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:text="@string/btn_reset_label" />
     </LinearLayout>
 
 </LinearLayout>

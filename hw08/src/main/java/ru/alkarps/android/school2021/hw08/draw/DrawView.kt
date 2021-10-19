@@ -12,16 +12,15 @@ import ru.alkarps.android.school2021.hw08.draw.factory.EnumShapeFactory
 
 class DrawView(context: Context?, attributeSet: AttributeSet?) :
     View(context, attributeSet) {
-    private val mPaint = Paint().apply {
+    private val paint = Paint().apply {
         isAntiAlias = true
+        this.strokeWidth = 10F
+        this.style = Paint.Style.STROKE
     }
     private val drawnShapes = mutableListOf<DrawableShape>()
     private lateinit var currentShape: DrawableShape
     private var currentShapeFactory: DrawableShapeFactory = EnumShapeFactory.LINE
-
-    init {
-        setUpPaint()
-    }
+    private var currentColor: Int = Color.CYAN
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val action = event.action
@@ -30,7 +29,7 @@ class DrawView(context: Context?, attributeSet: AttributeSet?) :
         val y = event.y
         return when (action) {
             MotionEvent.ACTION_DOWN -> {
-                currentShape = currentShapeFactory.newShape(x, y)
+                currentShape = currentShapeFactory.newShape(x, y, currentColor)
                 drawnShapes.add(currentShape)
                 true
             }
@@ -45,7 +44,7 @@ class DrawView(context: Context?, attributeSet: AttributeSet?) :
     }
 
     override fun onDraw(canvas: Canvas) {
-        drawnShapes.forEach { it.draw(canvas, mPaint) }
+        drawnShapes.forEach { it.draw(canvas, paint) }
     }
 
     fun reset() {
@@ -57,12 +56,8 @@ class DrawView(context: Context?, attributeSet: AttributeSet?) :
         currentShapeFactory = newFactory
     }
 
-    private fun setUpPaint(color: Int = Color.CYAN, strokeWidth: Float = 10F) {
-        mPaint.apply {
-            this.color = color
-            this.strokeWidth = strokeWidth
-            this.style = Paint.Style.STROKE
-        }
+    fun changePaintColor(color: Int) {
+        currentColor = color
     }
 
     companion object {

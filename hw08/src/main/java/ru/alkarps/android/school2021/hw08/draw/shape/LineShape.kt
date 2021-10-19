@@ -7,6 +7,7 @@ import ru.alkarps.android.school2021.hw08.draw.DrawableShape
 class LineShape(
     private val startX: Float,
     private val startY: Float,
+    private val color: Int
 ) : DrawableShape {
     private var stopX: Float = 0F
     private var stopY: Float = 0F
@@ -17,6 +18,7 @@ class LineShape(
     }
 
     override fun draw(canvas: Canvas, paint: Paint) {
+        paint.color = color
         canvas.drawLine(startX, startY, stopX, stopY, paint)
     }
 }
