@@ -18,23 +18,37 @@ class DrawView(context: Context?, attributeSet: AttributeSet?) :
         this.style = Paint.Style.STROKE
     }
     private val drawnShapes = mutableListOf<DrawableShape>()
-    private lateinit var currentShape: DrawableShape
+    private val currentShapes: MutableMap<Int, DrawableShape> = mutableMapOf()
     private var currentShapeFactory: DrawableShapeFactory = EnumShapeFactory.LINE
     private var currentColor: Int = Color.CYAN
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        val action = event.action
+        val action = event.actionMasked
+        val pointerIndex = event.actionIndex
+        val pointId = event.getPointerId(pointerIndex)
+
         Log.i(TAG, "Income action: $action")
-        val x = event.x
-        val y = event.y
+        val x = event.getX(pointerIndex)
+        val y = event.getY(pointerIndex)
         return when (action) {
-            MotionEvent.ACTION_DOWN -> {
-                currentShape = currentShapeFactory.newShape(x, y, currentColor)
-                drawnShapes.add(currentShape)
+            MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> {
+                val shape = currentShapeFactory.newShape(x, y, currentColor)
+                currentShapes[pointId] = shape
+                drawnShapes.add(shape)
                 true
             }
-            MotionEvent.ACTION_MOVE, MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                currentShape.setSecondPoint(x, y)
+            MotionEvent.ACTION_MOVE -> {
+                for (i in 0 until event.pointerCount) {
+                    currentShapes[event.getPointerId(i)]?.setSecondPoint(
+                        event.getX(i), event.getY(i)
+                    )
+                }
+                invalidate()
+                true
+            }
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_POINTER_UP -> {
+                val shape = currentShapes.remove(pointId)
+                shape?.setSecondPoint(x, y)
                 invalidate()
                 true
             }
