@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">hw08</string>
+    <string name="btn_reset_label">Сброс</string>
+    <string name="btn_line_label">Линия</string>
+    <string name="btn_rect_label">Квадрат</string>
+    <string name="btn_curve_label">Кривая</string>
+    <string name="btn_color_label">Цвет</string>
+    <string name="btn_pen_label">Ручка</string>
+    <string name="btn_change_mod_label">Сменить режим работы</string>
+</resources>
