@@ -3,10 +3,12 @@ package ru.alkarps.android.school2021.hw08.draw
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.view.View
 import ru.alkarps.android.school2021.hw08.draw.factory.EnumShapeFactory
 
@@ -22,7 +24,19 @@ class DrawView(context: Context?, attributeSet: AttributeSet?) :
     private var currentShapeFactory: DrawableShapeFactory = EnumShapeFactory.LINE
     private var currentColor: Int = Color.CYAN
 
+    private var scaleModeEnable = false
+    private var currentScale = NORMAL_SCALE
+    private val scaleDetector = ScaleGestureDetector(context,
+        ScaleDetector { newScale ->
+            currentScale = newScale
+            invalidate()
+        })
+
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (scaleModeEnable) {
+            return if (scaleDetector.onTouchEvent(event)) true else super.onTouchEvent(event)
+        }
         val action = event.actionMasked
         val pointerIndex = event.actionIndex
         val pointId = event.getPointerId(pointerIndex)
@@ -58,6 +72,8 @@ class DrawView(context: Context?, attributeSet: AttributeSet?) :
     }
 
     override fun onDraw(canvas: Canvas) {
+        Log.e(TAG, "Start draw with scale = $currentScale")
+        canvas.scale(currentScale, currentScale, (width / 2).toFloat(), (height / 2).toFloat())
         drawnShapes.forEach { it.draw(canvas, paint) }
     }
 
@@ -74,7 +90,15 @@ class DrawView(context: Context?, attributeSet: AttributeSet?) :
         currentColor = color
     }
 
+    fun toggleMode() {
+        scaleModeEnable = !scaleModeEnable
+        if (currentScale != NORMAL_SCALE)
+            currentScale = NORMAL_SCALE
+        invalidate()
+    }
+
     companion object {
         const val TAG = "DrawView"
+        private const val NORMAL_SCALE = 1F
     }
 }

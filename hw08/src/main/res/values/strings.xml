@@ -6,4 +6,5 @@
     <string name="btn_curve_label">Кривая</string>
     <string name="btn_color_label">Цвет</string>
     <string name="btn_pen_label">Ручка</string>
+    <string name="btn_change_mod_label">Сменить режим работы</string>
 </resources>

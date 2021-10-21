@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <Button
+        android:id="@+id/btn_change_mod"
+        android:layout_margin="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_change_mod_label"/>
 
     <ru.alkarps.android.school2021.hw08.draw.DrawView
         android:id="@+id/draw"
