@@ -3,7 +3,6 @@ package ru.alkarps.android.school2021.hw21.broadcast
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.telephony.SmsMessage
 import android.util.Log
 import java.lang.ref.WeakReference
@@ -15,27 +14,19 @@ class SmsTextBroadcast(
     listener: SmsTextListener
 ) : BroadcastReceiver() {
     private val listener = WeakReference(listener)
-    override fun onReceive(context: Context?, intent: Intent?) {
+    override fun onReceive(context: Context?, intent: Intent) {
         try {
             Log.i(TAG, "startGettingSms")
-            intent?.extras?.apply {
+            intent.extras?.apply {
                 val format = getString(SMS_FORMAT)
-                (get(SMS_PDUS) as Array<ByteArray?>)
-                    .map { createSmsMessage(it, format) }
-                    .filterNotNull()
+                if (format != null) (get(SMS_PDUS) as Array<ByteArray?>)
+                    .mapNotNull { SmsMessage.createFromPdu(it, format) }
                     .map { it.messageBody }
                     .forEach { listener.get()?.onGettingSmsText(it) }
             }
         } catch (e: RuntimeException) {
             Log.i(TAG, e.message, e)
         }
-    }
-
-    private fun createSmsMessage(pdus: ByteArray?, format: String?): SmsMessage? {
-        return if (pdus == null) null
-        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (format == null) null else SmsMessage.createFromPdu(pdus, format)
-        } else SmsMessage.createFromPdu(pdus)
     }
 
     companion object {
