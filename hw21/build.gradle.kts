@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = 30
 
     defaultConfig {
         applicationId = "ru.alkarps.android.school2021.hw21"
-        minSdk = 21
-        targetSdk = 31
+        minSdk = 23
+        targetSdk = 30
         versionCode = 1
         versionName = "1.0"
 
