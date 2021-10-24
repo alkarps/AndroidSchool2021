@@ -6,6 +6,13 @@ import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayClient
 import ru.alkarps.android.school2021.hw18.domen.model.Holiday
 import ru.alkarps.android.school2021.hw18.domen.model.Period
 
+/**
+ * Реализация [HolidayClient]
+ *
+ * @property api Апи для вызова сервера HolidayApi
+ * @property converter Конвертер DTO во внутреннюю модель данных
+ * @constructor Новый объект реализации
+ */
 class ImplHolidayClient(
     private val api: HolidayApi,
     private val converter: HolidayConverter

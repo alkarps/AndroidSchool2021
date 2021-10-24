@@ -4,6 +4,11 @@ import ru.alkarps.android.school2021.hw18.data.holiday.converter.HolidayConverte
 import ru.alkarps.android.school2021.hw18.data.holiday.model.HolidayDTO
 import ru.alkarps.android.school2021.hw18.domen.model.Holiday
 
+/**
+ * Реализация конвертера DTO HolidayApi во внутреннюю модель данных
+ *
+ * @constructor Новый объект реализации
+ */
 class ImplHolidayConverter : HolidayConverter {
     override fun fromDto(holidays: List<HolidayDTO>): List<Holiday> = holidays.map { fromDto(it) }
 
