@@ -6,11 +6,14 @@ import android.widget.Button
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import ru.alkarps.android.school2021.hw16.client.RestClient
-import ru.alkarps.android.school2021.hw16.concurrency.ConcurrencyEngine
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var concurrencyEngine: ConcurrencyEngine
+    private lateinit var subscriber: Disposable
     private lateinit var client: RestClient
     private lateinit var responseView: TextView
 
@@ -18,22 +21,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         client = RestClient.createClient(R.id.client_choice_url)
-        concurrencyEngine = ConcurrencyEngine.createClient(R.id.concurrency_choice_handler)
         responseView = findViewById(R.id.response)
         responseView.movementMethod = ScrollingMovementMethod()
-        findViewById<RadioGroup>(R.id.concurrency_choice).setOnCheckedChangeListener { _, currentId ->
-            concurrencyEngine = ConcurrencyEngine.createClient(currentId)
-        }
         findViewById<RadioGroup>(R.id.client_choice).setOnCheckedChangeListener { _, currentId ->
             client = RestClient.createClient(currentId)
         }
-        findViewById<Button>(R.id.get).setOnClickListener { concurrencyEngine.doJob { doGet() } }
-        findViewById<Button>(R.id.post).setOnClickListener { concurrencyEngine.doJob { doPost() } }
+        findViewById<Button>(R.id.get).setOnClickListener { doGet() }
+        findViewById<Button>(R.id.post).setOnClickListener { doPost() }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        concurrencyEngine.destroy()
+        subscriber.dispose()
     }
 
     private fun doGet() {
@@ -45,7 +44,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doCall(call: () -> String) {
-        val response = call()
-        this.runOnUiThread { responseView.text = response }
+        subscriber = Single.fromCallable(call)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map { responseView.text = it }
+            .subscribe()
     }
 }
