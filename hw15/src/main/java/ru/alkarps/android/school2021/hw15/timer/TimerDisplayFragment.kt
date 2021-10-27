@@ -8,19 +8,14 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import ru.alkarps.android.school2021.hw15.R
-import ru.alkarps.android.school2021.hw15.timer.concurrency.ConcurrencyTimerEngine
+import ru.alkarps.android.school2021.hw15.timer.display.HandlerTimerDisplayFragment
+import ru.alkarps.android.school2021.hw15.timer.display.RxTimerDisplayFragment
+import ru.alkarps.android.school2021.hw15.timer.display.ScheduledTimerDisplayFragment
 import java.util.concurrent.atomic.AtomicInteger
 
-class TimerDisplayFragment(
-    concurrencyType: ConcurrencyTimerEngine.Type
-) : Fragment(R.layout.timer_display_fragment_layout) {
-    private val concurrencyTimerEngine = concurrencyType.init { updateCurrentTime() }
-    private lateinit var displayTime: TextView
-    private var currentTime = AtomicInteger(-1)
-
-    init {
-        Log.i(TAG, "Init TimerDisplayFragment with ${concurrencyType.name} engine")
-    }
+abstract class TimerDisplayFragment : Fragment(R.layout.timer_display_fragment_layout) {
+    protected lateinit var displayTime: TextView
+    protected var currentTime = AtomicInteger(-1)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.i(TAG, "View created")
@@ -33,51 +28,61 @@ class TimerDisplayFragment(
     override fun onStart() {
         Log.i(TAG, "Start display fragment")
         super.onStart()
-        concurrencyTimerEngine.startThreads()
     }
 
     override fun onDestroy() {
         Log.i(TAG, "Destroy display fragment")
         super.onDestroy()
-        concurrencyTimerEngine.destroyThreads()
     }
 
-    private fun updateCurrentTime() {
+    protected fun updateCurrentTime() {
         Log.i(TAG, "Start updating current time with value = $currentTime")
         if (currentTime.get() > 0) {
             currentTime.decrementAndGet()
-            displayTime.post { updateDisplayTime() }
-            concurrencyTimerEngine.sendNextMessage()
-            Log.i(TAG, "Finish updating current time with new value = $currentTime")
+            updateDisplayAndSendNextMessage()
         } else {
             Log.i(TAG, "Ending updating current time and start exit")
-            concurrencyTimerEngine.finishingIfTimeOut()
             exiting()
         }
     }
 
-    private fun exiting() {
-        Log.i(TAG, "Run exiting")
-        displayTime.post { returnControlPanel() }
-    }
+    abstract fun updateDisplayAndSendNextMessage()
 
-    private fun returnControlPanel() {
+    abstract fun exiting()
+
+    protected fun returnControlPanel() {
         Log.i(TAG, "Start exiting")
         (activity as TimerApi).stop()
     }
 
-    private fun updateDisplayTime() {
+    protected fun updateDisplayTime() {
         Log.i(TAG, "Updating display time with value = $currentTime")
         displayTime.text = "$currentTime"
+    }
+
+    enum class Type(
+        private val id: Int,
+        private val _init: () -> TimerDisplayFragment
+    ) {
+        HANDLER(R.id.set_up_thread_service_handler, ::HandlerTimerDisplayFragment),
+        SCHEDULED(R.id.set_up_thread_service_scheduler, ::ScheduledTimerDisplayFragment),
+        RX(R.id.set_up_thread_service_rx, ::RxTimerDisplayFragment);
+
+        fun init(startTime: Int): TimerDisplayFragment {
+            Log.i(TAG, "Init TimerDisplayFragment with $name engine")
+            return _init().apply {
+                arguments = bundleOf(TIME_KEY to startTime)
+            }
+        }
+
+        companion object {
+            fun findById(id: Int) =
+                values().find { it.id == id } ?: throw IllegalArgumentException()
+        }
     }
 
     companion object {
         const val TAG = "TimerDisplayFragment"
         const val TIME_KEY = "TimeKey"
-
-        fun newInstance(concurrencyType: ConcurrencyTimerEngine.Type, startTime: Int) =
-            TimerDisplayFragment(concurrencyType).apply {
-                arguments = bundleOf(TIME_KEY to startTime)
-            }
     }
 }
