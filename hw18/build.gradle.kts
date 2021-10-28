@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlinx-serialization")
+    id("org.jetbrains.kotlin.kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -35,6 +37,10 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
     // define a BOM and its version
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
@@ -49,12 +55,18 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+    implementation("com.google.dagger:hilt-android:2.40")
+    kapt("com.google.dagger:hilt-compiler:2.40")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.assertj:assertj-core:3.21.0")
     testImplementation("io.mockk:mockk:1.12.0")
     testImplementation("io.mockk:mockk-android:1.12.0")
+    testImplementation("com.google.dagger:hilt-android-testing:2.40")
+    kaptTest("com.google.dagger:hilt-compiler:2.40")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.40")
+    kaptAndroidTest("com.google.dagger:hilt-compiler:2.40")
 }
