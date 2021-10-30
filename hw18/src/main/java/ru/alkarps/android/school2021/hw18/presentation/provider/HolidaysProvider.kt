@@ -1,6 +1,6 @@
 package ru.alkarps.android.school2021.hw18.presentation.provider
 
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import ru.alkarps.android.school2021.hw18.domen.model.Period
 import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
 

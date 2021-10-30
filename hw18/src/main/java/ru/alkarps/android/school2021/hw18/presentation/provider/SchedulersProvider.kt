@@ -1,6 +1,6 @@
 package ru.alkarps.android.school2021.hw18.presentation.provider
 
-import io.reactivex.Scheduler
+import io.reactivex.rxjava3.core.Scheduler
 
 /**
  * Провайдер Schedulers для управления потоками в Rx
