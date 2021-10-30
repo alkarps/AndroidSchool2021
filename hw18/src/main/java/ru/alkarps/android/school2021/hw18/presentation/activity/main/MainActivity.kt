@@ -52,8 +52,4 @@ class MainActivity : AppCompatActivity() {
             binding.recyclerView.adapter = DayWithHolidaysAdapter(it)
         }
     }
-
-    companion object {
-        private const val TAG = "MainActivity"
-    }
 }
