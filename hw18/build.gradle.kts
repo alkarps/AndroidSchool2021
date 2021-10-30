@@ -59,6 +59,7 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:2.40")
 
     testImplementation("junit:junit:4.13.2")
+    testImplementation ("androidx.arch.core:core-testing:2.1.0")
     testImplementation("org.assertj:assertj-core:3.21.0")
     testImplementation("io.mockk:mockk:1.12.0")
     testImplementation("io.mockk:mockk-android:1.12.0")
