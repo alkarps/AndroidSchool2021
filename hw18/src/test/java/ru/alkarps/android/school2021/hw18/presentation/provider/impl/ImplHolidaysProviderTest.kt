@@ -1,4 +1,4 @@
-package ru.alkarps.android.school2021.hw18.view.provider.impl
+package ru.alkarps.android.school2021.hw18.presentation.provider.impl
 
 import io.mockk.every
 import io.mockk.mockk
@@ -7,9 +7,9 @@ import org.junit.Test
 import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayService
 import ru.alkarps.android.school2021.hw18.domen.model.Holiday
 import ru.alkarps.android.school2021.hw18.domen.model.Period
-import ru.alkarps.android.school2021.hw18.view.model.DayWithHolidaysView
-import ru.alkarps.android.school2021.hw18.view.model.HolidayView
-import ru.alkarps.android.school2021.hw18.view.provider.converter.HolidayConverter
+import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
+import ru.alkarps.android.school2021.hw18.presentation.model.HolidayView
+import ru.alkarps.android.school2021.hw18.presentation.provider.converter.HolidayConverter
 
 class ImplHolidaysProviderTest {
 

@@ -1,4 +1,4 @@
-package ru.alkarps.android.school2021.hw18.view.provider
+package ru.alkarps.android.school2021.hw18.presentation.provider
 
 import io.reactivex.Scheduler
 

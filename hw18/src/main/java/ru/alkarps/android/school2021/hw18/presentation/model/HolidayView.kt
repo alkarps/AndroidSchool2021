@@ -1,4 +1,4 @@
-package ru.alkarps.android.school2021.hw18.view.model
+package ru.alkarps.android.school2021.hw18.presentation.model
 
 /**
  * Модель для отображения праздника

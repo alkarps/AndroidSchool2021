@@ -1,9 +1,9 @@
-package ru.alkarps.android.school2021.hw18.view.provider.impl
+package ru.alkarps.android.school2021.hw18.presentation.provider.impl
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
-import ru.alkarps.android.school2021.hw18.view.provider.SchedulersProvider
+import ru.alkarps.android.school2021.hw18.presentation.provider.SchedulersProvider
 
 class ImplSchedulersProviderTest {
     private lateinit var provider: SchedulersProvider

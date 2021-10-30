@@ -1,9 +1,9 @@
-package ru.alkarps.android.school2021.hw18.view.provider.impl
+package ru.alkarps.android.school2021.hw18.presentation.provider.impl
 
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.alkarps.android.school2021.hw18.view.provider.SchedulersProvider
+import ru.alkarps.android.school2021.hw18.presentation.provider.SchedulersProvider
 
 /**
  * Реализация [SchedulersProvider]

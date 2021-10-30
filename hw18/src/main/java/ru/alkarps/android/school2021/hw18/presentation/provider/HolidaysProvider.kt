@@ -1,8 +1,8 @@
-package ru.alkarps.android.school2021.hw18.view.provider
+package ru.alkarps.android.school2021.hw18.presentation.provider
 
 import io.reactivex.Single
 import ru.alkarps.android.school2021.hw18.domen.model.Period
-import ru.alkarps.android.school2021.hw18.view.model.DayWithHolidaysView
+import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
 
 /**
  * Провайдер праздников

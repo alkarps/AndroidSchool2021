@@ -1,7 +1,7 @@
-package ru.alkarps.android.school2021.hw18.view.provider.converter
+package ru.alkarps.android.school2021.hw18.presentation.provider.converter
 
 import ru.alkarps.android.school2021.hw18.domen.model.Holiday
-import ru.alkarps.android.school2021.hw18.view.model.DayWithHolidaysView
+import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
 
 /**
  * Конвертер [Holiday] в модель данных UI
