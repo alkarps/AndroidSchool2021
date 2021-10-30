@@ -1,5 +1,8 @@
 package ru.alkarps.android.school2021.hw18.presentation.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * Модель для отображения праздника
  *
@@ -10,10 +13,11 @@ package ru.alkarps.android.school2021.hw18.presentation.model
  * @property public признак государственного праздника
  * @constructor Создает новый объект праздника
  */
+@Parcelize
 data class HolidayView(
     val uuid: String,
     val name: String,
     val date: String,
     val observed: String,
     val public: Boolean
-)
+): Parcelable

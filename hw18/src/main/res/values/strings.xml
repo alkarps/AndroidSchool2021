@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">hw18</string>
     <string name="loading_process">Please, wait…</string>
+    <string name="holiday_date_label">Holiday date:</string>
+    <string name="holiday_observed_label">Observed date:</string>
+    <string name="holiday_public_label">Government holiday</string>
 </resources>

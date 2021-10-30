@@ -1,11 +1,14 @@
 package ru.alkarps.android.school2021.hw18.presentation.activity.main.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.alkarps.android.school2021.hw18.R
 import ru.alkarps.android.school2021.hw18.databinding.DayWithHolidaysItemBinding
+import ru.alkarps.android.school2021.hw18.presentation.activity.day.DayActivity
+import ru.alkarps.android.school2021.hw18.presentation.activity.day.DayActivity.Companion.DAY_WITH_HOLIDAYS_KEY
 import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
 
 class DayWithHolidaysAdapter(
@@ -27,9 +30,16 @@ class DayWithHolidaysAdapter(
 
     class DyaWithHolidaysViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = DayWithHolidaysItemBinding.bind(itemView)
+        private val context = itemView.context
 
         fun onBind(dayWithHolidaysView: DayWithHolidaysView) {
             binding.dayWithHolidays.text = dayWithHolidaysView.date
+            binding.dayWithHolidays.setOnClickListener {
+                val intent = Intent(context, DayActivity::class.java).apply {
+                    putExtra(DAY_WITH_HOLIDAYS_KEY, dayWithHolidaysView)
+                }
+                context.startActivity(intent)
+            }
         }
     }
 }
