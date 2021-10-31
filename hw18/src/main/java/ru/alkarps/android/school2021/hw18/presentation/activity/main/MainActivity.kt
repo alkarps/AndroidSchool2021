@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        val factory = (applicationContext as HolidayApiApplication).presentation.viewModelFactory()
+        val factory = (applicationContext as HolidayApiApplication).holidayMain.viewModelFactory()
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
         viewModel.progressLiveData.observe(this) {
             binding.progressFrameLayout.visibility = if (it) View.VISIBLE else View.GONE

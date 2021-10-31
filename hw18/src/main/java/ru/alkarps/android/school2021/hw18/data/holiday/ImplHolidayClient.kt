@@ -1,5 +1,6 @@
 package ru.alkarps.android.school2021.hw18.data.holiday
 
+import ru.alkarps.android.school2021.hw18.data.di.DataScope
 import ru.alkarps.android.school2021.hw18.data.holiday.api.HolidayApi
 import ru.alkarps.android.school2021.hw18.data.holiday.converter.HolidayConverter
 import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayClient
@@ -14,6 +15,7 @@ import javax.inject.Inject
  * @property converter Конвертер DTO во внутреннюю модель данных
  * @constructor Новый объект реализации
  */
+@DataScope
 class ImplHolidayClient @Inject constructor(
     private val api: HolidayApi,
     private val converter: HolidayConverter

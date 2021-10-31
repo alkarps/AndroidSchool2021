@@ -14,10 +14,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 @Module
 class DataExternalDependenciesModule {
     @Provides
+    @DataScope
     fun provideOkHttpClient() = OkHttpClient.Builder()
         .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .build()
 
     @Provides
+    @DataScope
     fun provideJson() = Json { ignoreUnknownKeys = true }
 }

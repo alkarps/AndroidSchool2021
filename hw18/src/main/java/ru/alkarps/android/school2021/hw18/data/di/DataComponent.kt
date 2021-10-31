@@ -6,6 +6,7 @@ import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayClient
 /**
  * Компонент Data слоя
  */
+@DataScope
 @Component(modules = [DataExternalDependenciesModule::class, DataBindsModule::class])
 interface DataComponent {
     /**
@@ -14,4 +15,9 @@ interface DataComponent {
      * @return инстанс реализации [HolidayClient]
      */
     fun holidayClient(): HolidayClient
+
+    @Component.Factory
+    interface Factory {
+        fun create(externalDependenciesModule: DataExternalDependenciesModule): DataComponent
+    }
 }

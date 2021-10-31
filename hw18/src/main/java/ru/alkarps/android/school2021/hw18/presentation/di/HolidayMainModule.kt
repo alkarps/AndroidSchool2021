@@ -13,7 +13,7 @@ import ru.alkarps.android.school2021.hw18.presentation.provider.impl.ImplSchedul
  * Модуль Presentation слоя для биндинга реализаций к интерфейсам
  */
 @Module
-interface PresentationModule {
+interface HolidayMainModule {
     @Binds
     fun holidayConverter(impl: ImplHolidayConverter): HolidayConverter
 

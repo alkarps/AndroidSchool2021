@@ -7,8 +7,9 @@ import ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.
 /**
  * Компонент Presentation слоя
  */
-@Component(modules = [PresentationModule::class], dependencies = [DomenComponent::class])
-interface PresentationComponent {
+@HolidayMainScope
+@Component(modules = [HolidayMainModule::class], dependencies = [DomenComponent::class])
+interface HolidayMainComponent {
     /**
      * Метод получения фабрики для создания [ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.MainViewModel]
      *

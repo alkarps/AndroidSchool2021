@@ -7,6 +7,7 @@ import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayService
 /**
  * Компонент бизнес слоя
  */
+@DomenScope
 @Component(modules = [DomenModule::class], dependencies = [DataComponent::class])
 interface DomenComponent {
     /**
