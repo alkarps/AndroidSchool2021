@@ -15,9 +15,5 @@ interface HolidayApi {
      * @param language код языка, на котором необходимо вернуть праздники
      * @return список праздников
      */
-    fun getHolidays(
-        period: Period,
-        country: String,
-        language: String
-    ): List<HolidayDTO>
+    fun getHolidays(period: Period, country: String, language: String): List<HolidayDTO>
 }

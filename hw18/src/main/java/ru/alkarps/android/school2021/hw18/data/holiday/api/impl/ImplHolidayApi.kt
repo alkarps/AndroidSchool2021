@@ -11,6 +11,7 @@ import ru.alkarps.android.school2021.hw18.data.holiday.model.HolidayDTO
 import ru.alkarps.android.school2021.hw18.data.holiday.model.HolidayResponseDTO
 import ru.alkarps.android.school2021.hw18.domen.model.HolidayApiException
 import ru.alkarps.android.school2021.hw18.domen.model.Period
+import javax.inject.Inject
 
 /**
  * Реализация [HolidayApi]
@@ -19,7 +20,7 @@ import ru.alkarps.android.school2021.hw18.domen.model.Period
  * @property jsonSerializer [Json] для десериализации ответа
  * @constructor Новый экземпляр реализации [HolidayApi]
  */
-class ImplHolidayApi(
+class ImplHolidayApi @Inject constructor(
     private val okHttpClient: OkHttpClient,
     private val jsonSerializer: Json
 ) : HolidayApi {

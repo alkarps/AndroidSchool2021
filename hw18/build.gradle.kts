@@ -4,7 +4,6 @@ plugins {
     id("kotlinx-serialization")
     id("kotlin-parcelize")
     id("org.jetbrains.kotlin.kapt")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -62,19 +61,15 @@ dependencies {
     implementation("com.google.android.material:material:1.4.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
-    implementation("com.google.dagger:hilt-android:2.40")
-    kapt("com.google.dagger:hilt-compiler:2.40")
+    implementation ("com.google.dagger:dagger:2.40")
+    kapt ("com.google.dagger:dagger-compiler:2.40")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation ("androidx.arch.core:core-testing:2.1.0")
     testImplementation("org.assertj:assertj-core:3.21.0")
     testImplementation("io.mockk:mockk:1.12.0")
     testImplementation("io.mockk:mockk-android:1.12.0")
-    testImplementation("com.google.dagger:hilt-android-testing:2.40")
-    kaptTest("com.google.dagger:hilt-compiler:2.40")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.40")
-    kaptAndroidTest("com.google.dagger:hilt-compiler:2.40")
 }
