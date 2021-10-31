@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import ru.alkarps.android.school2021.hw18.HolidayApiApplication
 import ru.alkarps.android.school2021.hw18.R
 import ru.alkarps.android.school2021.hw18.databinding.MainActivityBinding
 import ru.alkarps.android.school2021.hw18.presentation.activity.main.adapter.DayWithHolidaysAdapter
 import ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.MainViewModel
-import ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.factory.MainViewModelFactory
 
 /**
  * Активити главного экрана
@@ -23,6 +23,7 @@ import ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: MainActivityBinding
     private lateinit var viewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
@@ -41,7 +42,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this, MainViewModelFactory()).get(MainViewModel::class.java)
+        val factory = (applicationContext as HolidayApiApplication).presentation.viewModelFactory()
+        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
         viewModel.progressLiveData.observe(this) {
             binding.progressFrameLayout.visibility = if (it) View.VISIBLE else View.GONE
         }

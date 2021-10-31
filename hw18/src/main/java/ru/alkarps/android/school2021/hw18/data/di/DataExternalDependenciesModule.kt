@@ -4,15 +4,15 @@ import dagger.Module
 import dagger.Provides
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 
 @Module
-class DataExternalDependenciesModule(
-    private val okHttpClient: OkHttpClient,
-    private val jsonSerializer: Json
-) {
+class DataExternalDependenciesModule {
     @Provides
-    fun provideOkHttpClient() = okHttpClient
+    fun provideOkHttpClient() = OkHttpClient.Builder()
+        .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        .build()
 
     @Provides
-    fun provideJson() = jsonSerializer
+    fun provideJson() = Json { ignoreUnknownKeys = true }
 }

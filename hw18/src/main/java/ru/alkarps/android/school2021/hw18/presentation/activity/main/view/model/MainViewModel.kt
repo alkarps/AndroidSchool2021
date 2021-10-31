@@ -15,7 +15,7 @@ import ru.alkarps.android.school2021.hw18.presentation.provider.SchedulersProvid
  * @property holidaysProvider провайдер праздников
  * @constructor Новый инстанс [MainViewModel]
  */
-class MainViewModel(
+class MainViewModel constructor(
     private val schedulersProvider: SchedulersProvider,
     private val holidaysProvider: HolidaysProvider
 ) : ViewModel() {

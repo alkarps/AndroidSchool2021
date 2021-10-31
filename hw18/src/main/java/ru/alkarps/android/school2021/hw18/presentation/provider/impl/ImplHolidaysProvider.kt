@@ -6,13 +6,14 @@ import ru.alkarps.android.school2021.hw18.domen.model.Period
 import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
 import ru.alkarps.android.school2021.hw18.presentation.provider.HolidaysProvider
 import ru.alkarps.android.school2021.hw18.presentation.provider.converter.HolidayConverter
+import javax.inject.Inject
 
 /**
  * Реализация [HolidaysProvider]
  *
  * @constructor Новый объект реализации [HolidaysProvider]
  */
-class ImplHolidaysProvider(
+class ImplHolidaysProvider @Inject constructor(
     private val service: HolidayService,
     private val converter: HolidayConverter
 ) : HolidaysProvider {

@@ -2,22 +2,20 @@ package ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.serialization.json.Json
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import ru.alkarps.android.school2021.hw18.data.di.DaggerDataComponent
-import ru.alkarps.android.school2021.hw18.data.di.DataExternalDependenciesModule
-import ru.alkarps.android.school2021.hw18.domen.di.DaggerDomenComponent
 import ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.MainViewModel
-import ru.alkarps.android.school2021.hw18.presentation.provider.impl.ImplHolidaysProvider
-import ru.alkarps.android.school2021.hw18.presentation.provider.impl.ImplSchedulersProvider
+import ru.alkarps.android.school2021.hw18.presentation.provider.HolidaysProvider
+import ru.alkarps.android.school2021.hw18.presentation.provider.SchedulersProvider
+import javax.inject.Inject
 
 /**
  * Фабрика [MainViewModel]
  *
  * @constructor Новый инстанс [ViewModelProvider.Factory]
  */
-class MainViewModelFactory : ViewModelProvider.Factory {
+class MainViewModelFactory @Inject constructor(
+    private val schedulersProvider: SchedulersProvider,
+    private val holidaysProvider: HolidaysProvider
+) : ViewModelProvider.Factory {
     /**
      * Метод создания [MainViewModel]
      *
@@ -26,22 +24,6 @@ class MainViewModelFactory : ViewModelProvider.Factory {
      * @return экземпляр [MainViewModel]
      */
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        val okHttpClient = OkHttpClient.Builder()
-            .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .build()
-        val json = Json { ignoreUnknownKeys = true }
-        val dataDependenciesModule = DataExternalDependenciesModule(okHttpClient, json)
-        val holidayService = DaggerDomenComponent.builder()
-            .dataComponent(
-                DaggerDataComponent.builder()
-                    .dataExternalDependenciesModule(dataDependenciesModule)
-                    .build()
-            ).build()
-            .holidayService()
-        val presentationHolidayConverter =
-            ru.alkarps.android.school2021.hw18.presentation.provider.converter.impl.ImplHolidayConverter()
-        val holidaysProvider = ImplHolidaysProvider(holidayService, presentationHolidayConverter)
-        val schedulersProvider = ImplSchedulersProvider()
         return MainViewModel(schedulersProvider, holidaysProvider) as T
     }
 }
