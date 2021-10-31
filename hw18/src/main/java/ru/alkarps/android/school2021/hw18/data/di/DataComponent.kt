@@ -15,9 +15,4 @@ interface DataComponent {
      * @return инстанс реализации [HolidayClient]
      */
     fun holidayClient(): HolidayClient
-
-    @Component.Factory
-    interface Factory {
-        fun create(externalDependenciesModule: DataExternalDependenciesModule): DataComponent
-    }
 }
