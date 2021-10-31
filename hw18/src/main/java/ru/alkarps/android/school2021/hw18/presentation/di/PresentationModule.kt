@@ -9,6 +9,9 @@ import ru.alkarps.android.school2021.hw18.presentation.provider.converter.impl.I
 import ru.alkarps.android.school2021.hw18.presentation.provider.impl.ImplHolidaysProvider
 import ru.alkarps.android.school2021.hw18.presentation.provider.impl.ImplSchedulersProvider
 
+/**
+ * Модуль Presentation слоя для биндинга реализаций к интерфейсам
+ */
 @Module
 interface PresentationModule {
     @Binds

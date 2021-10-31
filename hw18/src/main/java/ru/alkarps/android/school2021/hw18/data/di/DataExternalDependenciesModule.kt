@@ -6,6 +6,11 @@ import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
+/**
+ * Модуль продайдинга внешних зависимостей
+ *
+ * @constructor Инстанс модуля
+ */
 @Module
 class DataExternalDependenciesModule {
     @Provides

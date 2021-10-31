@@ -9,6 +9,9 @@ import ru.alkarps.android.school2021.hw18.data.holiday.converter.HolidayConverte
 import ru.alkarps.android.school2021.hw18.data.holiday.converter.impl.ImplHolidayConverter
 import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayClient
 
+/**
+ * Модуль биндинга Data-слоя
+ */
 @Module
 interface DataBindsModule {
     @Binds
