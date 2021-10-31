@@ -7,6 +7,11 @@ import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
 import ru.alkarps.android.school2021.hw18.presentation.provider.HolidaysProvider
 import ru.alkarps.android.school2021.hw18.presentation.provider.converter.HolidayConverter
 
+/**
+ * Реализация [HolidaysProvider]
+ *
+ * @constructor Новый объект реализации [HolidaysProvider]
+ */
 class ImplHolidaysProvider(
     private val service: HolidayService,
     private val converter: HolidayConverter

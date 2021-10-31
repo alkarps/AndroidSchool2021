@@ -10,6 +10,11 @@ import ru.alkarps.android.school2021.hw18.databinding.DayActivityBinding
 import ru.alkarps.android.school2021.hw18.presentation.activity.day.adapter.HolidaysAdapter
 import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
 
+/**
+ * Activity для оборажения праздников в выбранный день
+ *
+ * @constructor Новый экземпляр активити
+ */
 class DayActivity : AppCompatActivity() {
     private lateinit var binding: DayActivityBinding
 

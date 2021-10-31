@@ -11,6 +11,12 @@ import ru.alkarps.android.school2021.hw18.presentation.activity.day.DayActivity
 import ru.alkarps.android.school2021.hw18.presentation.activity.day.DayActivity.Companion.DAY_WITH_HOLIDAYS_KEY
 import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
 
+/**
+ * Адаптер для отображения дней с праздниками
+ *
+ * @property daysWithHolidays дни с праздниками
+ * @constructor Новый экземпляр адаптера
+ */
 class DayWithHolidaysAdapter(
     private val daysWithHolidays: List<DayWithHolidaysView>
 ) : RecyclerView.Adapter<DayWithHolidaysAdapter.DyaWithHolidaysViewHolder>() {

@@ -8,6 +8,12 @@ import ru.alkarps.android.school2021.hw18.R
 import ru.alkarps.android.school2021.hw18.databinding.HolidayItemBinding
 import ru.alkarps.android.school2021.hw18.presentation.model.HolidayView
 
+/**
+ * Адаптер для отображения [HolidayView]
+ *
+ * @property holidays список праздников
+ * @constructor Новый экземпляр адаптера
+ */
 class HolidaysAdapter(
     private val holidays: List<HolidayView>
 ) : RecyclerView.Adapter<HolidaysAdapter.HolidayViewHolder>() {

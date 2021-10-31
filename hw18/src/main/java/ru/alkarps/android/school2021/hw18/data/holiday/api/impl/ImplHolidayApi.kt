@@ -12,6 +12,13 @@ import ru.alkarps.android.school2021.hw18.data.holiday.model.HolidayResponseDTO
 import ru.alkarps.android.school2021.hw18.domen.model.HolidayApiException
 import ru.alkarps.android.school2021.hw18.domen.model.Period
 
+/**
+ * Реализация [HolidayApi]
+ *
+ * @property okHttpClient [OkHttpClient] для вызова HolidayApi
+ * @property jsonSerializer [Json] для десериализации ответа
+ * @constructor Новый экземпляр реализации [HolidayApi]
+ */
 class ImplHolidayApi(
     private val okHttpClient: OkHttpClient,
     private val jsonSerializer: Json
