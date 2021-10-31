@@ -7,9 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import ru.alkarps.android.school2021.hw18.data.di.DaggerDataComponent
 import ru.alkarps.android.school2021.hw18.data.di.DataExternalDependenciesModule
-import ru.alkarps.android.school2021.hw18.data.holiday.ImplHolidayClient
-import ru.alkarps.android.school2021.hw18.data.holiday.api.impl.ImplHolidayApi
-import ru.alkarps.android.school2021.hw18.domen.holiday.impl.ImplHolidayService
+import ru.alkarps.android.school2021.hw18.domen.di.DaggerDomenComponent
 import ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.MainViewModel
 import ru.alkarps.android.school2021.hw18.presentation.provider.impl.ImplHolidaysProvider
 import ru.alkarps.android.school2021.hw18.presentation.provider.impl.ImplSchedulersProvider
@@ -33,11 +31,13 @@ class MainViewModelFactory : ViewModelProvider.Factory {
             .build()
         val json = Json { ignoreUnknownKeys = true }
         val dataDependenciesModule = DataExternalDependenciesModule(okHttpClient, json)
-        val holidayClient = DaggerDataComponent.builder()
-            .dataExternalDependenciesModule(dataDependenciesModule)
-            .build()
-            .implHolidayClient()
-        val holidayService = ImplHolidayService(holidayClient)
+        val holidayService = DaggerDomenComponent.builder()
+            .dataComponent(
+                DaggerDataComponent.builder()
+                    .dataExternalDependenciesModule(dataDependenciesModule)
+                    .build()
+            ).build()
+            .holidayService()
         val presentationHolidayConverter =
             ru.alkarps.android.school2021.hw18.presentation.provider.converter.impl.ImplHolidayConverter()
         val holidaysProvider = ImplHolidaysProvider(holidayService, presentationHolidayConverter)
