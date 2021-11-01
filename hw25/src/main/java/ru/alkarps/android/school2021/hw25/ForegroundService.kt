@@ -2,6 +2,7 @@ package ru.alkarps.android.school2021.hw25
 
 import android.app.*
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
@@ -10,9 +11,26 @@ import androidx.core.app.NotificationCompat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ForegroundService : Service() {
+class ForegroundService : Service(), PhoneStatusReceiver.Listener {
     var onForeground = false
         private set
+
+    private lateinit var phoneStatusReceiver: PhoneStatusReceiver
+    private lateinit var phoneState: PhoneStatusReceiver.PhoneState
+
+    override fun onCreate() {
+        super.onCreate()
+        phoneStatusReceiver = PhoneStatusReceiver(this)
+        val filter = IntentFilter(Intent.ACTION_BATTERY_CHANGED).apply {
+            addAction(Intent.ACTION_TIME_TICK)
+        }
+        registerReceiver(phoneStatusReceiver, filter)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(phoneStatusReceiver)
+    }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.let {
@@ -32,20 +50,22 @@ class ForegroundService : Service() {
         return START_NOT_STICKY
     }
 
+    override fun onChange(phoneState: PhoneStatusReceiver.PhoneState) {
+        this.phoneState = phoneState
+        if (onForeground) startForeground(NOTIFICATION_ID, createNotification())
+    }
+
     private fun createNotification(): Notification {
         createNotificationChannel()
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_baseline_timer_24)
             .setContentTitle(getString(R.string.fg_notification_title))
-            .setContentText("Текущее время: ${currentTime()}")
+            .setContentText("Время: ${phoneState.systemTime}. Батареи: ${phoneState.batteryLevel}. ${phoneState.isCharging()}")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .addAction(stopNotificationAction())
             .setAutoCancel(true)
             .build()
     }
-
-    private fun currentTime(): String =
-        SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
