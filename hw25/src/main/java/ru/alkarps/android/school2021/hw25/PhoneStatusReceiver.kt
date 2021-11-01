@@ -38,9 +38,7 @@ class PhoneStatusReceiver(listener: Listener) : BroadcastReceiver() {
 
     data class PhoneState(
         val batteryLevel: Int,
-        private val batteryCharging: Boolean,
+        val batteryCharging: Boolean,
         val systemTime: String
-    ) {
-        fun isCharging(): String = "${if (batteryCharging) "З" else "Не з"}аряжается."
-    }
+    )
 }

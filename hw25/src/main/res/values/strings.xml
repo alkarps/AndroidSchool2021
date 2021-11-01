@@ -4,4 +4,8 @@
     <string name="fg_notification_title">Текущее состояние телефона</string>
     <string name="fg_notification_channel_name">Состояние телефона</string>
     <string name="fg_notification_channel_description">Нотификация о состоянии телефона</string>
+    <string name="battery_level_label">Уровень заряда:</string>
+    <string name="current_time_label">Текущее время:</string>
+    <string name="stop_service_label">Выключить сервис</string>
+    <string name="notification_title_label">Мониторинг состояния телефона</string>
 </resources>

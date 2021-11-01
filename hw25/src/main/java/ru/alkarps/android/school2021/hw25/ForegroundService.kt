@@ -7,8 +7,8 @@ import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ForegroundService : Service(), PhoneStatusReceiver.Listener {
@@ -60,11 +60,25 @@ class ForegroundService : Service(), PhoneStatusReceiver.Listener {
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_baseline_timer_24)
             .setContentTitle(getString(R.string.fg_notification_title))
-            .setContentText("Время: ${phoneState.systemTime}. Батареи: ${phoneState.batteryLevel}. ${phoneState.isCharging()}")
+            .setCustomContentView(createRemoveView(R.layout.small_notification))
+            .setCustomBigContentView(createRemoveView(R.layout.big_notification))
+            .setStyle(NotificationCompat.DecoratedCustomViewStyle())
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .addAction(stopNotificationAction())
             .setAutoCancel(true)
             .build()
+    }
+
+    private fun createRemoveView(layoutId: Int): RemoteViews {
+        val view = RemoteViews(packageName, layoutId)
+        view.setTextViewText(R.id.battery_level, phoneState.batteryLevel.toString())
+        view.setTextViewText(R.id.current_time, phoneState.systemTime)
+        view.setImageViewResource(
+            R.id.battery_charging,
+            if (phoneState.batteryCharging) R.drawable.ic_baseline_power_24
+            else R.drawable.ic_sharp_power_off_24
+        )
+        view.setOnClickPendingIntent(R.id.stop_service, stopIntent())
+        return view
     }
 
     private fun createNotificationChannel() {
@@ -83,9 +97,6 @@ class ForegroundService : Service(), PhoneStatusReceiver.Listener {
     override fun onBind(intent: Intent): IBinder {
         return LocalBinder()
     }
-
-    private fun stopNotificationAction(): NotificationCompat.Action =
-        NotificationCompat.Action(R.drawable.ic_sharp_power_off_24, "Stop service", stopIntent())
 
     private fun stopIntent(): PendingIntent = newIntent(STOP_INTENT)
 
