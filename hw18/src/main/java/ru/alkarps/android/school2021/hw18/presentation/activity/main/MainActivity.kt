@@ -1,6 +1,8 @@
 package ru.alkarps.android.school2021.hw18.presentation.activity.main
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -53,5 +55,17 @@ class MainActivity : AppCompatActivity() {
         viewModel.holidaysLiveData.observe(this) {
             binding.recyclerView.adapter = DayWithHolidaysAdapter(it)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.settings, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.setting_menu) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
