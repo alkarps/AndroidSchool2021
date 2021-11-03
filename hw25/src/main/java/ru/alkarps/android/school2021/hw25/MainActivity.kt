@@ -13,7 +13,7 @@ import ru.alkarps.android.school2021.hw25.databinding.ActivityMainBinding
 /**
  * Активити главного экрана
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ForegroundService.Listener {
     private val serviceConnection = ForegroundServiceConnection()
     private lateinit var binding: ActivityMainBinding
 
@@ -43,14 +43,22 @@ class MainActivity : AppCompatActivity() {
         unbindService(serviceConnection)
     }
 
-    class ForegroundServiceConnection : ServiceConnection {
+    /**
+     * Реализация [ServiceConnection] для подключения к [ForegroundService]
+     */
+    private inner class ForegroundServiceConnection : ServiceConnection {
         var service: ForegroundService? = null
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             this.service = (service as ForegroundService.LocalBinder).getService()
+            this.service?.setListener(this@MainActivity)
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
             this.service = null
         }
+    }
+
+    override fun onTimerChange(currentValue: String?) {
+        runOnUiThread { binding.timer.text = currentValue ?: "" }
     }
 }

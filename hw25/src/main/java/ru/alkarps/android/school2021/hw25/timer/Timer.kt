@@ -49,7 +49,7 @@ class Timer(listener: Listener) {
         if (this.status == Status.STARTED) timer.cancel()
         this.status = status
         if (status == Status.STOPPED) value.set(0)
-        listener.get()?.onTick(value.get())
+        listener.get()?.onChangeTimer()
     }
 
     /**
@@ -61,10 +61,10 @@ class Timer(listener: Listener) {
 
     private inner class TimerTask : java.util.TimerTask() {
         override fun run() {
-            Log.i(TAG, "TimerTask running with ${value.get()}")
+            Log.i(TAG, "TimerTask running with ${value.getAndIncrement()}")
             val listener = listener.get()
             if (listener == null) stop()
-            else listener.onTick(value.incrementAndGet())
+            else listener.onChangeTimer()
         }
     }
 
@@ -72,7 +72,7 @@ class Timer(listener: Listener) {
      * Интерфейс для колбэк вызова при изменении таймера
      */
     interface Listener {
-        fun onTick(value: Long)
+        fun onChangeTimer()
     }
 
     /**

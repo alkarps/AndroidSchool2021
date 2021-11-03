@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import ru.alkarps.android.school2021.hw25.timer.Timer
+import java.lang.ref.WeakReference
 import java.util.*
 
 /**
@@ -19,6 +20,7 @@ import java.util.*
 class ForegroundService : Service(), PhoneStatusReceiver.Listener, Timer.Listener {
     var onForeground = false
         private set
+    private var listener: WeakReference<Listener>? = null
     private val timer = Timer(this)
     private lateinit var phoneStatusReceiver: PhoneStatusReceiver
     private lateinit var phoneState: PhoneStatusReceiver.PhoneState
@@ -65,7 +67,7 @@ class ForegroundService : Service(), PhoneStatusReceiver.Listener, Timer.Listene
     /**
      * Реализация колбэк-метода для слежением за статусом устройства
      *
-     * @param value текущее значение
+     * @param phoneState текущее значение
      */
     override fun onChange(phoneState: PhoneStatusReceiver.PhoneState) {
         this.phoneState = phoneState
@@ -74,11 +76,21 @@ class ForegroundService : Service(), PhoneStatusReceiver.Listener, Timer.Listene
 
     /**
      * Реализация колбэк-метода для слежением за изменением таймера
-     *
-     * @param value текущее значение
      */
-    override fun onTick(value: Long) {
+    override fun onChangeTimer() {
+        val value = if (timer.status != Timer.Status.STOPPED) timer.getCurrentValue() else null
+        listener?.get()?.onTimerChange(value)
         startForeground()
+    }
+
+    /**
+     * Добавление слушателя за изменение таймера
+     *
+     * @param listener слушатель
+     */
+    fun setListener(listener: Listener) {
+        Log.i(TAG, "Subscribing on changeTimer")
+        this.listener = WeakReference(listener)
     }
 
     private fun createNotification(): Notification {
@@ -108,7 +120,6 @@ class ForegroundService : Service(), PhoneStatusReceiver.Listener, Timer.Listene
     }
 
     private fun createBigRemoveView(layoutId: Int): RemoteViews {
-        Log.i(TAG, timer.status.name)
         val view = createRemoveView(layoutId)
         view.setOnClickPendingIntent(R.id.stop_timer, stopTimerIntent())
         view.setOnClickPendingIntent(R.id.start_timer, startTimerIntent())
@@ -160,6 +171,18 @@ class ForegroundService : Service(), PhoneStatusReceiver.Listener, Timer.Listene
      */
     inner class LocalBinder : Binder() {
         fun getService(): ForegroundService = this@ForegroundService
+    }
+
+    /**
+     * Интерфейс нотификации при изменении состояния таймера
+     */
+    interface Listener {
+        /**
+         * Метод нотификации при изменении состояния таймера
+         *
+         * @param currentValue текущее значение или null, если таймер остановлен
+         */
+        fun onTimerChange(currentValue: String?)
     }
 
     companion object {
