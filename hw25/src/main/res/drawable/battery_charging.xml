@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/ic_baseline_power_24" android:state_enabled="true" />
-    <item android:drawable="@drawable/ic_sharp_power_off_24" android:state_enabled="false" />
-</selector>

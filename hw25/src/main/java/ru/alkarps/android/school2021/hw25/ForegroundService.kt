@@ -7,14 +7,16 @@ import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import android.view.View
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
+import ru.alkarps.android.school2021.hw25.timer.Timer
 import java.util.*
 
-class ForegroundService : Service(), PhoneStatusReceiver.Listener {
+class ForegroundService : Service(), PhoneStatusReceiver.Listener, Timer.Listener {
     var onForeground = false
         private set
-
+    private val timer = Timer(this)
     private lateinit var phoneStatusReceiver: PhoneStatusReceiver
     private lateinit var phoneState: PhoneStatusReceiver.PhoneState
 
@@ -37,7 +39,7 @@ class ForegroundService : Service(), PhoneStatusReceiver.Listener {
             Log.i(TAG, "${it.action}")
             when (it.action) {
                 START_INTENT -> {
-                    startForeground(NOTIFICATION_ID, createNotification())
+                    startForeground()
                     onForeground = true
                 }
                 STOP_INTENT -> {
@@ -45,14 +47,25 @@ class ForegroundService : Service(), PhoneStatusReceiver.Listener {
                     stopSelf()
                     onForeground = false
                 }
+                START_TIMER_INTENT -> timer.start()
+                PAUSE_TIMER_INTENT -> timer.pause()
+                STOP_TIMER_INTENT -> timer.stop()
             }
         }
         return START_NOT_STICKY
     }
 
+    private fun startForeground() {
+        startForeground(NOTIFICATION_ID, createNotification())
+    }
+
     override fun onChange(phoneState: PhoneStatusReceiver.PhoneState) {
         this.phoneState = phoneState
-        if (onForeground) startForeground(NOTIFICATION_ID, createNotification())
+        if (onForeground) startForeground()
+    }
+
+    override fun onTick(value: Long) {
+        startForeground()
     }
 
     private fun createNotification(): Notification {
@@ -61,7 +74,7 @@ class ForegroundService : Service(), PhoneStatusReceiver.Listener {
             .setSmallIcon(R.drawable.ic_baseline_timer_24)
             .setContentTitle(getString(R.string.fg_notification_title))
             .setCustomContentView(createRemoveView(R.layout.small_notification))
-            .setCustomBigContentView(createRemoveView(R.layout.big_notification))
+            .setCustomBigContentView(createBigRemoveView(R.layout.big_notification))
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
@@ -78,6 +91,24 @@ class ForegroundService : Service(), PhoneStatusReceiver.Listener {
             else R.drawable.ic_sharp_power_off_24
         )
         view.setOnClickPendingIntent(R.id.stop_service, stopIntent())
+        return view
+    }
+
+    private fun createBigRemoveView(layoutId: Int): RemoteViews {
+        Log.i(TAG, timer.status.name)
+        val view = createRemoveView(layoutId)
+        view.setOnClickPendingIntent(R.id.stop_timer, stopTimerIntent())
+        view.setOnClickPendingIntent(R.id.start_timer, startTimerIntent())
+        view.setOnClickPendingIntent(R.id.pause_timer, pauseTimerIntent())
+        if (timer.status != Timer.Status.STOPPED) {
+            view.setTextViewText(R.id.timer_value, timer.getCurrentValue())
+            view.setViewVisibility(R.id.timer_value, View.VISIBLE)
+        }
+        if (timer.status != Timer.Status.STARTED)
+            view.setViewVisibility(R.id.start_timer, View.VISIBLE)
+        else view.setViewVisibility(R.id.pause_timer, View.VISIBLE)
+        if (timer.status == Timer.Status.PAUSED)
+            view.setViewVisibility(R.id.timer_pause_status, View.VISIBLE)
         return view
     }
 
@@ -100,6 +131,12 @@ class ForegroundService : Service(), PhoneStatusReceiver.Listener {
 
     private fun stopIntent(): PendingIntent = newIntent(STOP_INTENT)
 
+    private fun startTimerIntent(): PendingIntent = newIntent(START_TIMER_INTENT)
+
+    private fun pauseTimerIntent(): PendingIntent = newIntent(PAUSE_TIMER_INTENT)
+
+    private fun stopTimerIntent(): PendingIntent = newIntent(STOP_TIMER_INTENT)
+
     private fun newIntent(action: String): PendingIntent {
         val intent = Intent(this, ForegroundService::class.java).apply { this.action = action }
         return PendingIntent.getService(this, 0, intent, 0)
@@ -115,5 +152,11 @@ class ForegroundService : Service(), PhoneStatusReceiver.Listener {
         private const val TAG = "ForegroundService"
         const val START_INTENT = "ru.alkarps.android.school2021.hw25.ForegroundService.START_INTENT"
         const val STOP_INTENT = "ru.alkarps.android.school2021.hw25.ForegroundService.STOP_INTENT"
+        const val START_TIMER_INTENT =
+            "ru.alkarps.android.school2021.hw25.ForegroundService.START_TIMER_INTENT"
+        const val PAUSE_TIMER_INTENT =
+            "ru.alkarps.android.school2021.hw25.ForegroundService.PAUSE_TIMER_INTENT"
+        const val STOP_TIMER_INTENT =
+            "ru.alkarps.android.school2021.hw25.ForegroundService.STOP_TIMER_INTENT"
     }
 }

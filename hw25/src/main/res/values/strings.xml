@@ -8,4 +8,7 @@
     <string name="current_time_label">Текущее время:</string>
     <string name="stop_service_label">Выключить сервис</string>
     <string name="notification_title_label">Мониторинг состояния телефона</string>
+    <string name="timer_label">Таймер:</string>
+    <string name="start_timer_label">Старт</string>
+    <string name="pause_timer_label">Пауза</string>
 </resources>
