@@ -13,6 +13,9 @@ import androidx.core.app.NotificationCompat
 import ru.alkarps.android.school2021.hw25.timer.Timer
 import java.util.*
 
+/**
+ * Foreground сервис для мониторинга статуса телефона и запуска таймера
+ */
 class ForegroundService : Service(), PhoneStatusReceiver.Listener, Timer.Listener {
     var onForeground = false
         private set
@@ -59,11 +62,21 @@ class ForegroundService : Service(), PhoneStatusReceiver.Listener, Timer.Listene
         startForeground(NOTIFICATION_ID, createNotification())
     }
 
+    /**
+     * Реализация колбэк-метода для слежением за статусом устройства
+     *
+     * @param value текущее значение
+     */
     override fun onChange(phoneState: PhoneStatusReceiver.PhoneState) {
         this.phoneState = phoneState
         if (onForeground) startForeground()
     }
 
+    /**
+     * Реализация колбэк-метода для слежением за изменением таймера
+     *
+     * @param value текущее значение
+     */
     override fun onTick(value: Long) {
         startForeground()
     }
@@ -142,6 +155,9 @@ class ForegroundService : Service(), PhoneStatusReceiver.Listener, Timer.Listene
         return PendingIntent.getService(this, 0, intent, 0)
     }
 
+    /**
+     * Класс реализации [Binder] для получения информации о привязке активити к сервису
+     */
     inner class LocalBinder : Binder() {
         fun getService(): ForegroundService = this@ForegroundService
     }

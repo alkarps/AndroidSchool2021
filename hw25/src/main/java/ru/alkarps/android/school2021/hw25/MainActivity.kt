@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import ru.alkarps.android.school2021.hw25.ForegroundService.Companion.START_INTENT
 import ru.alkarps.android.school2021.hw25.databinding.ActivityMainBinding
 
+/**
+ * Активити главного экрана
+ */
 class MainActivity : AppCompatActivity() {
     private val serviceConnection = ForegroundServiceConnection()
     private lateinit var binding: ActivityMainBinding
