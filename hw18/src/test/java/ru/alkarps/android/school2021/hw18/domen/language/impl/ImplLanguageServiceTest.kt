@@ -1,6 +1,7 @@
 package ru.alkarps.android.school2021.hw18.domen.language.impl
 
 import io.mockk.every
+import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
@@ -37,9 +38,11 @@ class ImplLanguageServiceTest {
         val expected = Language("RU", "Russian Federation")
         every { repository.getLanguages() } returns null
         every { client.getLanguages() } returns listOf(expected)
+        justRun { repository.saveLanguages(any()) }
         assertThat(testService.getLanguages()).isNotNull.hasSize(1).containsOnly(expected)
         verify { repository.getLanguages() }
         verify { client.getLanguages() }
+        verify { repository.saveLanguages(listOf(expected)) }
     }
 
     @Test

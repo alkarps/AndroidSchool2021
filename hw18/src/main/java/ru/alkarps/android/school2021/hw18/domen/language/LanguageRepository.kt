@@ -12,10 +12,16 @@ interface LanguageRepository {
      * @return текущий язык или null, если такого нет
      */
     fun getCurrentLanguage(): Language?
+
     /**
      * Метод получения всех доступных языков
      *
      * @return список доступных языков или null, если такого нет
      */
-    fun getLanguages():List<Language>?
+    fun getLanguages(): List<Language>?
+
+    /**
+     * Метод сохранения всех доступных языков в локальном хранилище
+     */
+    fun saveLanguages(languages: List<Language>)
 }

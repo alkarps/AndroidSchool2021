@@ -24,6 +24,7 @@ class ImplLanguageService(
 
     override fun getLanguages(): List<Language> {
         return repository.getLanguages() ?: client.getLanguages()
+            .apply { repository.saveLanguages(this) }
     }
 
     companion object {
