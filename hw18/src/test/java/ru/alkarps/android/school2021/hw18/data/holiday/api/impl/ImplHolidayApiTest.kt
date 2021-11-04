@@ -23,7 +23,7 @@ import ru.alkarps.android.school2021.hw18.data.holiday.model.DateInfoDTO
 import ru.alkarps.android.school2021.hw18.data.holiday.model.HolidayDTO
 import ru.alkarps.android.school2021.hw18.data.holiday.model.HolidayResponseDTO
 import ru.alkarps.android.school2021.hw18.data.holiday.model.WeekdayDTO
-import ru.alkarps.android.school2021.hw18.domen.model.HolidayApiException
+import ru.alkarps.android.school2021.hw18.domen.model.exception.HolidayApiException
 import ru.alkarps.android.school2021.hw18.domen.model.Period
 
 class ImplHolidayApiTest {

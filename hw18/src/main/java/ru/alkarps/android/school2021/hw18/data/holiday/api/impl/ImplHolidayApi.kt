@@ -9,7 +9,7 @@ import ru.alkarps.android.school2021.hw18.data.api.ApiConst
 import ru.alkarps.android.school2021.hw18.data.holiday.api.HolidayApi
 import ru.alkarps.android.school2021.hw18.data.holiday.model.HolidayDTO
 import ru.alkarps.android.school2021.hw18.data.holiday.model.HolidayResponseDTO
-import ru.alkarps.android.school2021.hw18.domen.model.HolidayApiException
+import ru.alkarps.android.school2021.hw18.domen.model.exception.HolidayApiException
 import ru.alkarps.android.school2021.hw18.domen.model.Period
 import javax.inject.Inject
 

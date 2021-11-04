@@ -1,4 +1,4 @@
-package ru.alkarps.android.school2021.hw18.domen.model
+package ru.alkarps.android.school2021.hw18.domen.model.exception
 
 /**
  * Ошибка при вызове HolidayApi
