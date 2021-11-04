@@ -4,7 +4,7 @@ import ru.alkarps.android.school2021.hw18.data.holiday.model.HolidayDTO
 import ru.alkarps.android.school2021.hw18.domen.model.Holiday
 
 /**
- * Конвертер список [HolidayDTO] в список [Holiday]
+ * Конвертер представления праздников в дата слое в представление праздников бизнес слоя
  */
 interface HolidayConverter {
     /**

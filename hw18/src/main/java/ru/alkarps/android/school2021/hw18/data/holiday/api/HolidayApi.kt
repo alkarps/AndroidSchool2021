@@ -4,7 +4,7 @@ import ru.alkarps.android.school2021.hw18.data.holiday.model.HolidayDTO
 import ru.alkarps.android.school2021.hw18.domen.model.Period
 
 /**
- * API для вызове сервиса HolidayApi
+ * API для вызове сервиса HolidayApi для получения праздников
  */
 interface HolidayApi {
     /**
