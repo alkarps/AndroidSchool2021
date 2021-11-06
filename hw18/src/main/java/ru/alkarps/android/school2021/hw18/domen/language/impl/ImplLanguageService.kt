@@ -5,6 +5,7 @@ import ru.alkarps.android.school2021.hw18.domen.language.LanguageRepository
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageService
 import ru.alkarps.android.school2021.hw18.domen.model.Language
 import ru.alkarps.android.school2021.hw18.domen.settings.SettingsRepository
+import javax.inject.Inject
 
 /**
  * Реализация [LanguageService]
@@ -14,7 +15,7 @@ import ru.alkarps.android.school2021.hw18.domen.settings.SettingsRepository
  * @property client клиент для получения доступных языков
  * @constructor Создает новую реализацию сервиса [LanguageService]
  */
-class ImplLanguageService(
+class ImplLanguageService @Inject constructor(
     private val settings: SettingsRepository,
     private val repository: LanguageRepository,
     private val client: LanguageClient
