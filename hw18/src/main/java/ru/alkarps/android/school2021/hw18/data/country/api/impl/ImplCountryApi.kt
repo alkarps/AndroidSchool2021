@@ -10,6 +10,7 @@ import ru.alkarps.android.school2021.hw18.data.country.api.CountryApi
 import ru.alkarps.android.school2021.hw18.data.country.model.CountriesResponseDTO
 import ru.alkarps.android.school2021.hw18.data.country.model.CountryDTO
 import ru.alkarps.android.school2021.hw18.domen.model.exception.HolidayApiException
+import javax.inject.Inject
 
 /**
  * Реализация [CountryApi]
@@ -18,7 +19,7 @@ import ru.alkarps.android.school2021.hw18.domen.model.exception.HolidayApiExcept
  * @property jsonSerializer [Json] для десериализации ответа
  * @constructor Новый экземпляр реализации [CountryApi]
  */
-class ImplCountryApi(
+class ImplCountryApi @Inject constructor(
     private val okHttpClient: OkHttpClient,
     private val jsonSerializer: Json
 ) : CountryApi {

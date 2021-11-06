@@ -2,6 +2,11 @@ package ru.alkarps.android.school2021.hw18.data.di
 
 import dagger.Binds
 import dagger.Module
+import ru.alkarps.android.school2021.hw18.data.country.ImplCountryClient
+import ru.alkarps.android.school2021.hw18.data.country.api.CountryApi
+import ru.alkarps.android.school2021.hw18.data.country.api.impl.ImplCountryApi
+import ru.alkarps.android.school2021.hw18.data.country.converter.CountryConverter
+import ru.alkarps.android.school2021.hw18.data.country.converter.impl.ImplCountryConverter
 import ru.alkarps.android.school2021.hw18.data.holiday.ImplHolidayClient
 import ru.alkarps.android.school2021.hw18.data.holiday.api.HolidayApi
 import ru.alkarps.android.school2021.hw18.data.holiday.api.impl.ImplHolidayApi
@@ -14,6 +19,7 @@ import ru.alkarps.android.school2021.hw18.data.language.api.impl.ImplLanguageApi
 import ru.alkarps.android.school2021.hw18.data.language.converter.LanguageConverter
 import ru.alkarps.android.school2021.hw18.data.language.converter.impl.ImplLanguageConverter
 import ru.alkarps.android.school2021.hw18.data.settings.ImplSettingsRepository
+import ru.alkarps.android.school2021.hw18.domen.country.CountryClient
 import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayClient
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageClient
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageRepository
@@ -34,6 +40,9 @@ interface DataBindsModule {
     fun bindsHolidayClient(impl: ImplHolidayClient): HolidayClient
 
     @Binds
+    fun bindsSettingsRepository(impl: ImplSettingsRepository): SettingsRepository
+
+    @Binds
     fun languageApi(impl: ImplLanguageApi): LanguageApi
 
     @Binds
@@ -43,8 +52,14 @@ interface DataBindsModule {
     fun bindsLanguageClient(impl: ImplLanguageClient): LanguageClient
 
     @Binds
-    fun bindsSettingsRepository(impl: ImplSettingsRepository): SettingsRepository
+    fun bindsLanguageRepository(impl: ImplLanguageRepository): LanguageRepository
 
     @Binds
-    fun bindsLanguageRepository(impl: ImplLanguageRepository): LanguageRepository
+    fun countryApi(impl: ImplCountryApi): CountryApi
+
+    @Binds
+    fun countryConverter(impl: ImplCountryConverter): CountryConverter
+
+    @Binds
+    fun bindsCountryClient(impl: ImplCountryClient): CountryClient
 }

@@ -1,6 +1,7 @@
 package ru.alkarps.android.school2021.hw18.data.di
 
 import dagger.Component
+import ru.alkarps.android.school2021.hw18.domen.country.CountryClient
 import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayClient
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageClient
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageRepository
@@ -20,13 +21,6 @@ interface DataComponent {
     fun holidayClient(): HolidayClient
 
     /**
-     * Клиент для получения доступных языков
-     *
-     * @return инстанс реализации [LanguageClient]
-     */
-    fun languageClient(): LanguageClient
-
-    /**
      * Хранилище настроек приложения
      *
      * @return инстанс реализации [SettingsRepository]
@@ -34,9 +28,23 @@ interface DataComponent {
     fun settingsRepository(): SettingsRepository
 
     /**
+     * Клиент для получения доступных языков
+     *
+     * @return инстанс реализации [LanguageClient]
+     */
+    fun languageClient(): LanguageClient
+
+    /**
      * Хранилище доступных языков
      *
      * @return инстанс реализации [LanguageRepository]
      */
     fun languageRepository(): LanguageRepository
+
+    /**
+     * Клиент для получения доступных стран и ТП
+     *
+     * @return инстанс реализации [CountryClient]
+     */
+    fun countryClient(): CountryClient
 }

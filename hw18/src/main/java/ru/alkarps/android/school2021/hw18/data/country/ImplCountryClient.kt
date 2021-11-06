@@ -4,6 +4,7 @@ import ru.alkarps.android.school2021.hw18.data.country.api.CountryApi
 import ru.alkarps.android.school2021.hw18.data.country.converter.CountryConverter
 import ru.alkarps.android.school2021.hw18.domen.country.CountryClient
 import ru.alkarps.android.school2021.hw18.domen.model.CountryWithSubdivision
+import javax.inject.Inject
 
 /**
  * Реализация [CountryClient]
@@ -11,7 +12,7 @@ import ru.alkarps.android.school2021.hw18.domen.model.CountryWithSubdivision
  * @property api апи для вызова HolidayApi
  * @property converter конвертер моделей
  */
-class ImplCountryClient(
+class ImplCountryClient @Inject constructor(
     private val api: CountryApi,
     private val converter: CountryConverter
 ) : CountryClient {
