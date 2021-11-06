@@ -5,7 +5,6 @@ import ru.alkarps.android.school2021.hw18.domen.model.Language
 
 /**
  * Конвертер представления языков в дата слое в представление языков бизнес слоя
- *
  */
 interface LanguageConverter {
     /**
