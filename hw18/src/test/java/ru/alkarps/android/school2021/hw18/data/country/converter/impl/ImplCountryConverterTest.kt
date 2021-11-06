@@ -22,16 +22,21 @@ class ImplCountryConverterTest {
                 listOf(
                     CountryWithSubdivision(
                         Country(
-                            countryDTO.code,
+                            countryDTO.code.lowercase(),
                             countryDTO.name,
-                            countryDTO.languages,
+                            countryDTO.languages.map { it.lowercase() },
                             countryDTO.flag
                         ),
                         listOf(
                             Subdivision(
-                                subdivisionDTO.code,
+                                subdivisionDTO.code.lowercase(),
                                 subdivisionDTO.name,
-                                subdivisionDTO.languages
+                                subdivisionDTO.languages.map { it.lowercase() }
+                            ),
+                            Subdivision(
+                                countryDTO.code.lowercase(),
+                                countryDTO.name,
+                                countryDTO.languages.map { it.lowercase() }
                             )
                         )
                     )

@@ -46,7 +46,7 @@ class ImplCountryApi @Inject constructor(
     }
 
     private fun buildUrl() =
-        ApiConst.HOLIDAYS_URL.toHttpUrl().newBuilder()
+        ApiConst.COUNTRIES_URL.toHttpUrl().newBuilder()
             .addQueryParameter("key", ApiConst.KEY)
             .build()
 }

@@ -116,32 +116,35 @@ class ImplCountryRepository @Inject constructor(
 
     override fun saveCountryWithSubdivisions(countriesWithSubdivision: List<CountryWithSubdivision>) {
         if (countriesWithSubdivision.isNotEmpty()) {
-            val countries = ContentValues()
-            val subdivisions = ContentValues()
-            countriesWithSubdivision.forEach {
-                countries.put(DBHelper.COUNTRY_CODE, it.country.code.lowercase())
-                countries.put(DBHelper.COUNTRY_NAME, it.country.name)
-                countries.put(
-                    DBHelper.COUNTRY_LANGUAGES,
-                    it.country.languageCodes.joinToString(",")
-                )
-                countries.put(DBHelper.COUNTRY_FLAG, it.country.flag)
-                it.subdivisions.forEach { d ->
-                    subdivisions.put(DBHelper.SUBDIVISION_CODE, d.code.lowercase())
-                    subdivisions.put(DBHelper.SUBDIVISION_COUNTRY_CODE, it.country.code)
-                    subdivisions.put(DBHelper.SUBDIVISION_NAME, d.name)
-                    subdivisions.put(
-                        DBHelper.SUBDIVISION_LANGUAGES,
-                        d.languageCodes.joinToString(",")
-                    )
-                }
-            }
-            helper.writableDatabase.use {
-                it.transaction {
+            helper.writableDatabase.use { db ->
+                db.transaction {
                     this.delete(DBHelper.SUBDIVISION_TABLE, null, null)
                     this.delete(DBHelper.COUNTRY_TABLE, null, null)
-                    this.insert(DBHelper.COUNTRY_TABLE, null, countries)
-                    this.insert(DBHelper.SUBDIVISION_TABLE, null, subdivisions)
+
+                    countriesWithSubdivision.map {
+                        ContentValues().apply {
+                            put(DBHelper.COUNTRY_CODE, it.country.code.lowercase())
+                            put(DBHelper.COUNTRY_NAME, it.country.name)
+                            put(
+                                DBHelper.COUNTRY_LANGUAGES,
+                                it.country.languageCodes.joinToString(",")
+                            )
+                            put(DBHelper.COUNTRY_FLAG, it.country.flag)
+                        }
+                    }.forEach { insert(DBHelper.COUNTRY_TABLE, null, it) }
+                    countriesWithSubdivision.flatMap { cwd ->
+                        cwd.subdivisions.map {
+                            ContentValues().apply {
+                                put(DBHelper.SUBDIVISION_CODE, it.code.lowercase())
+                                put(DBHelper.SUBDIVISION_COUNTRY_CODE, cwd.country.code)
+                                put(DBHelper.SUBDIVISION_NAME, it.name)
+                                put(
+                                    DBHelper.SUBDIVISION_LANGUAGES,
+                                    it.languageCodes.joinToString(",")
+                                )
+                            }
+                        }
+                    }.forEach { insert(DBHelper.SUBDIVISION_TABLE, null, it) }
                 }
             }
         }

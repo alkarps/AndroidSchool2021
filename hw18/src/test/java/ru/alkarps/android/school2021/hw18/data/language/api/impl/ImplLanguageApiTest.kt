@@ -141,6 +141,6 @@ class ImplLanguageApiTest {
     }
 
     private fun buildExpectedUrl() =
-        ApiConst.HOLIDAYS_URL.toHttpUrl().newBuilder()
+        ApiConst.LANGUAGES_URL.toHttpUrl().newBuilder()
             .addQueryParameter("key", ApiConst.KEY).build()
 }

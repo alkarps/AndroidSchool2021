@@ -17,12 +17,28 @@ class ImplCountryConverter @Inject constructor() : CountryConverter {
             CountryWithSubdivision(
                 toCountry(it),
                 it.subdivisions.map(this::toSubdivision)
+                    .toMutableList()
+                    .apply { add(toSubdivision(it)) }
             )
         }
 
     private fun toCountry(country: CountryDTO): Country =
-        Country(country.code, country.name, country.languages, country.flag)
+        Country(
+            country.code.lowercase(),
+            country.name,
+            country.languages.map { it.lowercase() },
+            country.flag
+        )
 
     private fun toSubdivision(subdivision: SubdivisionDTO): Subdivision =
-        Subdivision(subdivision.code, subdivision.name, subdivision.languages)
+        Subdivision(
+            subdivision.code.lowercase(),
+            subdivision.name,
+            subdivision.languages.map { it.lowercase() })
+
+    private fun toSubdivision(country: CountryDTO): Subdivision =
+        Subdivision(
+            country.code.lowercase(),
+            country.name,
+            country.languages.map { it.lowercase() })
 }

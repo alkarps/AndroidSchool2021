@@ -46,16 +46,17 @@ class ImplLanguageRepository @Inject constructor(
 
     override fun saveLanguages(languages: List<Language>) {
         if (languages.isNotEmpty()) {
-            val values = ContentValues().apply {
-                languages.forEach {
-                    put(DBHelper.LANGUAGE_CODE, it.code.lowercase())
-                    put(DBHelper.LANGUAGE_NAME, it.name)
-                }
-            }
-            helper.writableDatabase.use {
-                it.transaction {
+            helper.writableDatabase.use { db ->
+                db.transaction {
                     this.delete(DBHelper.LANGUAGE_TABLE, null, null)
-                    this.insert(DBHelper.LANGUAGE_TABLE, null, values)
+                    languages.map {
+                        ContentValues().apply {
+                            put(DBHelper.LANGUAGE_CODE, it.code.lowercase())
+                            put(DBHelper.LANGUAGE_NAME, it.name)
+                        }
+                    }.forEach {
+                        this.insert(DBHelper.LANGUAGE_TABLE, null, it)
+                    }
                 }
             }
         }

@@ -141,7 +141,7 @@ class ImplCountryApiTest {
     }
 
     private fun buildExpectedUrl() =
-        ApiConst.HOLIDAYS_URL.toHttpUrl().newBuilder()
+        ApiConst.COUNTRIES_URL.toHttpUrl().newBuilder()
             .addQueryParameter("key", ApiConst.KEY)
             .build()
 }
