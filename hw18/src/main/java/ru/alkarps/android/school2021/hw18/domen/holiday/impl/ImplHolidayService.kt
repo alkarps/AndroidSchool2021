@@ -1,5 +1,6 @@
 package ru.alkarps.android.school2021.hw18.domen.holiday.impl
 
+import ru.alkarps.android.school2021.hw18.domen.country.CountryService
 import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayClient
 import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayService
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageService
@@ -11,13 +12,20 @@ import javax.inject.Inject
  * Реализация сервиса [HolidayService]
  *
  * @property client клиент для получения праздников
+ * @property language сервис для работы с доступными языками
+ * @property country сервис для работы с доступными странами и ТП
  * @constructor Создает новую реализацию [HolidayService]
  */
 class ImplHolidayService @Inject constructor(
     private val client: HolidayClient,
-    private val language: LanguageService
+    private val language: LanguageService,
+    private val country: CountryService
 ) : HolidayService {
     override fun getHolidays(period: Period): List<Holiday> {
-        return client.getHoliday(period, language.getCurrentLanguage().code, "RU")
+        return client.getHoliday(
+            period,
+            language.getCurrentLanguage().code,
+            country.getCurrentSubdivision().code
+        )
     }
 }
