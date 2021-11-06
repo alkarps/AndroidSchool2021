@@ -7,8 +7,10 @@ import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
+import ru.alkarps.android.school2021.hw18.data.settings.ImplSettingsRepository.Companion.CURRENT_COUNTRY_KEY
 import ru.alkarps.android.school2021.hw18.data.settings.ImplSettingsRepository.Companion.CURRENT_LANGUAGE_KEY
-import ru.alkarps.android.school2021.hw18.data.settings.ImplSettingsRepository.Companion.DEFAULT_LANGUAGE_CODE
+import ru.alkarps.android.school2021.hw18.data.settings.ImplSettingsRepository.Companion.CURRENT_SUBDIVISION_KEY
+import ru.alkarps.android.school2021.hw18.data.settings.ImplSettingsRepository.Companion.DEFAULT_CODE
 import ru.alkarps.android.school2021.hw18.domen.settings.SettingsRepository
 
 class ImplSettingsRepositoryTest {
@@ -23,16 +25,44 @@ class ImplSettingsRepositoryTest {
 
     @Test
     fun getCurrentLanguageCode_whenCodeIsExist_thenReturnIt() {
-        val code = "en"
+        assertExist(CURRENT_LANGUAGE_KEY) { repository.getCurrentLanguageCode() }
+    }
+
+    @Test
+    fun getCurrentCountryCode_whenCodeIsExist_thenReturnIt() {
+        assertExist(CURRENT_COUNTRY_KEY) { repository.getCurrentCountryCode() }
+    }
+
+    @Test
+    fun getCurrentSubdivisionCode_whenCodeIsExist_thenReturnIt() {
+        assertExist(CURRENT_SUBDIVISION_KEY) { repository.getCurrentSubdivisionCode() }
+    }
+
+    private fun assertExist(key: String, testMethod: () -> String) {
+        val code = "Code"
         every { preference.getString(any(), any()) } returns code
-        assertThat(repository.getCurrentLanguageCode()).isEqualTo(code)
-        verify { preference.getString(CURRENT_LANGUAGE_KEY, DEFAULT_LANGUAGE_CODE) }
+        assertThat(testMethod()).isEqualTo(code)
+        verify { preference.getString(key, DEFAULT_CODE) }
     }
 
     @Test
     fun getCurrentLanguageCode_whenCodeIsNotExist_thenReturnDefaultCode() {
+        assertNotExist(CURRENT_LANGUAGE_KEY) { repository.getCurrentLanguageCode() }
+    }
+
+    @Test
+    fun getCurrentCountryCode_whenCodeIsNotExist_thenReturnDefaultCode() {
+        assertNotExist(CURRENT_COUNTRY_KEY) { repository.getCurrentCountryCode() }
+    }
+
+    @Test
+    fun getCurrentSubdivisionCode_whenCodeIsNotExist_thenReturnDefaultCode() {
+        assertNotExist(CURRENT_SUBDIVISION_KEY) { repository.getCurrentSubdivisionCode() }
+    }
+
+    private fun assertNotExist(key: String, testMethod: () -> String) {
         every { preference.getString(any(), any()) } returns null
-        assertThat(repository.getCurrentLanguageCode()).isEqualTo(DEFAULT_LANGUAGE_CODE)
-        verify { preference.getString(CURRENT_LANGUAGE_KEY, DEFAULT_LANGUAGE_CODE) }
+        assertThat(testMethod()).isEqualTo(DEFAULT_CODE)
+        verify { preference.getString(key, DEFAULT_CODE) }
     }
 }
