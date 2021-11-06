@@ -2,6 +2,7 @@ package ru.alkarps.android.school2021.hw18.data.di
 
 import dagger.Component
 import ru.alkarps.android.school2021.hw18.domen.country.CountryClient
+import ru.alkarps.android.school2021.hw18.domen.country.CountryRepository
 import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayClient
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageClient
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageRepository
@@ -47,4 +48,11 @@ interface DataComponent {
      * @return инстанс реализации [CountryClient]
      */
     fun countryClient(): CountryClient
+
+    /**
+     * Хранилище доступных стран и ТП
+     *
+     * @return инстанс реализации [CountryRepository]
+     */
+    fun countryRepository(): CountryRepository
 }

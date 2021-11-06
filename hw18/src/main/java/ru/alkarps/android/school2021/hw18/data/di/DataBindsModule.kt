@@ -3,6 +3,7 @@ package ru.alkarps.android.school2021.hw18.data.di
 import dagger.Binds
 import dagger.Module
 import ru.alkarps.android.school2021.hw18.data.country.ImplCountryClient
+import ru.alkarps.android.school2021.hw18.data.country.ImplCountryRepository
 import ru.alkarps.android.school2021.hw18.data.country.api.CountryApi
 import ru.alkarps.android.school2021.hw18.data.country.api.impl.ImplCountryApi
 import ru.alkarps.android.school2021.hw18.data.country.converter.CountryConverter
@@ -20,6 +21,7 @@ import ru.alkarps.android.school2021.hw18.data.language.converter.LanguageConver
 import ru.alkarps.android.school2021.hw18.data.language.converter.impl.ImplLanguageConverter
 import ru.alkarps.android.school2021.hw18.data.settings.ImplSettingsRepository
 import ru.alkarps.android.school2021.hw18.domen.country.CountryClient
+import ru.alkarps.android.school2021.hw18.domen.country.CountryRepository
 import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayClient
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageClient
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageRepository
@@ -62,4 +64,7 @@ interface DataBindsModule {
 
     @Binds
     fun bindsCountryClient(impl: ImplCountryClient): CountryClient
+
+    @Binds
+    fun bindsCountryRepository(impl: ImplCountryRepository): CountryRepository
 }

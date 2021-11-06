@@ -7,13 +7,16 @@ import ru.alkarps.android.school2021.hw18.domen.country.CountryRepository
 import ru.alkarps.android.school2021.hw18.domen.model.Country
 import ru.alkarps.android.school2021.hw18.domen.model.CountryWithSubdivision
 import ru.alkarps.android.school2021.hw18.domen.model.Subdivision
+import javax.inject.Inject
 
 /**
  * Реализация [CountryRepository]
  *
  * @property helper вспомогательный класс управления БД
  */
-class ImplCountryRepository(private val helper: DBHelper) : CountryRepository {
+class ImplCountryRepository @Inject constructor(
+    private val helper: DBHelper
+) : CountryRepository {
     override fun getCountries(): List<Country>? {
         var result: MutableList<Country>? = null
         helper.readableDatabase.use { db ->
