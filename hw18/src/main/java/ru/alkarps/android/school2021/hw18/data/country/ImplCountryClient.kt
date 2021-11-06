@@ -8,6 +8,8 @@ import ru.alkarps.android.school2021.hw18.domen.model.CountryWithSubdivision
 /**
  * Реализация [CountryClient]
  *
+ * @property api апи для вызова HolidayApi
+ * @property converter конвертер моделей
  */
 class ImplCountryClient(
     private val api: CountryApi,
