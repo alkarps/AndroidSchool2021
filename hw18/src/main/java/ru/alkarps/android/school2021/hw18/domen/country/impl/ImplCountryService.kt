@@ -7,6 +7,7 @@ import ru.alkarps.android.school2021.hw18.domen.model.Country
 import ru.alkarps.android.school2021.hw18.domen.model.CountryWithSubdivision
 import ru.alkarps.android.school2021.hw18.domen.model.Subdivision
 import ru.alkarps.android.school2021.hw18.domen.settings.SettingsRepository
+import javax.inject.Inject
 
 /**
  * Реализация [CountryService]
@@ -15,7 +16,7 @@ import ru.alkarps.android.school2021.hw18.domen.settings.SettingsRepository
  * @property repository репозиторий с странами и их территориальными подразделениями
  * @property client клиент для получения стран и их территориальных подразделений
  */
-class ImplCountryService(
+class ImplCountryService @Inject constructor(
     private val settings: SettingsRepository,
     private val repository: CountryRepository,
     private val client: CountryClient

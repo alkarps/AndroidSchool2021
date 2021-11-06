@@ -2,6 +2,7 @@ package ru.alkarps.android.school2021.hw18.domen.di
 
 import dagger.Component
 import ru.alkarps.android.school2021.hw18.data.di.DataComponent
+import ru.alkarps.android.school2021.hw18.domen.country.CountryService
 import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayService
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageService
 
@@ -17,10 +18,18 @@ interface DomenComponent {
      * @return реализацию [HolidayService]
      */
     fun holidayService(): HolidayService
+
     /**
      * Бизнес-сервис для работы с доступными языками
      *
      * @return реализацию [LanguageService]
      */
     fun languageService(): LanguageService
+
+    /**
+     * Бизнес-сервис для работы с доступными странами и ТП
+     *
+     * @return реализацию [CountryService]
+     */
+    fun countryService(): CountryService
 }
