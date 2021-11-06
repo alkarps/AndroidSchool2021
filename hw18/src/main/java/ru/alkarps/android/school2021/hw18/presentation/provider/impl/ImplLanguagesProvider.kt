@@ -4,13 +4,14 @@ import io.reactivex.rxjava3.core.Single
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageService
 import ru.alkarps.android.school2021.hw18.domen.model.Language
 import ru.alkarps.android.school2021.hw18.presentation.provider.LanguagesProvider
+import javax.inject.Inject
 
 /**
  * Реализация [LanguageService]
  *
  * @constructor Новый объект реализации [LanguageService]
  */
-class ImplLanguagesProvider(
+class ImplLanguagesProvider @Inject constructor(
     private val languageService: LanguageService
 ) : LanguagesProvider {
     override fun getLanguages(): Single<List<Language>> =

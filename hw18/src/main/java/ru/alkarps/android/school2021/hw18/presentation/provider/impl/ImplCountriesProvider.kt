@@ -6,13 +6,14 @@ import ru.alkarps.android.school2021.hw18.presentation.model.CountryView
 import ru.alkarps.android.school2021.hw18.presentation.model.SubdivisionView
 import ru.alkarps.android.school2021.hw18.presentation.provider.CountriesProvider
 import ru.alkarps.android.school2021.hw18.presentation.provider.converter.CountryConverter
+import javax.inject.Inject
 
 /**
  * Реализация [CountriesProvider]
  *
  * @constructor Новый объект реализации [CountriesProvider]
  */
-class ImplCountriesProvider(
+class ImplCountriesProvider @Inject constructor(
     private val countryService: CountryService,
     private val countryConverter: CountryConverter
 ) : CountriesProvider {
