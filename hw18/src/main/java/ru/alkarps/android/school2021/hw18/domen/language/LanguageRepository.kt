@@ -7,21 +7,24 @@ import ru.alkarps.android.school2021.hw18.domen.model.Language
  */
 interface LanguageRepository {
     /**
-     * Метод получения текущего языка
-     *
-     * @return текущий язык или null, если такого нет
-     */
-    fun getCurrentLanguage(): Language?
-
-    /**
      * Метод получения всех доступных языков
      *
-     * @return список доступных языков или null, если такого нет
+     * @return список доступных языков или null, в случае их отсутствия в хранилище
      */
     fun getLanguages(): List<Language>?
 
     /**
-     * Метод сохранения всех доступных языков в локальном хранилище
+     * Сохранение языков с хранилище
+     *
+     * @param languages список доступных языков
      */
     fun saveLanguages(languages: List<Language>)
+
+    /**
+     * Поиск языка по коду
+     *
+     * @param code код языка
+     * @return язык или null, если он не найден
+     */
+    fun findLanguage(code: String): Language?
 }

@@ -11,17 +11,20 @@ import ru.alkarps.android.school2021.hw18.domen.language.LanguageClient
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageRepository
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageService
 import ru.alkarps.android.school2021.hw18.domen.model.Language
+import ru.alkarps.android.school2021.hw18.domen.settings.SettingsRepository
 
 class ImplLanguageServiceTest {
+    private lateinit var settings: SettingsRepository
     private lateinit var repository: LanguageRepository
     private lateinit var client: LanguageClient
     private lateinit var testService: LanguageService
 
     @Before
     fun setUp() {
+        settings = mockk()
         repository = mockk()
         client = mockk()
-        testService = ImplLanguageService(repository, client)
+        testService = ImplLanguageService(settings, repository, client)
     }
 
     @Test
@@ -46,31 +49,44 @@ class ImplLanguageServiceTest {
     }
 
     @Test
-    fun getCurrentLanguage_whenRepositoryHasCurrentLanguage_thenReturnIt() {
-        val expected = Language("EN", "USA")
-        every { repository.getCurrentLanguage() } returns expected
+    fun getCurrentLanguage_whenRepositoryFindLanguageByCode_thenReturnIt() {
+        val code = "fr"
+        val expected = Language(code, "French")
+        every { settings.getCurrentLanguageCode() } returns code
+        every { repository.findLanguage(any()) } returns expected
         assertThat(testService.getCurrentLanguage()).isEqualTo(expected)
-        verify { repository.getCurrentLanguage() }
+        verify { settings.getCurrentLanguageCode() }
+        verify { repository.findLanguage(code) }
         verify(exactly = 0) { repository.getLanguages() }
     }
 
     @Test
     fun getCurrentLanguage_whenRepositoryNotHasCurrentLanguage_thenFindDefaultLanguage() {
-        val expected = Language("RU", "Russian Federation")
-        every { repository.getCurrentLanguage() } returns null
-        every { repository.getLanguages() } returns listOf(expected)
+        val code = "fr"
+        val expected = Language(code, "French")
+        every { settings.getCurrentLanguageCode() } returns code
+        every { repository.findLanguage(any()) } returns null
+        every { client.getLanguages() } returns listOf(expected)
+        justRun { repository.saveLanguages(any()) }
         assertThat(testService.getCurrentLanguage()).isEqualTo(expected)
-        verify { repository.getCurrentLanguage() }
-        verify { repository.getLanguages() }
+        verify { settings.getCurrentLanguageCode() }
+        verify { repository.findLanguage(code) }
+        verify { client.getLanguages() }
+        verify { repository.saveLanguages(listOf(expected)) }
     }
 
     @Test
     fun getCurrentLanguage_whenNotFindFindDefaultLanguage_thenReturnUnknownLanguage() {
+        val code = "fr"
         val expected = Language("UNKNOWN", "UNKNOWN")
-        every { repository.getCurrentLanguage() } returns null
-        every { repository.getLanguages() } returns emptyList()
+        every { settings.getCurrentLanguageCode() } returns code
+        every { repository.findLanguage(any()) } returns null
+        every { client.getLanguages() } returns emptyList()
+        justRun { repository.saveLanguages(any()) }
         assertThat(testService.getCurrentLanguage()).isEqualTo(expected)
-        verify { repository.getCurrentLanguage() }
-        verify { repository.getLanguages() }
+        verify { settings.getCurrentLanguageCode() }
+        verify { repository.findLanguage(code) }
+        verify { client.getLanguages() }
+        verify { repository.saveLanguages(listOf()) }
     }
 }

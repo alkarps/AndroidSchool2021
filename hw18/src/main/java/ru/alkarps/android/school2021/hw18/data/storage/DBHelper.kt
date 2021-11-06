@@ -1,4 +1,4 @@
-package ru.alkarps.android.school2021.hw18.data.language.storage.helper
+package ru.alkarps.android.school2021.hw18.data.storage
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
