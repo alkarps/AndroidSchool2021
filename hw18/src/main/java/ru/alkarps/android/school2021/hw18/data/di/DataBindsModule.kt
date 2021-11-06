@@ -8,12 +8,16 @@ import ru.alkarps.android.school2021.hw18.data.holiday.api.impl.ImplHolidayApi
 import ru.alkarps.android.school2021.hw18.data.holiday.converter.HolidayConverter
 import ru.alkarps.android.school2021.hw18.data.holiday.converter.impl.ImplHolidayConverter
 import ru.alkarps.android.school2021.hw18.data.language.ImplLanguageClient
+import ru.alkarps.android.school2021.hw18.data.language.ImplLanguageRepository
 import ru.alkarps.android.school2021.hw18.data.language.api.LanguageApi
 import ru.alkarps.android.school2021.hw18.data.language.api.impl.ImplLanguageApi
 import ru.alkarps.android.school2021.hw18.data.language.converter.LanguageConverter
 import ru.alkarps.android.school2021.hw18.data.language.converter.impl.ImplLanguageConverter
+import ru.alkarps.android.school2021.hw18.data.settings.ImplSettingsRepository
 import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayClient
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageClient
+import ru.alkarps.android.school2021.hw18.domen.language.LanguageRepository
+import ru.alkarps.android.school2021.hw18.domen.settings.SettingsRepository
 
 /**
  * Модуль биндинга Data-слоя
@@ -37,4 +41,10 @@ interface DataBindsModule {
 
     @Binds
     fun bindsLanguageClient(impl: ImplLanguageClient): LanguageClient
+
+    @Binds
+    fun bindsSettingsRepository(impl: ImplSettingsRepository): SettingsRepository
+
+    @Binds
+    fun bindsLanguageRepository(impl: ImplLanguageRepository): LanguageRepository
 }

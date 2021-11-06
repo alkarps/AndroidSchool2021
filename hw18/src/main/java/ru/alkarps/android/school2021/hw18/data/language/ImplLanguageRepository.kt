@@ -6,6 +6,7 @@ import ru.alkarps.android.school2021.hw18.data.di.DataScope
 import ru.alkarps.android.school2021.hw18.data.storage.DBHelper
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageRepository
 import ru.alkarps.android.school2021.hw18.domen.model.Language
+import javax.inject.Inject
 
 /**
  * Реализация [LanguageRepository]
@@ -13,7 +14,9 @@ import ru.alkarps.android.school2021.hw18.domen.model.Language
  * @property helper вспомогательный класс управления БД
  */
 @DataScope
-class ImplLanguageRepository(private val helper: DBHelper) : LanguageRepository {
+class ImplLanguageRepository @Inject constructor(
+    private val helper: DBHelper
+) : LanguageRepository {
     override fun getLanguages(): List<Language>? {
         var result: MutableList<Language>? = null
         helper.readableDatabase.use { db ->

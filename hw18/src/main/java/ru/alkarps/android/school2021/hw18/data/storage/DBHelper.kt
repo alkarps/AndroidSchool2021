@@ -3,6 +3,7 @@ package ru.alkarps.android.school2021.hw18.data.storage
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import javax.inject.Inject
 
 /**
  * Класс управления версионированием БД и ее структурой.
@@ -10,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper
  * @param context контекст приложения
  * @constructor новый экземпляр класса
  */
-class DBHelper(
+class DBHelper @Inject constructor(
     context: Context?
 ) : SQLiteOpenHelper(context, DB_FILE_NAME, null, DB_VERSION) {
     /**
