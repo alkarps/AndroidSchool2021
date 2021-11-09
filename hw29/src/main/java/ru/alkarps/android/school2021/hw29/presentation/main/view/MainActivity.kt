@@ -1,11 +1,12 @@
 package ru.alkarps.android.school2021.hw29.presentation.main.view
 
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import ru.alkarps.android.school2021.hw29.databinding.ActivityMainBinding
+import ru.alkarps.android.school2021.hw29.presentation.main.view.adapter.DictionaryAdapter
 import ru.alkarps.android.school2021.hw29.presentation.main.view.model.DictionaryViewModel
 import ru.alkarps.android.school2021.hw29.presentation.main.view.model.factory.DictionaryViewModelFactory
 
@@ -19,17 +20,17 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, DictionaryViewModelFactory(applicationContext))
             .get(DictionaryViewModel::class.java)
-//        viewModel.insertData()
+        viewModel.insertData()
     }
 
     override fun onStart() {
         super.onStart()
         viewModel.loadDataRx()
         viewModel.dictionaryItems.observe(this) {
-            binding.words.text = TextUtils.join(",", it)
+            binding.words.adapter = DictionaryAdapter(it)
         }
         viewModel.errors.observe(this) {
-            Log.i("MainActivity", "Error", it)
+            Snackbar.make(binding.root, it.toString(), BaseTransientBottomBar.LENGTH_LONG).show()
         }
     }
 }
