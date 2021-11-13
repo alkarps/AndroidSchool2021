@@ -9,7 +9,7 @@ class DictionaryConverterImpl : IDictionaryConverter {
         DictionaryItemModel(0, di.keyword, di.translation)
 
     override fun fromModel(dim: DictionaryItemModel): DictionaryItem =
-        DictionaryItem(dim.keyword, dim.translation)
+        DictionaryItem(dim.keyword, dim.translation, dim.id)
 
     override fun fromModel(dims: List<DictionaryItemModel>): List<DictionaryItem> =
         dims.map { fromModel(it) }

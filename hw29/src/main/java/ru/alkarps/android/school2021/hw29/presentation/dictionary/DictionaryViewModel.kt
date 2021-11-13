@@ -27,7 +27,7 @@ class DictionaryViewModel(
         dictionaryInteractor.delete(id)
             .subscribeOn(schedulersProvider.back())
             .observeOn(schedulersProvider.main())
-            .subscribe({ finishing.value = true }, errors::setValue)
+            .subscribe({ loadDataRx() }, errors::setValue)
     }
 
     fun loadDataRx() {

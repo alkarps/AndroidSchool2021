@@ -24,6 +24,8 @@ class DictionaryAdapter(
 
     override fun getItemCount(): Int = items.size
 
+    override fun getItemId(position: Int): Long = items[position].id
+
     class DictionaryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = DictionaryItemBinding.bind(itemView)
         fun onBind(di: DictionaryItem) {
