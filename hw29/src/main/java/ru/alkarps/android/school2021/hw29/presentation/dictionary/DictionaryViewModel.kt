@@ -1,4 +1,4 @@
-package ru.alkarps.android.school2021.hw29.presentation.main.view.model
+package ru.alkarps.android.school2021.hw29.presentation.dictionary
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,15 +11,23 @@ class DictionaryViewModel(
     private val dictionaryInteractor: IDictionaryInteractor,
     private val schedulersProvider: SchedulersProvider
 ) : ViewModel() {
+    val finishing = MutableLiveData<Boolean>()
     val dictionaryItems = MutableLiveData<List<DictionaryItem>>()
     val errors = MutableLiveData<Throwable>()
     private var dictionaryDisposable: Disposable? = null
 
-    fun insertData() {
-        dictionaryInteractor.add(DictionaryItem("test", "test"))
+    fun insertWord(di: DictionaryItem) {
+        dictionaryInteractor.add(di)
             .subscribeOn(schedulersProvider.back())
             .observeOn(schedulersProvider.main())
-            .subscribe({}, errors::setValue)
+            .subscribe({ finishing.value = true }, errors::setValue)
+    }
+
+    fun removeWord(id: Long) {
+        dictionaryInteractor.delete(id)
+            .subscribeOn(schedulersProvider.back())
+            .observeOn(schedulersProvider.main())
+            .subscribe({ finishing.value = true }, errors::setValue)
     }
 
     fun loadDataRx() {

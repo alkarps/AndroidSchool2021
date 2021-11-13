@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidSchool2021">
         <activity
-            android:name=".presentation.main.view.MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,10 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <provider
-            android:authorities="ru.alkarps.android.school2021.hw29"
-            android:name=".data.datastories.providers.DictionaryContentProvider"
-            android:exported="true"/>
-    </application>
+        <activity
+            android:name=".presentation.add.AddActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
 
+        <provider
+            android:name=".data.datastories.providers.DictionaryContentProvider"
+            android:authorities="ru.alkarps.android.school2021.hw29"
+            android:exported="true" />
+    </application>
 </manifest>

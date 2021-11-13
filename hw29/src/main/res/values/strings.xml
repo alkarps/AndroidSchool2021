@@ -3,4 +3,9 @@
     <string name="word_label">Word: </string>
     <string name="translate_label">Translation: </string>
     <string name="add_new_word_label">Add new word</string>
+    <string name="add_word_label">Add word</string>
+    <string name="input_translation_hint_label">Input translation</string>
+    <string name="input_keyword_label">Input word</string>
+    <string name="keyword_label">Keyword:</string>
+    <string name="translation_label">Translation:</string>
 </resources>

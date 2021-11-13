@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?colorPrimary"
+        android:backgroundTint="?colorPrimary"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="start|center"
+            android:text="@string/keyword_label"
+            android:textColor="?colorButtonNormal"
+            android:textSize="@dimen/translation_text_size" />
+
+        <EditText
+            android:id="@+id/keyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/input_keyword_label"
+            android:inputType="textPersonName"
+            android:lines="1"
+            android:textColor="?colorButtonNormal"
+            android:textColorHighlight="?colorButtonNormal"
+            android:textColorHint="?colorButtonNormal"
+            android:textSize="@dimen/keyword_text_size" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="start|center"
+            android:text="@string/translation_label"
+            android:textColor="?colorButtonNormal"
+            android:textSize="@dimen/translation_text_size" />
+
+        <EditText
+            android:id="@+id/translation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/input_translation_hint_label"
+            android:inputType="textPersonName"
+            android:textColor="?colorButtonNormal"
+            android:textColorHighlight="?colorButtonNormal"
+            android:textColorHint="?colorButtonNormal"
+            android:textSize="@dimen/keyword_text_size" />
+    </LinearLayout>
+
+    <Button
+        android:layout_margin="10dp"
+        android:id="@+id/add_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_word_label"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

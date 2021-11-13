@@ -10,43 +10,19 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/keyword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:text="word"
+            android:textSize="@dimen/keyword_text_size" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/word_label"
-                android:textSize="@dimen/word_text_size" />
-
-            <TextView
-                android:id="@+id/keyword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="word"
-                android:textSize="@dimen/word_text_size" />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/translation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/translate_label"
-                android:textSize="@dimen/word_text_size" />
-
-            <TextView
-                android:id="@+id/translation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="word"
-                android:textSize="@dimen/word_text_size" />
-        </LinearLayout>
+            android:text="word"
+            android:textSize="@dimen/translation_text_size" />
     </LinearLayout>
 
     <ImageView

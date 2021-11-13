@@ -1,4 +1,4 @@
-package ru.alkarps.android.school2021.hw29.presentation.main.view.adapter
+package ru.alkarps.android.school2021.hw29.presentation.main.adapter
 
 import android.view.LayoutInflater
 import android.view.View
