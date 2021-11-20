@@ -47,7 +47,7 @@
 [HolidayApi]: ./src/main/java/ru/alkarps/android/school2021/hw18/data/holiday/api/HolidayApi.kt
 [ImplHolidayClient]: ./src/main/java/ru/alkarps/android/school2021/hw18/data/holiday/ImplHolidayClient.kt
 [HolidayClient]: ./src/main/java/ru/alkarps/android/school2021/hw18/domen/holiday/HolidayClient.kt
-[HolidayService]: ./src/main/java/ru/alkarps/android/school2021/hw18/domen/holiday/impl/ImplHolidayService.kt
+[HolidayService]: src/main/java/ru/alkarps/android/school2021/hw18/domen/holiday/impl/ImplHolidayInteractor.kt
 [HolidayProvider]: ./src/main/java/ru/alkarps/android/school2021/hw18/presentation/provider/impl/ImplHolidaysProvider.kt
 [DataComponent]: ./src/main/java/ru/alkarps/android/school2021/hw18/data/di/DataComponent.kt
 [DomenComponent]: ./src/main/java/ru/alkarps/android/school2021/hw18/domen/di/DomenComponent.kt

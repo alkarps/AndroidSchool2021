@@ -1,19 +1,19 @@
 package ru.alkarps.android.school2021.hw18.presentation.provider.impl
 
 import io.reactivex.rxjava3.core.Single
-import ru.alkarps.android.school2021.hw18.domen.language.LanguageService
+import ru.alkarps.android.school2021.hw18.domen.language.LanguageInteractor
 import ru.alkarps.android.school2021.hw18.domen.model.Language
 import ru.alkarps.android.school2021.hw18.presentation.provider.LanguagesProvider
 import javax.inject.Inject
 
 /**
- * Реализация [LanguageService]
+ * Реализация [LanguageInteractor]
  *
- * @constructor Новый объект реализации [LanguageService]
+ * @constructor Новый объект реализации [LanguageInteractor]
  */
 class ImplLanguagesProvider @Inject constructor(
-    private val languageService: LanguageService
+    private val languageInteractor: LanguageInteractor
 ) : LanguagesProvider {
     override fun getLanguages(): Single<List<Language>> =
-        Single.fromCallable { languageService.getLanguages() }
+        Single.fromCallable { languageInteractor.getLanguages() }
 }

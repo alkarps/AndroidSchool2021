@@ -5,7 +5,7 @@ import ru.alkarps.android.school2021.hw18.domen.model.Language
 /**
  * Сервис для работы с языками
  */
-interface LanguageService {
+interface LanguageInteractor {
     /**
      * Метод получения текущего языка
      *

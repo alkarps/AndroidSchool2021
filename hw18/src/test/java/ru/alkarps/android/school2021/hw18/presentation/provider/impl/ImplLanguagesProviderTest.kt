@@ -4,7 +4,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Test
-import ru.alkarps.android.school2021.hw18.domen.language.LanguageService
+import ru.alkarps.android.school2021.hw18.domen.language.LanguageInteractor
 import ru.alkarps.android.school2021.hw18.domen.model.Language
 
 class ImplLanguagesProviderTest {
@@ -12,7 +12,7 @@ class ImplLanguagesProviderTest {
     fun getLanguages() {
         val expected = listOf(Language("", ""))
 
-        val service = mockk<LanguageService>()
+        val service = mockk<LanguageInteractor>()
         every { service.getLanguages() } returns expected
 
         ImplLanguagesProvider(service)

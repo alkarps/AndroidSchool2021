@@ -6,7 +6,7 @@ import ru.alkarps.android.school2021.hw18.domen.model.Subdivision
 /**
  * Сервис для работы с странами и территориальными подразделениями
  */
-interface CountryService {
+interface CountryInteractor {
     /**
      * Метод получения текущего выбранного территориального подразделения
      *

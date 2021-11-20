@@ -4,7 +4,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Test
-import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayService
+import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayInteractor
 import ru.alkarps.android.school2021.hw18.domen.model.Holiday
 import ru.alkarps.android.school2021.hw18.domen.model.Period
 import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
@@ -20,7 +20,7 @@ class ImplHolidaysProviderTest {
             listOf(DayWithHolidaysView("day", listOf(HolidayView("", "", "day", "", true))))
         val period = Period(2020)
 
-        val service = mockk<HolidayService>()
+        val service = mockk<HolidayInteractor>()
         every { service.getHolidays(any()) } returns holidays
         val converter = mockk<HolidayConverter>()
         every { converter.toView(any()) } returns expected

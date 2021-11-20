@@ -9,29 +9,29 @@ import org.junit.Before
 import org.junit.Test
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageClient
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageRepository
-import ru.alkarps.android.school2021.hw18.domen.language.LanguageService
+import ru.alkarps.android.school2021.hw18.domen.language.LanguageInteractor
 import ru.alkarps.android.school2021.hw18.domen.model.Language
 import ru.alkarps.android.school2021.hw18.domen.settings.SettingsRepository
 
-class ImplLanguageServiceTest {
+class ImplLanguageInteractorTest {
     private lateinit var settings: SettingsRepository
     private lateinit var repository: LanguageRepository
     private lateinit var client: LanguageClient
-    private lateinit var testService: LanguageService
+    private lateinit var testInteractor: LanguageInteractor
 
     @Before
     fun setUp() {
         settings = mockk()
         repository = mockk()
         client = mockk()
-        testService = ImplLanguageService(settings, repository, client)
+        testInteractor = ImplLanguageInteractor(settings, repository, client)
     }
 
     @Test
     fun getLanguages_whenRepositoryHasLanguages_thenReturnIt() {
         val expected = Language("RU", "Russian Federation")
         every { repository.getLanguages() } returns listOf(expected)
-        assertThat(testService.getLanguages()).isNotNull.hasSize(1).containsOnly(expected)
+        assertThat(testInteractor.getLanguages()).isNotNull.hasSize(1).containsOnly(expected)
         verify { repository.getLanguages() }
         verify(exactly = 0) { client.getLanguages() }
     }
@@ -42,7 +42,7 @@ class ImplLanguageServiceTest {
         every { repository.getLanguages() } returns null
         every { client.getLanguages() } returns listOf(expected)
         justRun { repository.saveLanguages(any()) }
-        assertThat(testService.getLanguages()).isNotNull.hasSize(1).containsOnly(expected)
+        assertThat(testInteractor.getLanguages()).isNotNull.hasSize(1).containsOnly(expected)
         verify { repository.getLanguages() }
         verify { client.getLanguages() }
         verify { repository.saveLanguages(listOf(expected)) }
@@ -54,7 +54,7 @@ class ImplLanguageServiceTest {
         val expected = Language(code, "French")
         every { settings.getCurrentLanguageCode() } returns code
         every { repository.findLanguage(any()) } returns expected
-        assertThat(testService.getCurrentLanguage()).isEqualTo(expected)
+        assertThat(testInteractor.getCurrentLanguage()).isEqualTo(expected)
         verify { settings.getCurrentLanguageCode() }
         verify { repository.findLanguage(code) }
         verify(exactly = 0) { repository.getLanguages() }
@@ -68,7 +68,7 @@ class ImplLanguageServiceTest {
         every { repository.findLanguage(any()) } returns null
         every { client.getLanguages() } returns listOf(expected)
         justRun { repository.saveLanguages(any()) }
-        assertThat(testService.getCurrentLanguage()).isEqualTo(expected)
+        assertThat(testInteractor.getCurrentLanguage()).isEqualTo(expected)
         verify { settings.getCurrentLanguageCode() }
         verify { repository.findLanguage(code) }
         verify { client.getLanguages() }
@@ -83,7 +83,7 @@ class ImplLanguageServiceTest {
         every { repository.findLanguage(any()) } returns null
         every { client.getLanguages() } returns emptyList()
         justRun { repository.saveLanguages(any()) }
-        assertThat(testService.getCurrentLanguage()).isEqualTo(expected)
+        assertThat(testInteractor.getCurrentLanguage()).isEqualTo(expected)
         verify { settings.getCurrentLanguageCode() }
         verify { repository.findLanguage(code) }
         verify { client.getLanguages() }

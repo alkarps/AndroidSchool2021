@@ -6,7 +6,7 @@ import ru.alkarps.android.school2021.hw18.domen.model.Period
 /**
  * Сервис для получения праздников по периоду
  */
-interface HolidayService {
+interface HolidayInteractor {
     /**
      * Метод получения [Holiday] поуказанному [Period]
      *

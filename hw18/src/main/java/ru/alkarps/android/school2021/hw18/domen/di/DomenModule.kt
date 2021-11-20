@@ -2,12 +2,12 @@ package ru.alkarps.android.school2021.hw18.domen.di
 
 import dagger.Binds
 import dagger.Module
-import ru.alkarps.android.school2021.hw18.domen.country.CountryService
-import ru.alkarps.android.school2021.hw18.domen.country.impl.ImplCountryService
-import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayService
-import ru.alkarps.android.school2021.hw18.domen.holiday.impl.ImplHolidayService
-import ru.alkarps.android.school2021.hw18.domen.language.LanguageService
-import ru.alkarps.android.school2021.hw18.domen.language.impl.ImplLanguageService
+import ru.alkarps.android.school2021.hw18.domen.country.CountryInteractor
+import ru.alkarps.android.school2021.hw18.domen.country.impl.ImplCountryInteractor
+import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayInteractor
+import ru.alkarps.android.school2021.hw18.domen.holiday.impl.ImplHolidayInteractor
+import ru.alkarps.android.school2021.hw18.domen.language.LanguageInteractor
+import ru.alkarps.android.school2021.hw18.domen.language.impl.ImplLanguageInteractor
 
 /**
  * Модуль биндинга бизнес-слоя
@@ -15,11 +15,11 @@ import ru.alkarps.android.school2021.hw18.domen.language.impl.ImplLanguageServic
 @Module
 interface DomenModule {
     @Binds
-    fun bindsHolidayService(impl: ImplHolidayService): HolidayService
+    fun bindsHolidayService(impl: ImplHolidayInteractor): HolidayInteractor
 
     @Binds
-    fun bindsLanguageService(impl: ImplLanguageService): LanguageService
+    fun bindsLanguageService(impl: ImplLanguageInteractor): LanguageInteractor
 
     @Binds
-    fun bindsCountryService(impl: ImplCountryService): CountryService
+    fun bindsCountryService(impl: ImplCountryInteractor): CountryInteractor
 }
