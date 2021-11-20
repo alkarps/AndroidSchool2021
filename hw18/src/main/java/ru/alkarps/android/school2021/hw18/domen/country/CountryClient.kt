@@ -1,6 +1,6 @@
 package ru.alkarps.android.school2021.hw18.domen.country
 
-import ru.alkarps.android.school2021.hw18.domen.model.CountryWithSubdivision
+import ru.alkarps.android.school2021.hw18.domen.model.Country
 
 /**
  * Клиент для получения доступных стран и территориальных подразделений
@@ -11,5 +11,5 @@ interface CountryClient {
      *
      * @return страны и их территориальные подразделения
      */
-    fun getCountriesWithSubdivisions(): List<CountryWithSubdivision>
+    fun getCountries(): List<Country>
 }

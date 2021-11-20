@@ -4,7 +4,6 @@ import ru.alkarps.android.school2021.hw18.data.country.converter.CountryConverte
 import ru.alkarps.android.school2021.hw18.data.country.model.CountryDTO
 import ru.alkarps.android.school2021.hw18.data.country.model.SubdivisionDTO
 import ru.alkarps.android.school2021.hw18.domen.model.Country
-import ru.alkarps.android.school2021.hw18.domen.model.CountryWithSubdivision
 import ru.alkarps.android.school2021.hw18.domen.model.Subdivision
 import javax.inject.Inject
 
@@ -12,22 +11,18 @@ import javax.inject.Inject
  * Реализация [CountryConverter]
  */
 class ImplCountryConverter @Inject constructor() : CountryConverter {
-    override fun fromDto(countries: List<CountryDTO>): List<CountryWithSubdivision> =
-        countries.map {
-            CountryWithSubdivision(
-                toCountry(it),
-                it.subdivisions.map(this::toSubdivision)
-                    .toMutableList()
-                    .apply { add(toSubdivision(it)) }
-            )
-        }
+    override fun fromDto(countries: List<CountryDTO>): List<Country> =
+        countries.map { toCountry(it) }
 
     private fun toCountry(country: CountryDTO): Country =
         Country(
             country.code.lowercase(),
             country.name,
             country.languages.map { it.lowercase() },
-            country.flag
+            country.flag,
+            country.subdivisions.map { toSubdivision(it) }
+                .toMutableList()
+                .apply { add(toSubdivision(country)) }
         )
 
     private fun toSubdivision(subdivision: SubdivisionDTO): Subdivision =

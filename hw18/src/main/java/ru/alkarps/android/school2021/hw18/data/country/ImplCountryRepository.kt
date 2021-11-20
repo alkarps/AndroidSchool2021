@@ -5,7 +5,6 @@ import androidx.core.database.sqlite.transaction
 import ru.alkarps.android.school2021.hw18.data.storage.DBHelper
 import ru.alkarps.android.school2021.hw18.domen.country.CountryRepository
 import ru.alkarps.android.school2021.hw18.domen.model.Country
-import ru.alkarps.android.school2021.hw18.domen.model.CountryWithSubdivision
 import ru.alkarps.android.school2021.hw18.domen.model.Subdivision
 import javax.inject.Inject
 
@@ -43,7 +42,8 @@ class ImplCountryRepository @Inject constructor(
                             it.getString(it.getColumnIndexOrThrow(DBHelper.COUNTRY_NAME)),
                             it.getString(it.getColumnIndexOrThrow(DBHelper.COUNTRY_LANGUAGES))
                                 .split(","),
-                            it.getString(it.getColumnIndexOrThrow(DBHelper.COUNTRY_FLAG))
+                            it.getString(it.getColumnIndexOrThrow(DBHelper.COUNTRY_FLAG)),
+                            getSubdivisions(it.getString(it.getColumnIndexOrThrow(DBHelper.COUNTRY_CODE)))
                         )
                     )
                 }
@@ -52,8 +52,8 @@ class ImplCountryRepository @Inject constructor(
         return result
     }
 
-    override fun getSubdivisions(countryCode: String): List<Subdivision>? {
-        var result: MutableList<Subdivision>? = null
+    private fun getSubdivisions(countryCode: String): List<Subdivision> {
+        val result = mutableListOf<Subdivision>()
         helper.readableDatabase.use { db ->
             db.query(
                 DBHelper.SUBDIVISION_TABLE,
@@ -70,8 +70,7 @@ class ImplCountryRepository @Inject constructor(
                 null
             ).use {
                 while (it.moveToNext()) {
-                    if (result == null) result = mutableListOf()
-                    result?.add(
+                    result.add(
                         Subdivision(
                             it.getString(it.getColumnIndexOrThrow(DBHelper.SUBDIVISION_CODE)),
                             it.getString(it.getColumnIndexOrThrow(DBHelper.SUBDIVISION_NAME)),
@@ -114,29 +113,29 @@ class ImplCountryRepository @Inject constructor(
         return null
     }
 
-    override fun saveCountryWithSubdivisions(countriesWithSubdivision: List<CountryWithSubdivision>) {
-        if (countriesWithSubdivision.isNotEmpty()) {
+    override fun saveCountries(countries: List<Country>) {
+        if (countries.isNotEmpty()) {
             helper.writableDatabase.use { db ->
                 db.transaction {
                     this.delete(DBHelper.SUBDIVISION_TABLE, null, null)
                     this.delete(DBHelper.COUNTRY_TABLE, null, null)
 
-                    countriesWithSubdivision.map {
+                    countries.map {
                         ContentValues().apply {
-                            put(DBHelper.COUNTRY_CODE, it.country.code.lowercase())
-                            put(DBHelper.COUNTRY_NAME, it.country.name)
+                            put(DBHelper.COUNTRY_CODE, it.code.lowercase())
+                            put(DBHelper.COUNTRY_NAME, it.name)
                             put(
                                 DBHelper.COUNTRY_LANGUAGES,
-                                it.country.languageCodes.joinToString(",")
+                                it.languageCodes.joinToString(",")
                             )
-                            put(DBHelper.COUNTRY_FLAG, it.country.flag)
+                            put(DBHelper.COUNTRY_FLAG, it.flag)
                         }
                     }.forEach { insert(DBHelper.COUNTRY_TABLE, null, it) }
-                    countriesWithSubdivision.flatMap { cwd ->
+                    countries.flatMap { cwd ->
                         cwd.subdivisions.map {
                             ContentValues().apply {
                                 put(DBHelper.SUBDIVISION_CODE, it.code.lowercase())
-                                put(DBHelper.SUBDIVISION_COUNTRY_CODE, cwd.country.code)
+                                put(DBHelper.SUBDIVISION_COUNTRY_CODE, cwd.code)
                                 put(DBHelper.SUBDIVISION_NAME, it.name)
                                 put(
                                     DBHelper.SUBDIVISION_LANGUAGES,

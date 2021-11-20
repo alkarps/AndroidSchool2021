@@ -3,10 +3,10 @@ package ru.alkarps.android.school2021.hw18.presentation.model
 /**
  * Модель для отображения страны на View
  *
- * @property code код страны ISO 3166-1 alpha-2
- * @property name название страны
+ * @property country описание страны
+ * @property divisions описание ТП страны
  */
 data class CountryView(
-    val code: String,
-    val name: String
+    val country: DivisionView,
+    val divisions: List<DivisionView>,
 )

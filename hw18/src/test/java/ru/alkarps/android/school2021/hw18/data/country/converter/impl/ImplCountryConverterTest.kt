@@ -5,7 +5,6 @@ import org.junit.Test
 import ru.alkarps.android.school2021.hw18.data.country.model.CountryDTO
 import ru.alkarps.android.school2021.hw18.data.country.model.SubdivisionDTO
 import ru.alkarps.android.school2021.hw18.domen.model.Country
-import ru.alkarps.android.school2021.hw18.domen.model.CountryWithSubdivision
 import ru.alkarps.android.school2021.hw18.domen.model.Subdivision
 
 class ImplCountryConverterTest {
@@ -20,13 +19,11 @@ class ImplCountryConverterTest {
             .hasSize(1)
             .isEqualTo(
                 listOf(
-                    CountryWithSubdivision(
-                        Country(
-                            countryDTO.code.lowercase(),
-                            countryDTO.name,
-                            countryDTO.languages.map { it.lowercase() },
-                            countryDTO.flag
-                        ),
+                    Country(
+                        countryDTO.code.lowercase(),
+                        countryDTO.name,
+                        countryDTO.languages.map { it.lowercase() },
+                        countryDTO.flag,
                         listOf(
                             Subdivision(
                                 subdivisionDTO.code.lowercase(),

@@ -6,7 +6,7 @@ import org.junit.Test
 import ru.alkarps.android.school2021.hw18.domen.model.Country
 import ru.alkarps.android.school2021.hw18.domen.model.Subdivision
 import ru.alkarps.android.school2021.hw18.presentation.model.CountryView
-import ru.alkarps.android.school2021.hw18.presentation.model.SubdivisionView
+import ru.alkarps.android.school2021.hw18.presentation.model.DivisionView
 import ru.alkarps.android.school2021.hw18.presentation.provider.converter.CountryConverter
 
 class ImplCountryConverterTest {
@@ -21,15 +21,13 @@ class ImplCountryConverterTest {
 
     @Test
     fun countriesToView() {
-        val country = Country(code, name, emptyList(), "flag")
-        assertThat(testConverter.countriesToView(listOf(country)))
-            .isEqualTo(listOf(CountryView(code, name)))
-    }
-
-    @Test
-    fun subdivisionToView() {
-        val subdivision = Subdivision(code, name, emptyList())
-        assertThat(testConverter.subdivisionToView(listOf(subdivision)))
-            .isEqualTo(listOf(SubdivisionView(code, name)))
+        val country = Country(
+            code, name, emptyList(), "flag", listOf(Subdivision(code, name, emptyList()))
+        )
+        assertThat(testConverter.countriesToView(listOf(country))).isEqualTo(
+            listOf(
+                CountryView(DivisionView(code, name), listOf(DivisionView(code, name)))
+            )
+        )
     }
 }

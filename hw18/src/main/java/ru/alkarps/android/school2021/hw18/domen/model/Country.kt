@@ -12,5 +12,6 @@ data class Country(
     val code: String,
     val name: String,
     val languageCodes: List<String>,
-    val flag: String
+    val flag: String,
+    val subdivisions: List<Subdivision>
 )
