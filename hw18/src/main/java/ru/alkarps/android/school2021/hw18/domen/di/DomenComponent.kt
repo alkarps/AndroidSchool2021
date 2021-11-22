@@ -5,12 +5,13 @@ import ru.alkarps.android.school2021.hw18.data.di.DataComponent
 import ru.alkarps.android.school2021.hw18.domen.country.CountryInteractor
 import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayInteractor
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageInteractor
+import ru.alkarps.android.school2021.hw18.presentation.di.holiday.HolidayMainComponent
 
 /**
  * Компонент бизнес слоя
  */
 @DomenScope
-@Component(modules = [DomenModule::class], dependencies = [DataComponent::class])
+@Component(modules = [DomenModule::class, HolidayMainPresentation::class], dependencies = [DataComponent::class])
 interface DomenComponent {
     /**
      * Бизнес-сервис для работы с праздниками
@@ -32,4 +33,6 @@ interface DomenComponent {
      * @return реализацию [CountryInteractor]
      */
     fun countryService(): CountryInteractor
+
+    fun holidayMainFactory():HolidayMainComponent.Factory
 }

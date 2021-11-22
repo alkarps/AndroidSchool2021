@@ -3,7 +3,7 @@ package ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.MainViewModel
-import ru.alkarps.android.school2021.hw18.presentation.di.HolidayMainScope
+import ru.alkarps.android.school2021.hw18.presentation.di.holiday.HolidayMainScope
 import ru.alkarps.android.school2021.hw18.presentation.provider.HolidaysProvider
 import ru.alkarps.android.school2021.hw18.presentation.provider.SchedulersProvider
 import javax.inject.Inject

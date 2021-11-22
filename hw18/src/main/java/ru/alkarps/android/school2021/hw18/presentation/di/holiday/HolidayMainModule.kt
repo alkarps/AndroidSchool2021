@@ -1,4 +1,4 @@
-package ru.alkarps.android.school2021.hw18.presentation.di
+package ru.alkarps.android.school2021.hw18.presentation.di.holiday
 
 import dagger.Binds
 import dagger.Module

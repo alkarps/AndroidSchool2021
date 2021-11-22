@@ -11,8 +11,8 @@
 * UI слой
 
 В дата слое находится клиент для получения праздников [HolidayApi][HolidayApi].
-Между бизнес слоем и дата слоем реализован [интерактор][ImplHolidayClient], реализующий [HolidayClient][HolidayClient].
-На текущий момент в бизнес слое реализован [HolidayService][HolidayService].
+Для взаимодействия между бизнес слоем и дата слоем реализован [клиент][ImplHolidayClient], реализующий [HolidayClient][HolidayClient].
+На текущий момент в бизнес слое реализован [HolidayInteractor][HolidayInteractor].
 Для взаимодействия между UI и бизнес слоем реализован [HolidayProvider][HolidayProvider].
 
 Тк праздники предоставляются за прошлый год - выбор периода получения праздников не предполагается.
@@ -40,6 +40,11 @@
 * * Выбор страны.
 * * Выбор страны или территориального подразделения.
 * * Управление странами в настройках.
+* Добавление своих событий
+* Нотификация
+* Записки
+* Актуализация документации
+* Добавить UML
   
 
 [HolidayApiSite]: https://holidayapi.com/
@@ -47,8 +52,8 @@
 [HolidayApi]: ./src/main/java/ru/alkarps/android/school2021/hw18/data/holiday/api/HolidayApi.kt
 [ImplHolidayClient]: ./src/main/java/ru/alkarps/android/school2021/hw18/data/holiday/ImplHolidayClient.kt
 [HolidayClient]: ./src/main/java/ru/alkarps/android/school2021/hw18/domen/holiday/HolidayClient.kt
-[HolidayService]: src/main/java/ru/alkarps/android/school2021/hw18/domen/holiday/impl/ImplHolidayInteractor.kt
+[HolidayInteractor]: src/main/java/ru/alkarps/android/school2021/hw18/domen/holiday/impl/ImplHolidayInteractor.kt
 [HolidayProvider]: ./src/main/java/ru/alkarps/android/school2021/hw18/presentation/provider/impl/ImplHolidaysProvider.kt
 [DataComponent]: ./src/main/java/ru/alkarps/android/school2021/hw18/data/di/DataComponent.kt
 [DomenComponent]: ./src/main/java/ru/alkarps/android/school2021/hw18/domen/di/DomenComponent.kt
-[PresentationComponent]: ./src/main/java/ru/alkarps/android/school2021/hw18/presentation/di/HolidayMainComponent.kt
+[PresentationComponent]: src/main/java/ru/alkarps/android/school2021/hw18/presentation/di/holiday/HolidayMainComponent.kt

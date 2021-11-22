@@ -1,6 +1,7 @@
-package ru.alkarps.android.school2021.hw18.presentation.di
+package ru.alkarps.android.school2021.hw18.presentation.di.holiday
 
 import dagger.Component
+import dagger.Subcomponent
 import ru.alkarps.android.school2021.hw18.domen.di.DomenComponent
 import ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.factory.MainViewModelFactory
 import ru.alkarps.android.school2021.hw18.presentation.activity.settings.view.model.factory.SettingsViewModelFactory
@@ -9,7 +10,7 @@ import ru.alkarps.android.school2021.hw18.presentation.activity.settings.view.mo
  * Компонент Presentation слоя
  */
 @HolidayMainScope
-@Component(modules = [HolidayMainModule::class], dependencies = [DomenComponent::class])
+@Subcomponent(modules = [HolidayMainModule::class])
 interface HolidayMainComponent {
     /**
      * Метод получения фабрики для создания [ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.MainViewModel]
@@ -24,4 +25,9 @@ interface HolidayMainComponent {
      * @return
      */
     fun settingsViewModelFactory(): SettingsViewModelFactory
+
+    @Subcomponent.Factory
+    interface Factory{
+        fun create():HolidayMainComponent
+    }
 }
