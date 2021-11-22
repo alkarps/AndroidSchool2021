@@ -28,7 +28,7 @@ android {
             )
         }
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
     compileOptions {
@@ -38,7 +38,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    viewBinding{
+    viewBinding {
         isEnabled = true
     }
 }
@@ -62,15 +62,19 @@ dependencies {
     implementation("com.google.android.material:material:1.4.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
-    implementation ("com.google.dagger:dagger:2.40")
-    kapt ("com.google.dagger:dagger-compiler:2.40")
+    implementation("com.google.dagger:dagger:2.40")
+    kapt("com.google.dagger:dagger-compiler:2.40")
 
     testImplementation("junit:junit:4.13.2")
-    testImplementation ("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("org.assertj:assertj-core:3.21.0")
     testImplementation("io.mockk:mockk:1.12.0")
     testImplementation("io.mockk:mockk-android:1.12.0")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.3")
+    androidTestImplementation("androidx.test:runner:1.4.0")
+    androidTestImplementation("androidx.test:rules:1.4.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.4.0")
 }
