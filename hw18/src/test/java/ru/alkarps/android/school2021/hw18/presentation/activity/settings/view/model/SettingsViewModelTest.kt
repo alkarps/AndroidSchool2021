@@ -29,6 +29,7 @@ class SettingsViewModelTest {
     private lateinit var countriesProvider: CountriesProvider
     private lateinit var languagesObserver: Observer<List<Language>>
     private lateinit var countriesObserver: Observer<List<CountryView>>
+    private lateinit var progressObserver: Observer<Boolean>
     private lateinit var errorObserver: Observer<Throwable>
     private lateinit var model: SettingsViewModel
 
@@ -40,6 +41,7 @@ class SettingsViewModelTest {
 
         languagesObserver = mockk()
         countriesObserver = mockk()
+        progressObserver = mockk()
         errorObserver = mockk()
 
         every { schedulersProvider.back() } returns Schedulers.trampoline()
@@ -47,11 +49,13 @@ class SettingsViewModelTest {
         justRun { languagesObserver.onChanged(any()) }
         justRun { countriesObserver.onChanged(any()) }
         justRun { errorObserver.onChanged(any()) }
+        justRun { progressObserver.onChanged(any()) }
         model = SettingsViewModel(schedulersProvider, languagesProvider, countriesProvider)
 
         model.languagesLiveData.observeForever(languagesObserver)
         model.countriesLiveData.observeForever(countriesObserver)
         model.errorLiveData.observeForever(errorObserver)
+        model.progressLiveData.observeForever(progressObserver)
     }
 
     @After
@@ -73,6 +77,7 @@ class SettingsViewModelTest {
         verify { countriesProvider.getCountries() }
         verify { languagesObserver.onChanged(languages) }
         verify { countriesObserver.onChanged(countries) }
+        verify(exactly = 4) { progressObserver.onChanged(any()) }
     }
 
     @Test
@@ -89,5 +94,6 @@ class SettingsViewModelTest {
         verify { languagesObserver.onChanged(languages) }
         verify(exactly = 0) { countriesObserver.onChanged(any()) }
         verify { errorObserver.onChanged(error) }
+        verify(exactly = 4) { progressObserver.onChanged(any()) }
     }
 }

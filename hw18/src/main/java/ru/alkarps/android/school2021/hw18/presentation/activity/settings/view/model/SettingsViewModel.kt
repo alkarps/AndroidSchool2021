@@ -1,6 +1,8 @@
 package ru.alkarps.android.school2021.hw18.presentation.activity.settings.view.model
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.disposables.Disposable
 import ru.alkarps.android.school2021.hw18.domen.model.Language
@@ -25,8 +27,18 @@ class SettingsViewModel constructor(
 ) : ViewModel() {
     private var languagesDisposable: Disposable? = null
     private var countriesDisposable: Disposable? = null
+    private val languagesProgressLiveData = MutableLiveData<Boolean>()
     val languagesLiveData = MutableLiveData<List<Language>>()
+    private val countriesProgressLiveData = MutableLiveData<Boolean>()
     val countriesLiveData = MutableLiveData<List<CountryView>>()
+    val progressLiveData = MediatorLiveData<Boolean>().apply {
+        val doCalculation = Observer<Boolean> {
+            value =
+                languagesProgressLiveData.value == true || countriesProgressLiveData.value == true
+        }
+        addSource(languagesProgressLiveData, doCalculation)
+        addSource(countriesProgressLiveData, doCalculation)
+    }
     val errorLiveData = MutableLiveData<Throwable>()
 
     /**
@@ -36,10 +48,14 @@ class SettingsViewModel constructor(
         val main = schedulersProvider.main()
         val back = schedulersProvider.back()
         languagesDisposable = languagesProvider.getLanguages()
+            .doOnSubscribe { languagesProgressLiveData.postValue(true) }
+            .doAfterTerminate { languagesProgressLiveData.postValue(false) }
             .subscribeOn(back)
             .observeOn(main)
             .subscribe(languagesLiveData::setValue, errorLiveData::setValue)
         countriesDisposable = countriesProvider.getCountries()
+            .doOnSubscribe { countriesProgressLiveData.postValue(true) }
+            .doAfterTerminate { countriesProgressLiveData.postValue(false) }
             .subscribeOn(back)
             .observeOn(main)
             .subscribe(countriesLiveData::setValue, errorLiveData::setValue)
