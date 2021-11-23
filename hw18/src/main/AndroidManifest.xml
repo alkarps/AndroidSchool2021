@@ -20,5 +20,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.activity.day.DayActivity" />
+        <activity android:name=".presentation.activity.settings.SettingsActivity" />
     </application>
 </manifest>

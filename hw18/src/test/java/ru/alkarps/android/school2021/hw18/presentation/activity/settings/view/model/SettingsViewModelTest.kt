@@ -77,7 +77,8 @@ class SettingsViewModelTest {
         verify { countriesProvider.getCountries() }
         verify { languagesObserver.onChanged(languages) }
         verify { countriesObserver.onChanged(countries) }
-        verify(exactly = 4) { progressObserver.onChanged(any()) }
+        verify(exactly = 3) { progressObserver.onChanged(false) }
+        verify(exactly = 1) { progressObserver.onChanged(true) }
     }
 
     @Test
@@ -94,6 +95,7 @@ class SettingsViewModelTest {
         verify { languagesObserver.onChanged(languages) }
         verify(exactly = 0) { countriesObserver.onChanged(any()) }
         verify { errorObserver.onChanged(error) }
-        verify(exactly = 4) { progressObserver.onChanged(any()) }
+        verify(exactly = 3) { progressObserver.onChanged(false) }
+        verify(exactly = 1) { progressObserver.onChanged(true) }
     }
 }

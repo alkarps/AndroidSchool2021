@@ -1,6 +1,8 @@
 package ru.alkarps.android.school2021.hw18.presentation.activity.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -16,6 +18,7 @@ import ru.alkarps.android.school2021.hw18.R
 import ru.alkarps.android.school2021.hw18.databinding.MainActivityBinding
 import ru.alkarps.android.school2021.hw18.presentation.activity.main.adapter.DayWithHolidaysAdapter
 import ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.MainViewModel
+import ru.alkarps.android.school2021.hw18.presentation.activity.settings.SettingsActivity
 
 /**
  * Активити главного экрана
@@ -52,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             binding.progressFrameLayout.visibility = if (it) View.VISIBLE else View.GONE
         }
         viewModel.errorLiveData.observe(this) {
+            Log.i(TAG,  it.message, it)
             Snackbar.make(binding.root, it.toString(), BaseTransientBottomBar.LENGTH_LONG).show()
         }
         viewModel.holidaysLiveData.observe(this) {
@@ -66,8 +70,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.setting_menu) {
+            startActivity(Intent(this, SettingsActivity::class.java))
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object{
+        private const val TAG = "MainActivity"
     }
 }

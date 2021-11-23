@@ -34,7 +34,7 @@ class SettingsViewModel constructor(
     val progressLiveData = MediatorLiveData<Boolean>().apply {
         val doCalculation = Observer<Boolean> {
             value =
-                languagesProgressLiveData.value == true || countriesProgressLiveData.value == true
+                languagesProgressLiveData.value == true && countriesProgressLiveData.value == true
         }
         addSource(languagesProgressLiveData, doCalculation)
         addSource(countriesProgressLiveData, doCalculation)
@@ -48,14 +48,14 @@ class SettingsViewModel constructor(
         val main = schedulersProvider.main()
         val back = schedulersProvider.back()
         languagesDisposable = languagesProvider.getLanguages()
-            .doOnSubscribe { languagesProgressLiveData.postValue(true) }
-            .doAfterTerminate { languagesProgressLiveData.postValue(false) }
+            .doOnSubscribe { languagesProgressLiveData.postValue(false) }
+            .doAfterTerminate { languagesProgressLiveData.postValue(true) }
             .subscribeOn(back)
             .observeOn(main)
             .subscribe(languagesLiveData::setValue, errorLiveData::setValue)
         countriesDisposable = countriesProvider.getCountries()
-            .doOnSubscribe { countriesProgressLiveData.postValue(true) }
-            .doAfterTerminate { countriesProgressLiveData.postValue(false) }
+            .doOnSubscribe { countriesProgressLiveData.postValue(false) }
+            .doAfterTerminate { countriesProgressLiveData.postValue(true) }
             .subscribeOn(back)
             .observeOn(main)
             .subscribe(countriesLiveData::setValue, errorLiveData::setValue)
