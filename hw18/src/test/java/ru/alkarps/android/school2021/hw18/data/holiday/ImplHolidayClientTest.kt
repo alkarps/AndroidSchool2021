@@ -35,12 +35,7 @@ class ImplHolidayClientTest {
 
         val holidaysDto = listOf(
             HolidayDTO(
-                "",
-                "",
-                "",
-                false,
-                "",
-                "",
+                "", "", "", false, "", "",
                 WeekdayDTO(DateInfoDTO("", ""), DateInfoDTO("", ""))
             )
         )

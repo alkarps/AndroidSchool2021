@@ -2,11 +2,13 @@ package ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import io.mockk.*
+import io.mockk.every
+import io.mockk.justRun
+import io.mockk.mockk
+import io.mockk.verifySequence
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.assertj.core.api.Assertions.assertThatCode
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -47,13 +49,6 @@ class MainViewModelTest {
         viewModel.holidaysLiveData.observeForever(holidaysObserver)
     }
 
-    @After
-    fun tearDown() {
-        verify { holidaysProvider.getHolidaysByPeriod(Period(2020)) }
-        verify { schedulersProvider.back() }
-        verify { schedulersProvider.main() }
-    }
-
     @Test
     fun loadHolidays_whenAllOk_thenSetHolidaysToLiveData() {
         val holidays = listOf(DayWithHolidaysView("", emptyList()))
@@ -62,6 +57,9 @@ class MainViewModelTest {
         assertThatCode { viewModel.loadHolidays() }.doesNotThrowAnyException()
 
         verifySequence {
+            holidaysProvider.getHolidaysByPeriod(Period(2020))
+            schedulersProvider.back()
+            schedulersProvider.main()
             processingObserver.onChanged(true)
             holidaysObserver.onChanged(holidays)
             processingObserver.onChanged(false)
@@ -76,6 +74,9 @@ class MainViewModelTest {
         assertThatCode { viewModel.loadHolidays() }.doesNotThrowAnyException()
 
         verifySequence {
+            holidaysProvider.getHolidaysByPeriod(Period(2020))
+            schedulersProvider.back()
+            schedulersProvider.main()
             processingObserver.onChanged(true)
             errorObserver.onChanged(caughtException)
             processingObserver.onChanged(false)

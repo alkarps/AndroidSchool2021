@@ -8,8 +8,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageClient
-import ru.alkarps.android.school2021.hw18.domen.language.LanguageRepository
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageInteractor
+import ru.alkarps.android.school2021.hw18.domen.language.LanguageRepository
 import ru.alkarps.android.school2021.hw18.domen.model.Language
 import ru.alkarps.android.school2021.hw18.domen.settings.SettingsRepository
 

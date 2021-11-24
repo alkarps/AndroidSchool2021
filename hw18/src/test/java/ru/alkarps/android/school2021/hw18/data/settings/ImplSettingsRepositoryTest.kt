@@ -7,10 +7,6 @@ import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
-import ru.alkarps.android.school2021.hw18.data.settings.ImplSettingsRepository.Companion.CURRENT_COUNTRY_KEY
-import ru.alkarps.android.school2021.hw18.data.settings.ImplSettingsRepository.Companion.CURRENT_LANGUAGE_KEY
-import ru.alkarps.android.school2021.hw18.data.settings.ImplSettingsRepository.Companion.CURRENT_SUBDIVISION_KEY
-import ru.alkarps.android.school2021.hw18.data.settings.ImplSettingsRepository.Companion.DEFAULT_CODE
 import ru.alkarps.android.school2021.hw18.domen.settings.SettingsRepository
 
 class ImplSettingsRepositoryTest {
@@ -64,5 +60,12 @@ class ImplSettingsRepositoryTest {
         every { preference.getString(any(), any()) } returns null
         assertThat(testMethod()).isEqualTo(DEFAULT_CODE)
         verify { preference.getString(key, DEFAULT_CODE) }
+    }
+
+    private companion object {
+        private const val CURRENT_LANGUAGE_KEY = "current_language"
+        private const val CURRENT_COUNTRY_KEY = "current_country"
+        private const val CURRENT_SUBDIVISION_KEY = "current_subdivision"
+        private const val DEFAULT_CODE = "ru"
     }
 }

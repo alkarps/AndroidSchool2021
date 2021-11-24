@@ -16,24 +16,16 @@ class ImplHolidayConverterTest {
 
     private fun holidaysDTO() = listOf(
         HolidayDTO(
-            "First",
-            "2020-03-03",
-            "2020-03-02",
-            false,
-            "RU",
-            "1231",
+            "First", "2020-03-03", "2020-03-02", false,
+            "RU", "1231",
             WeekdayDTO(
                 DateInfoDTO("qwe", "1"),
                 DateInfoDTO("ewq", "2")
             )
         ),
         HolidayDTO(
-            "Second",
-            "2020-05-03",
-            "2020-05-02",
-            true,
-            "RU",
-            "1232",
+            "Second", "2020-05-03", "2020-05-02", true,
+            "RU", "1232",
             WeekdayDTO(
                 DateInfoDTO("qwe", "1"),
                 DateInfoDTO("ewq", "2")
@@ -41,7 +33,7 @@ class ImplHolidayConverterTest {
         )
     )
 
-    fun expected() = listOf(
+    private fun expected() = listOf(
         Holiday("1231", "First", "qwe 2020-03-03", "ewq 2020-03-02", false),
         Holiday("1232", "Second", "qwe 2020-05-03", "ewq 2020-05-02", true)
     )

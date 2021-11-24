@@ -8,9 +8,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import ru.alkarps.android.school2021.hw18.domen.country.CountryClient
-import ru.alkarps.android.school2021.hw18.domen.country.CountryRepository
 import ru.alkarps.android.school2021.hw18.domen.country.CountryInteractor
-import ru.alkarps.android.school2021.hw18.domen.country.impl.ImplCountryInteractor.Companion.UNKNOWN_CODE
+import ru.alkarps.android.school2021.hw18.domen.country.CountryRepository
 import ru.alkarps.android.school2021.hw18.domen.model.Country
 import ru.alkarps.android.school2021.hw18.domen.model.Subdivision
 import ru.alkarps.android.school2021.hw18.domen.settings.SettingsRepository
@@ -75,7 +74,7 @@ class ImplCountryInteractorTest {
         every { client.getCountries() } returns countries
         justRun { repository.saveCountries(any()) }
         assertThat(testInteractor.getCurrentSubdivision())
-            .isEqualTo(Subdivision(UNKNOWN_CODE, UNKNOWN_CODE, emptyList()))
+            .isEqualTo(Subdivision("UNKNOWN", "UNKNOWN", emptyList()))
         verify { settings.getCurrentSubdivisionCode() }
         verify { repository.findSubdivision(subdivisionCode) }
         verify { settings.getCurrentCountryCode() }
