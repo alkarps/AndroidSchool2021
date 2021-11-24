@@ -6,8 +6,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import ru.alkarps.android.school2021.hw18.R
-import ru.alkarps.android.school2021.hw18.databinding.DayActivityBinding
-import ru.alkarps.android.school2021.hw18.presentation.activity.day.adapter.HolidaysAdapter
+import ru.alkarps.android.school2021.hw18.databinding.HolidaysDayActivityBinding
+import ru.alkarps.android.school2021.hw18.presentation.activity.day.adapter.HolidaysDayAdapter
 import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
 
 /**
@@ -15,12 +15,12 @@ import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
  *
  * @constructor Новый экземпляр активити
  */
-class DayActivity : AppCompatActivity() {
-    private lateinit var binding: DayActivityBinding
+class HolidaysDayActivity : AppCompatActivity() {
+    private lateinit var binding: HolidaysDayActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DayActivityBinding.inflate(layoutInflater)
+        binding = HolidaysDayActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val divider = DividerItemDecoration(this, RecyclerView.VERTICAL)
@@ -31,7 +31,7 @@ class DayActivity : AppCompatActivity() {
 
         intent.getParcelableExtra<DayWithHolidaysView>(DAY_WITH_HOLIDAYS_KEY)?.apply {
             binding.selectedDay.text = this.date
-            binding.holidays.adapter = HolidaysAdapter(this.holidays)
+            binding.holidays.adapter = HolidaysDayAdapter(this.holidays)
         }
     }
 
