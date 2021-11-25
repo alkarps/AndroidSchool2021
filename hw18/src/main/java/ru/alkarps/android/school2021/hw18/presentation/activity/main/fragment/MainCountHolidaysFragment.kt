@@ -12,6 +12,9 @@ import ru.alkarps.android.school2021.hw18.presentation.activity.day.HolidaysDayA
 import ru.alkarps.android.school2021.hw18.presentation.activity.day.HolidaysDayActivity.Companion.DAY_WITH_HOLIDAYS_KEY
 import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
 
+/**
+ * Фрагмент для отображения количества праздников на текущий день, а так же переход к ним
+ */
 class MainCountHolidaysFragment : Fragment(R.layout.main_count_holidays_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.getParcelable<DayWithHolidaysView>(DAY_WITH_HOLIDAYS_KEY)?.apply {
@@ -33,6 +36,12 @@ class MainCountHolidaysFragment : Fragment(R.layout.main_count_holidays_fragment
     }
 
     companion object {
+        /**
+         * Метод создания фрагмента
+         *
+         * @param dayWithHolidaysView описания дня с праздниками
+         * @return новый инстанс [MainCountHolidaysFragment]
+         */
         fun create(dayWithHolidaysView: DayWithHolidaysView): MainCountHolidaysFragment =
             MainCountHolidaysFragment().apply {
                 arguments = bundleOf(DAY_WITH_HOLIDAYS_KEY to dayWithHolidaysView)
