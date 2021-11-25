@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.alkarps.android.school2021.hw18.R
-import ru.alkarps.android.school2021.hw18.databinding.HolidayItemBinding
+import ru.alkarps.android.school2021.hw18.databinding.HolidayDayItemBinding
 import ru.alkarps.android.school2021.hw18.presentation.model.HolidayView
 
 /**
@@ -14,14 +14,14 @@ import ru.alkarps.android.school2021.hw18.presentation.model.HolidayView
  * @property holidays список праздников
  * @constructor Новый экземпляр адаптера
  */
-class HolidaysAdapter(
+class HolidaysDayAdapter(
     private val holidays: List<HolidayView>
-) : RecyclerView.Adapter<HolidaysAdapter.HolidayViewHolder>() {
+) : RecyclerView.Adapter<HolidaysDayAdapter.HolidayViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolidayViewHolder {
         return HolidayViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.holiday_item, parent, false)
+                .inflate(R.layout.holiday_day_item, parent, false)
         )
     }
 
@@ -32,7 +32,7 @@ class HolidaysAdapter(
     override fun getItemCount(): Int = holidays.size
 
     class HolidayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = HolidayItemBinding.bind(itemView)
+        private val binding = HolidayDayItemBinding.bind(itemView)
 
         fun onBind(holidayView: HolidayView) {
             binding.holidayName.text = holidayView.name
