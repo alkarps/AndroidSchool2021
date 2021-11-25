@@ -6,4 +6,5 @@
     <dimen name="recycle_padding_bottom">16dp</dimen>
     <dimen name="current_date_label_text_size">16sp</dimen>
     <dimen name="main_events_text_size">12sp</dimen>
+    <dimen name="main_margin">8dp</dimen>
 </resources>

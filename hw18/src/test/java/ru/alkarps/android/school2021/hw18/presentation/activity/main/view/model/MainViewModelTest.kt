@@ -13,26 +13,28 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import ru.alkarps.android.school2021.hw18.domen.model.Period
 import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
 import ru.alkarps.android.school2021.hw18.presentation.provider.HolidaysProvider
 import ru.alkarps.android.school2021.hw18.presentation.provider.SchedulersProvider
+import ru.alkarps.android.school2021.hw18.util.toPeriod
+import java.util.*
 
 class MainViewModelTest {
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
+    private val date = Calendar.getInstance()
     private lateinit var schedulersProvider: SchedulersProvider
     private lateinit var holidaysProvider: HolidaysProvider
     private lateinit var processingObserver: Observer<Boolean>
-    private lateinit var errorObserver: Observer<Throwable>
+    private lateinit var errorMessageObserver: Observer<String>
     private lateinit var holidaysObserver: Observer<List<DayWithHolidaysView>>
     private lateinit var viewModel: MainViewModel
 
     @Before
     fun setUp() {
         processingObserver = mockk()
-        errorObserver = mockk()
         holidaysObserver = mockk()
+        errorMessageObserver = mockk()
 
         schedulersProvider = mockk()
         holidaysProvider = mockk()
@@ -41,12 +43,12 @@ class MainViewModelTest {
         every { schedulersProvider.back() } returns Schedulers.trampoline()
         every { schedulersProvider.main() } returns Schedulers.trampoline()
         justRun { processingObserver.onChanged(any()) }
-        justRun { errorObserver.onChanged(any()) }
         justRun { holidaysObserver.onChanged(any()) }
+        justRun { errorMessageObserver.onChanged(any()) }
 
-        viewModel.errorLiveData.observeForever(errorObserver)
-        viewModel.progressLiveData.observeForever(processingObserver)
-        viewModel.holidaysLiveData.observeForever(holidaysObserver)
+        viewModel.progress.observeForever(processingObserver)
+        viewModel.holidays.observeForever(holidaysObserver)
+        viewModel.errorMessages.observeForever(errorMessageObserver)
     }
 
     @Test
@@ -54,15 +56,15 @@ class MainViewModelTest {
         val holidays = listOf(DayWithHolidaysView("", emptyList()))
         every { holidaysProvider.getHolidaysByPeriod(any()) } returns Single.just(holidays)
 
-        assertThatCode { viewModel.loadHolidays() }.doesNotThrowAnyException()
+        assertThatCode { viewModel.loadHolidays(date) }.doesNotThrowAnyException()
 
         verifySequence {
-            holidaysProvider.getHolidaysByPeriod(Period(2020))
+            holidaysProvider.getHolidaysByPeriod(date.toPeriod())
             schedulersProvider.back()
             schedulersProvider.main()
-            processingObserver.onChanged(true)
-            holidaysObserver.onChanged(holidays)
             processingObserver.onChanged(false)
+            holidaysObserver.onChanged(holidays)
+            processingObserver.onChanged(true)
         }
     }
 
@@ -70,16 +72,16 @@ class MainViewModelTest {
     fun loadHolidays_whenCatchException_thenSetErrorToLiveData() {
         val caughtException = NullPointerException()
         every { holidaysProvider.getHolidaysByPeriod(any()) } returns Single.error(caughtException)
-
-        assertThatCode { viewModel.loadHolidays() }.doesNotThrowAnyException()
+        assertThatCode { viewModel.loadHolidays(date) }.doesNotThrowAnyException()
 
         verifySequence {
-            holidaysProvider.getHolidaysByPeriod(Period(2020))
+            holidaysProvider.getHolidaysByPeriod(date.toPeriod())
             schedulersProvider.back()
             schedulersProvider.main()
-            processingObserver.onChanged(true)
-            errorObserver.onChanged(caughtException)
             processingObserver.onChanged(false)
+            holidaysObserver.onChanged(emptyList())
+            errorMessageObserver.onChanged("При получении праздников произошла ошибка. Пожалуйста, повторите попытку позже")
+            processingObserver.onChanged(true)
         }
     }
 }

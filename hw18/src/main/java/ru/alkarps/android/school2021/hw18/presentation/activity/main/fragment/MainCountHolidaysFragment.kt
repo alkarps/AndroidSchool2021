@@ -42,7 +42,7 @@ class MainCountHolidaysFragment : Fragment(R.layout.main_count_holidays_fragment
          * @param dayWithHolidaysView описания дня с праздниками
          * @return новый инстанс [MainCountHolidaysFragment]
          */
-        fun create(dayWithHolidaysView: DayWithHolidaysView): MainCountHolidaysFragment =
+        fun create(dayWithHolidaysView: DayWithHolidaysView?): MainCountHolidaysFragment =
             MainCountHolidaysFragment().apply {
                 arguments = bundleOf(DAY_WITH_HOLIDAYS_KEY to dayWithHolidaysView)
             }
