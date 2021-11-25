@@ -13,9 +13,6 @@ class ImplLanguageConverter @Inject constructor() : LanguageConverter {
     override fun fromDto(languages: List<LanguageDTO>): List<Language> =
         languages.map { Language(it.code, it.name) }
 
-    override fun fromEntity(languages: List<LanguageEntity>): List<Language> =
-        languages.map { fromEntity(it) }
-
     override fun fromEntity(language: LanguageEntity): Language =
         Language(language.code, language.name)
 

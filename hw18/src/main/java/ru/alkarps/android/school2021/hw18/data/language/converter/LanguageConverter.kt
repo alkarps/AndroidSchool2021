@@ -15,13 +15,7 @@ interface LanguageConverter {
      * @return список доступных языков
      */
     fun fromDto(languages: List<LanguageDTO>): List<Language>
-    /**
-     * Метод конвертации из сущностей БД
-     *
-     * @param languages список полученных сущностей БД доступных языков
-     * @return список доступных языков
-     */
-    fun fromEntity(languages: List<LanguageEntity>): List<Language>
+
     /**
      * Метод конвертации из сущностей БД
      *
@@ -29,6 +23,7 @@ interface LanguageConverter {
      * @return список доступных языков
      */
     fun fromEntity(language: LanguageEntity): Language
+
     /**
      * Метод конвертации в сущность БД
      *
