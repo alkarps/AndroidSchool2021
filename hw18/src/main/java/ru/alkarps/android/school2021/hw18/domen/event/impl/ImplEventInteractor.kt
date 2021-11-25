@@ -13,8 +13,8 @@ import javax.inject.Inject
 class ImplEventInteractor @Inject constructor(
     private val repository: EventRepository
 ) : EventInteractor {
-    override fun getAllByDate(date: String): List<Event> {
-        return repository.getAllByDate(date)
+    override fun getByDate(date: String): List<Event> {
+        return repository.getByDate(date)
     }
 
     override fun delete(uuid: String) {

@@ -12,7 +12,7 @@ interface EventInteractor {
      * @param date дата, на которую нужно вернуть события
      * @return список событий на указанную дату
      */
-    fun getAllByDate(date: String): List<Event>
+    fun getByDate(date: String): List<Event>
 
     /**
      * Метод удаления события по айди

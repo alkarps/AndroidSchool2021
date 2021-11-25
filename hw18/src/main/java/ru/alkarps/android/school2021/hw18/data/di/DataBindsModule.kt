@@ -8,6 +8,7 @@ import ru.alkarps.android.school2021.hw18.data.country.api.CountryApi
 import ru.alkarps.android.school2021.hw18.data.country.api.impl.ImplCountryApi
 import ru.alkarps.android.school2021.hw18.data.country.converter.CountryConverter
 import ru.alkarps.android.school2021.hw18.data.country.converter.impl.ImplCountryConverter
+import ru.alkarps.android.school2021.hw18.data.event.ImplEventRepository
 import ru.alkarps.android.school2021.hw18.data.holiday.ImplHolidayClient
 import ru.alkarps.android.school2021.hw18.data.holiday.api.HolidayApi
 import ru.alkarps.android.school2021.hw18.data.holiday.api.impl.ImplHolidayApi
@@ -22,6 +23,7 @@ import ru.alkarps.android.school2021.hw18.data.language.converter.impl.ImplLangu
 import ru.alkarps.android.school2021.hw18.data.settings.ImplSettingsRepository
 import ru.alkarps.android.school2021.hw18.domen.country.CountryClient
 import ru.alkarps.android.school2021.hw18.domen.country.CountryRepository
+import ru.alkarps.android.school2021.hw18.domen.event.EventRepository
 import ru.alkarps.android.school2021.hw18.domen.holiday.HolidayClient
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageClient
 import ru.alkarps.android.school2021.hw18.domen.language.LanguageRepository
@@ -67,4 +69,7 @@ interface DataBindsModule {
 
     @Binds
     fun bindsCountryRepository(impl: ImplCountryRepository): CountryRepository
+
+    @Binds
+    fun bindsEventRepository(impl: ImplEventRepository): EventRepository
 }

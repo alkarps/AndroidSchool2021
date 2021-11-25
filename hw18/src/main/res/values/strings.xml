@@ -5,4 +5,5 @@
     <string name="holiday_observed_label">Observed date:</string>
     <string name="holiday_public_label">Government holiday</string>
     <string name="settings_label">Настройки</string>
+    <string name="show_holidays_at_this_day_label">Показать</string>
 </resources>

@@ -2,18 +2,14 @@ package ru.alkarps.android.school2021.hw18.presentation.di.holiday
 
 import dagger.Binds
 import dagger.Module
-import ru.alkarps.android.school2021.hw18.presentation.provider.CountriesProvider
-import ru.alkarps.android.school2021.hw18.presentation.provider.HolidaysProvider
-import ru.alkarps.android.school2021.hw18.presentation.provider.LanguagesProvider
-import ru.alkarps.android.school2021.hw18.presentation.provider.SchedulersProvider
+import ru.alkarps.android.school2021.hw18.presentation.provider.*
 import ru.alkarps.android.school2021.hw18.presentation.provider.converter.CountryConverter
+import ru.alkarps.android.school2021.hw18.presentation.provider.converter.EventConverter
 import ru.alkarps.android.school2021.hw18.presentation.provider.converter.HolidayConverter
 import ru.alkarps.android.school2021.hw18.presentation.provider.converter.impl.ImplCountryConverter
+import ru.alkarps.android.school2021.hw18.presentation.provider.converter.impl.ImplEventConverter
 import ru.alkarps.android.school2021.hw18.presentation.provider.converter.impl.ImplHolidayConverter
-import ru.alkarps.android.school2021.hw18.presentation.provider.impl.ImplCountriesProvider
-import ru.alkarps.android.school2021.hw18.presentation.provider.impl.ImplHolidaysProvider
-import ru.alkarps.android.school2021.hw18.presentation.provider.impl.ImplLanguagesProvider
-import ru.alkarps.android.school2021.hw18.presentation.provider.impl.ImplSchedulersProvider
+import ru.alkarps.android.school2021.hw18.presentation.provider.impl.*
 
 /**
  * Модуль Presentation слоя для биндинга реализаций к интерфейсам
@@ -27,6 +23,9 @@ interface HolidayMainModule {
     fun countryConverter(impl: ImplCountryConverter): CountryConverter
 
     @Binds
+    fun eventConverter(impl: ImplEventConverter): EventConverter
+
+    @Binds
     fun bindsSchedulersProvider(impl: ImplSchedulersProvider): SchedulersProvider
 
     @Binds
@@ -37,4 +36,7 @@ interface HolidayMainModule {
 
     @Binds
     fun bindsCountriesProvider(impl: ImplCountriesProvider): CountriesProvider
+
+    @Binds
+    fun bindsEventsController(impl: ImplEventsController): EventsController
 }
