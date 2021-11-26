@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
     private fun changeCurrentDate() {
         val dataPicker = MaterialDatePicker.Builder.datePicker()
             .setTitleText("Выберите дату")
+            .setSelection(selectedDate.timeInMillis)
             .build()
         dataPicker.addOnPositiveButtonClickListener {
             selectedDate.timeInMillis = it - TimeZone.getDefault().getOffset(Date().time)

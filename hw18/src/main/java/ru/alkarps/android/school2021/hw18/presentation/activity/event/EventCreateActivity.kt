@@ -45,6 +45,7 @@ class EventCreateActivity : AppCompatActivity() {
         binding.eventCreateDateInput.inputType = InputType.TYPE_NULL
         binding.eventCreateDateInput.keyListener = null
         binding.eventCreateDateInput.setOnClickListener { showDataPicker() }
+        binding.eventCreateDateInput.setOnFocusChangeListener { _, f -> if (f) showDataPicker() }
     }
 
     private fun showDataPicker() {
@@ -63,6 +64,7 @@ class EventCreateActivity : AppCompatActivity() {
         binding.eventCreateTimeInput.inputType = InputType.TYPE_NULL
         binding.eventCreateTimeInput.keyListener = null
         binding.eventCreateTimeInput.setOnClickListener { showTimePicker() }
+        binding.eventCreateTimeInput.setOnFocusChangeListener { _, f -> if (f) showTimePicker() }
     }
 
     private fun showTimePicker() {

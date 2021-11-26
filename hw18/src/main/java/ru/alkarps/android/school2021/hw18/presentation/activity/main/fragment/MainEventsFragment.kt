@@ -3,6 +3,7 @@ package ru.alkarps.android.school2021.hw18.presentation.activity.main.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -21,7 +22,12 @@ class MainEventsFragment : Fragment(R.layout.main_events_fragment) {
         val events = requireArguments().getParcelableArrayList(EVENTS_KEY) ?: emptyList<EventView>()
         val recycler = view.findViewById<RecyclerView>(R.id.events_fragment_recycler)
         recycler.adapter = EventsAdapter(events)
-        recycler.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
+        val context = requireContext()
+        val divider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+        ResourcesCompat.getDrawable(resources, R.drawable.divider, context.theme)?.apply {
+            divider.setDrawable(this)
+        }
+        recycler.addItemDecoration(divider)
         view.findViewById<FloatingActionButton>(R.id.add_new_event).setOnClickListener {
             startActivity(Intent(requireActivity(), EventCreateActivity::class.java))
         }

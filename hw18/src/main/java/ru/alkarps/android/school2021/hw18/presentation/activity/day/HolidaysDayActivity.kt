@@ -24,12 +24,11 @@ class HolidaysDayActivity : AppCompatActivity() {
         binding = HolidaysDayActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val divider = DividerItemDecoration(this, RecyclerView.VERTICAL)
+        val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         ResourcesCompat.getDrawable(resources, R.drawable.divider, theme)?.apply {
             divider.setDrawable(this)
         }
-//        binding.holidays.addItemDecoration(divider)
-        binding.holidays.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL))
+        binding.holidays.addItemDecoration(divider)
 
         intent.getParcelableExtra<DayWithHolidaysView>(DAY_WITH_HOLIDAYS_KEY)?.apply {
             binding.holidays.adapter = HolidaysDayAdapter(this.holidays)

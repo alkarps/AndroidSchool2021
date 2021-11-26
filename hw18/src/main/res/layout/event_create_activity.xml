@@ -10,7 +10,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/main_margin"
+        android:layout_marginStart="@dimen/main_margin"
+        android:layout_marginTop="@dimen/main_margin"
+        android:layout_marginEnd="@dimen/main_margin"
         android:hint="Название события"
         app:errorEnabled="true">
 
@@ -27,7 +29,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/main_margin"
+        android:layout_marginStart="@dimen/main_margin"
+        android:layout_marginEnd="@dimen/main_margin"
         android:hint="Дата события"
         app:errorEnabled="true">
 
@@ -46,7 +49,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/main_margin"
+        android:layout_marginStart="@dimen/main_margin"
+        android:layout_marginEnd="@dimen/main_margin"
         android:hint="Время события"
         app:errorEnabled="true">
 
@@ -65,7 +69,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/main_margin"
+        android:layout_marginStart="@dimen/main_margin"
+        android:layout_marginEnd="@dimen/main_margin"
         android:hint="Место проведения события">
 
         <com.google.android.material.textfield.TextInputEditText
