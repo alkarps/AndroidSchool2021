@@ -1,6 +1,7 @@
 package ru.alkarps.android.school2021.hw18.presentation.di.holiday
 
 import dagger.Subcomponent
+import ru.alkarps.android.school2021.hw18.presentation.activity.event.view.model.factory.EventChangeViewModelFactory
 import ru.alkarps.android.school2021.hw18.presentation.activity.event.view.model.factory.EventCreateViewModelFactory
 import ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.factory.MainViewModelFactory
 import ru.alkarps.android.school2021.hw18.presentation.activity.settings.view.model.factory.SettingsViewModelFactory
@@ -31,7 +32,14 @@ interface HolidayMainComponent {
      *
      * @return экземпляр [EventCreateViewModelFactory]
      */
-    fun eventCreateOrUpdateViewModelFactory(): EventCreateViewModelFactory
+    fun eventCreateViewModelFactory(): EventCreateViewModelFactory
+
+    /**
+     * Метод получения фабрики для создания [ru.alkarps.android.school2021.hw18.presentation.activity.event.view.model.EventChangeViewModel]
+     *
+     * @return экземпляр [EventCreateViewModelFactory]
+     */
+    fun eventChangeViewModelFactory(): EventChangeViewModelFactory
 
     /**
      * Метод получения эземляра [EventsController]

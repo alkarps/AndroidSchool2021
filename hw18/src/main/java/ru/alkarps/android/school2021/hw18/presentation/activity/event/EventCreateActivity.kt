@@ -33,7 +33,7 @@ class EventCreateActivity : AppCompatActivity() {
     private fun initViewModel() {
         val factory = (applicationContext as HolidayApiApplication)
             .holidayMain(this)
-            .eventCreateOrUpdateViewModelFactory()
+            .eventCreateViewModelFactory()
         viewModel = ViewModelProvider(this, factory).get(EventCreateViewModel::class.java)
         viewModel.success.observe(this, { finish() })
         viewModel.errorMessages.observe(this) {
