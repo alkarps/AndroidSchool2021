@@ -37,5 +37,11 @@ class SettingsActivity : AppCompatActivity() {
             viewModel.loadAllData()
         }
         supportActionBar?.title = getString(R.string.settings_title)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }

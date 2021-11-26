@@ -31,6 +31,7 @@ class EventCreateActivity : AppCompatActivity() {
         initTimeInput()
         initButton()
         supportActionBar?.title = getString(R.string.event_create_title)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun initViewModel() {
@@ -107,5 +108,10 @@ class EventCreateActivity : AppCompatActivity() {
         val invalid = filed.text?.toString().isNullOrBlank()
         if (invalid) filed.error = "Обязательное поле."
         return !invalid
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 }

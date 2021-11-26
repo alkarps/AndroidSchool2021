@@ -32,6 +32,12 @@ class HolidaysDayActivity : AppCompatActivity() {
             binding.holidays.adapter = HolidaysDayAdapter(this.holidays)
             supportActionBar?.title = this.date
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 
     companion object {

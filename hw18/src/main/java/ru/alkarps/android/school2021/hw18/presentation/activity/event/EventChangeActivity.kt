@@ -37,6 +37,7 @@ class EventChangeActivity : AppCompatActivity() {
         initTimeInput()
         initButton()
         supportActionBar?.title = getString(R.string.event_change_title)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun initViewModel() {
@@ -128,6 +129,11 @@ class EventChangeActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 
     companion object {
