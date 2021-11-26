@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.MainViewModel
 import ru.alkarps.android.school2021.hw18.presentation.di.holiday.HolidayMainScope
+import ru.alkarps.android.school2021.hw18.presentation.provider.EventsController
 import ru.alkarps.android.school2021.hw18.presentation.provider.HolidaysProvider
 import ru.alkarps.android.school2021.hw18.presentation.provider.SchedulersProvider
 import javax.inject.Inject
@@ -16,7 +17,8 @@ import javax.inject.Inject
 @HolidayMainScope
 class MainViewModelFactory @Inject constructor(
     private val schedulersProvider: SchedulersProvider,
-    private val holidaysProvider: HolidaysProvider
+    private val holidaysProvider: HolidaysProvider,
+    private val eventsController: EventsController
 ) : ViewModelProvider.Factory {
     /**
      * Метод создания [MainViewModel]
@@ -26,6 +28,6 @@ class MainViewModelFactory @Inject constructor(
      * @return экземпляр [MainViewModel]
      */
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainViewModel(schedulersProvider, holidaysProvider) as T
+        return MainViewModel(schedulersProvider, holidaysProvider, eventsController) as T
     }
 }

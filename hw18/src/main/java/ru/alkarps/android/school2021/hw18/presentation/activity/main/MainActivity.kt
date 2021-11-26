@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -44,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         initViewModel()
 
         if (savedInstanceState == null) {
-            viewModel.loadHolidays(selectedDate)
+            viewModel.loadDataByDate(selectedDate)
         }
     }
 
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         dataPicker.addOnPositiveButtonClickListener {
             selectedDate.timeInMillis = it - TimeZone.getDefault().getOffset(Date().time)
             binding.currentDateLabel.text = selectedDate.asString()
-            viewModel.loadHolidays(selectedDate)
+            viewModel.loadDataByDate(selectedDate)
         }
         dataPicker.show(supportFragmentManager, dataPicker.toString())
     }
@@ -67,6 +66,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
         viewModel.progress.observe(this, this::progressObserve)
         viewModel.holidays.observe(this, this::showHoliday)
+        viewModel.events.observe(this, this::showEvents)
         viewModel.errorMessages.observe(this) {
             Snackbar.make(binding.root, it, BaseTransientBottomBar.LENGTH_LONG).show()
         }
