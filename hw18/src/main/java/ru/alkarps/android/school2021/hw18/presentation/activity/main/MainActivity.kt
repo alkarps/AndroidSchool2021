@@ -42,8 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         initViewModel()
 
-        if (savedInstanceState == null) viewModel.loadDataByDate(selectedDate)
-        else getDateFromSavedInstanceState(savedInstanceState)
+        if (savedInstanceState != null) getDateFromSavedInstanceState(savedInstanceState)
     }
 
     private fun changeCurrentDate() {
@@ -94,6 +93,11 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(
             R.id.events_fragment, MainEventsFragment.create(events)
         ).commit()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadDataByDate(selectedDate)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
