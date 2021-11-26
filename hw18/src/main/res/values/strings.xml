@@ -8,4 +8,8 @@
     <string name="show_holidays_at_this_day_label">Показать</string>
     <string name="event_create_button_label">Создать событие</string>
     <string name="event_change_button_label">Обновить событие</string>
+    <string name="event_name_label">Название события</string>
+    <string name="event_date_label">Дата события</string>
+    <string name="event_start_time_label">Время начала события</string>
+    <string name="event_location_label">Место проведения события</string>
 </resources>
