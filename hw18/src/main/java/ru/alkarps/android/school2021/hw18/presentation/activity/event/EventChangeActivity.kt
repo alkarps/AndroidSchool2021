@@ -11,6 +11,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import ru.alkarps.android.school2021.hw18.HolidayApiApplication
+import ru.alkarps.android.school2021.hw18.R
 import ru.alkarps.android.school2021.hw18.databinding.EventChangeActivityBinding
 import ru.alkarps.android.school2021.hw18.presentation.activity.event.view.model.EventChangeViewModel
 import ru.alkarps.android.school2021.hw18.presentation.model.EventView
@@ -33,6 +34,7 @@ class EventChangeActivity : AppCompatActivity() {
         initDateInput()
         initTimeInput()
         initButton()
+        supportActionBar?.title = getString(R.string.event_change_title)
     }
 
     private fun initViewModel() {

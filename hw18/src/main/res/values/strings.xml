@@ -12,4 +12,8 @@
     <string name="event_date_label">Дата события</string>
     <string name="event_start_time_label">Время начала события</string>
     <string name="event_location_label">Место проведения события</string>
+    <string name="event_create_title">Создание события</string>
+    <string name="event_change_title">Изменение события</string>
+    <string name="settings_title">Настройки</string>
+    <string name="main_events_fragment_label">События за выбранный день:</string>
 </resources>

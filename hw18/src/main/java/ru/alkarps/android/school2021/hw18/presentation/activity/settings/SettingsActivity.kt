@@ -36,5 +36,6 @@ class SettingsActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             viewModel.loadAllData()
         }
+        supportActionBar?.title = getString(R.string.settings_title)
     }
 }

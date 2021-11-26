@@ -1,11 +1,9 @@
 package ru.alkarps.android.school2021.hw18.presentation.activity.day
 
 import android.os.Bundle
-import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import ru.alkarps.android.school2021.hw18.R
 import ru.alkarps.android.school2021.hw18.databinding.HolidaysDayActivityBinding
 import ru.alkarps.android.school2021.hw18.presentation.activity.day.adapter.HolidaysDayAdapter
@@ -32,6 +30,7 @@ class HolidaysDayActivity : AppCompatActivity() {
 
         intent.getParcelableExtra<DayWithHolidaysView>(DAY_WITH_HOLIDAYS_KEY)?.apply {
             binding.holidays.adapter = HolidaysDayAdapter(this.holidays)
+            supportActionBar?.title = this.date
         }
     }
 

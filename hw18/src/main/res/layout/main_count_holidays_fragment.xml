@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="top|bottom"
+        android:gravity="center"
         android:text="Количество праздников сегодня: 0"
         android:textSize="@dimen/count_holidays_fragment_label_text_size" />
 
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_weight="0.01"
+        android:layout_weight="0.1"
         android:text="@string/show_holidays_at_this_day_label"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 </LinearLayout>

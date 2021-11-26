@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ListPreference
-        android:key="current_language"
-        android:title="Current language"
-        app:useSimpleSummaryProvider="true" />
-    <ListPreference
-        android:key="current_country"
-        android:title="Current country"
-        app:useSimpleSummaryProvider="true" />
-    <ListPreference
-        android:key="current_subdivision"
-        android:title="Current states/provinces"
-        app:useSimpleSummaryProvider="true" />
+    <PreferenceCategory
+        android:title="Настройки взаимодействия с HolidayApi"
+        app:iconSpaceReserved="false">
+        <ListPreference
+            android:key="current_language"
+            android:title="Изменить язык"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            android:key="current_country"
+            android:title="Изменить страну"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            android:key="current_subdivision"
+            android:title="Изменить территориальное подразделение"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
 </PreferenceScreen>
