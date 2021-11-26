@@ -2,23 +2,25 @@ package ru.alkarps.android.school2021.hw18.presentation.activity.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import ru.alkarps.android.school2021.hw18.HolidayApiApplication
 import ru.alkarps.android.school2021.hw18.R
 import ru.alkarps.android.school2021.hw18.databinding.MainActivityBinding
-import ru.alkarps.android.school2021.hw18.presentation.activity.main.adapter.DayWithHolidaysAdapter
+import ru.alkarps.android.school2021.hw18.presentation.activity.main.fragment.MainCountHolidaysFragment
+import ru.alkarps.android.school2021.hw18.presentation.activity.main.fragment.MainEventsFragment
 import ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.MainViewModel
 import ru.alkarps.android.school2021.hw18.presentation.activity.settings.SettingsActivity
+import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
+import ru.alkarps.android.school2021.hw18.presentation.model.EventView
+import ru.alkarps.android.school2021.hw18.util.asString
+import java.util.*
 
 /**
  * Активити главного экрана
@@ -28,22 +30,36 @@ import ru.alkarps.android.school2021.hw18.presentation.activity.settings.Setting
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: MainActivityBinding
     private lateinit var viewModel: MainViewModel
+    private lateinit var selectedDate: Calendar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val divider = DividerItemDecoration(this, RecyclerView.VERTICAL)
-        ResourcesCompat.getDrawable(resources, R.drawable.divider, theme)?.apply {
-            divider.setDrawable(this)
-        }
-        binding.recyclerView.addItemDecoration(divider)
+        selectedDate = Calendar.getInstance()
+        binding.currentDateLabel.text = selectedDate.asString()
+        binding.currentDateLabel.setOnClickListener { changeCurrentDate() }
 
         initViewModel()
 
-        if (savedInstanceState == null) {
-            viewModel.loadHolidays()
+        if (savedInstanceState != null) getDateFromSavedInstanceState(savedInstanceState)
+    }
+
+    private fun changeCurrentDate() {
+        val dataPicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Выберите дату")
+            .setSelection(selectedDate.timeInMillis)
+            .build()
+        dataPicker.addOnPositiveButtonClickListener {
+            changeSelectedDate(it - TimeZone.getDefault().getOffset(Date().time))
+            viewModel.loadDataByDate(selectedDate)
         }
+        dataPicker.show(supportFragmentManager, dataPicker.toString())
+    }
+
+    private fun changeSelectedDate(time: Long) {
+        selectedDate.timeInMillis = time
+        binding.currentDateLabel.text = selectedDate.asString()
     }
 
     private fun initViewModel() {
@@ -51,16 +67,37 @@ class MainActivity : AppCompatActivity() {
             .holidayMain(this)
             .mainViewModelFactory()
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
-        viewModel.progressLiveData.observe(this) {
-            binding.progressFrameLayout.visibility = if (it) View.VISIBLE else View.GONE
+        viewModel.progress.observe(this, this::progressObserve)
+        viewModel.holidays.observe(this, this::showHoliday)
+        viewModel.events.observe(this, this::showEvents)
+        viewModel.errorMessages.observe(this) {
+            Snackbar.make(binding.root, it, BaseTransientBottomBar.LENGTH_LONG).show()
         }
-        viewModel.errorLiveData.observe(this) {
-            Log.i(TAG,  it.message, it)
-            Snackbar.make(binding.root, it.toString(), BaseTransientBottomBar.LENGTH_LONG).show()
-        }
-        viewModel.holidaysLiveData.observe(this) {
-            binding.recyclerView.adapter = DayWithHolidaysAdapter(it)
-        }
+    }
+
+    private fun progressObserve(isFinish: Boolean) {
+        val visibility = if (isFinish) View.GONE to View.VISIBLE else View.VISIBLE to View.GONE
+        binding.progressFrameLayout.visibility = visibility.first
+        binding.currentDateLabel.visibility = visibility.second
+        binding.countHolidaysFragment.visibility = visibility.second
+        binding.eventsFragment.visibility = visibility.second
+    }
+
+    private fun showHoliday(days: List<DayWithHolidaysView>) {
+        supportFragmentManager.beginTransaction().replace(
+            R.id.count_holidays_fragment, MainCountHolidaysFragment.create(days.firstOrNull())
+        ).commit()
+    }
+
+    private fun showEvents(events: List<EventView>) {
+        supportFragmentManager.beginTransaction().replace(
+            R.id.events_fragment, MainEventsFragment.create(events)
+        ).commit()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadDataByDate(selectedDate)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -76,7 +113,23 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    companion object{
-        private const val TAG = "MainActivity"
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putLong(SELECTED_DATE_KEY, selectedDate.timeInMillis)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        getDateFromSavedInstanceState(savedInstanceState)
+    }
+
+    private fun getDateFromSavedInstanceState(savedInstanceState: Bundle) {
+        if (savedInstanceState.containsKey(SELECTED_DATE_KEY)) {
+            changeSelectedDate(savedInstanceState.getLong(SELECTED_DATE_KEY))
+        }
+    }
+
+    companion object {
+        private const val SELECTED_DATE_KEY = "SelectedDateKey"
     }
 }

@@ -9,8 +9,10 @@ import dagger.Provides
 import ru.alkarps.android.school2021.hw18.data.storage.HolidayApiDatabase
 import ru.alkarps.android.school2021.hw18.data.storage.HolidayApiDbContract
 import ru.alkarps.android.school2021.hw18.data.storage.dao.CountryDao
+import ru.alkarps.android.school2021.hw18.data.storage.dao.EventDao
 import ru.alkarps.android.school2021.hw18.data.storage.dao.LanguageDao
 import ru.alkarps.android.school2021.hw18.data.storage.migration.Migration_1_2
+import ru.alkarps.android.school2021.hw18.data.storage.migration.Migration_2_3
 
 @Module
 class DataContextModule(context: Context) {
@@ -18,7 +20,7 @@ class DataContextModule(context: Context) {
         context,
         HolidayApiDatabase::class.java,
         HolidayApiDbContract.DB_FILE_NAME
-    ).addMigrations(Migration_1_2).build()
+    ).addMigrations(Migration_1_2, Migration_2_3).build()
     private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     @Provides
@@ -32,6 +34,10 @@ class DataContextModule(context: Context) {
     @Provides
     @DataScope
     fun countryDao(): CountryDao = holidayApiDatabase.countryDao()
+
+    @Provides
+    @DataScope
+    fun eventDao(): EventDao = holidayApiDatabase.eventDao()
 
     @Provides
     @DataScope

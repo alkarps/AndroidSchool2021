@@ -8,7 +8,7 @@ import ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.
 class MainViewModelFactoryTest {
     @Test
     fun create() {
-        assertThat(MainViewModelFactory(mockk(), mockk()).create(MainViewModel::class.java))
+        assertThat(MainViewModelFactory(mockk(), mockk(), mockk()).create(MainViewModel::class.java))
             .isNotNull
     }
 }
