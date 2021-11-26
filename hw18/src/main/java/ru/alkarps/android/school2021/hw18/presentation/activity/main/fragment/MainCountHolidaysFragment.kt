@@ -26,8 +26,8 @@ class MainCountHolidaysFragment : Fragment(R.layout.main_count_holidays_fragment
                 button.findViewById<MaterialButton>(R.id.show_holidays_at_this_day)
                     .setOnClickListener {
                         val intent =
-                            Intent(requireActivity(), HolidaysDayActivity::class.java).apply {
-                                putExtra(DAY_WITH_HOLIDAYS_KEY, this)
+                            Intent(requireActivity(), HolidaysDayActivity::class.java).also {
+                                it.putExtra(DAY_WITH_HOLIDAYS_KEY, this)
                             }
                         startActivity(intent)
                     }

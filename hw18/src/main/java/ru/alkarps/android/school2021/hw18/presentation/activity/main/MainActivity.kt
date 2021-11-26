@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import ru.alkarps.android.school2021.hw18.HolidayApiApplication
@@ -37,12 +39,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         selectedDate = Calendar.getInstance()
         binding.currentDateLabel.text = selectedDate.asString()
+        binding.currentDateLabel.setOnClickListener { changeCurrentDate() }
 
         initViewModel()
 
         if (savedInstanceState == null) {
             viewModel.loadHolidays(selectedDate)
         }
+    }
+
+    private fun changeCurrentDate() {
+        val dataPicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Выберите дату")
+            .build()
+        dataPicker.addOnPositiveButtonClickListener {
+            selectedDate.timeInMillis = it - TimeZone.getDefault().getOffset(Date().time)
+            binding.currentDateLabel.text = selectedDate.asString()
+            viewModel.loadHolidays(selectedDate)
+        }
+        dataPicker.show(supportFragmentManager, dataPicker.toString())
     }
 
     private fun initViewModel() {

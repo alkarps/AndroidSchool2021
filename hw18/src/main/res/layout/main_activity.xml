@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".presentation.activity.main.MainActivity">
 
-    <com.google.android.material.textview.MaterialTextView
+    <Button
         android:id="@+id/current_date_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,6 +14,7 @@
         android:gravity="center"
         android:textSize="@dimen/current_date_label_text_size"
         android:visibility="gone"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
