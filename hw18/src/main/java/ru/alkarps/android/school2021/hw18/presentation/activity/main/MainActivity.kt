@@ -18,6 +18,7 @@ import ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model.
 import ru.alkarps.android.school2021.hw18.presentation.activity.settings.SettingsActivity
 import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
 import ru.alkarps.android.school2021.hw18.presentation.model.EventView
+import ru.alkarps.android.school2021.hw18.util.asString
 import java.util.*
 
 /**
@@ -28,16 +29,19 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: MainActivityBinding
     private lateinit var viewModel: MainViewModel
+    private lateinit var selectedDate: Calendar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        selectedDate = Calendar.getInstance()
+        binding.currentDateLabel.text = selectedDate.asString()
 
         initViewModel()
 
         if (savedInstanceState == null) {
-            viewModel.loadHolidays(Calendar.getInstance())
+            viewModel.loadHolidays(selectedDate)
         }
     }
 
