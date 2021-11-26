@@ -12,14 +12,14 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import ru.alkarps.android.school2021.hw18.HolidayApiApplication
 import ru.alkarps.android.school2021.hw18.databinding.EventCreateActivityBinding
-import ru.alkarps.android.school2021.hw18.presentation.activity.event.view.model.EventCreateOrUpdateViewModel
+import ru.alkarps.android.school2021.hw18.presentation.activity.event.view.model.EventCreateViewModel
 import ru.alkarps.android.school2021.hw18.presentation.model.EventView
 import ru.alkarps.android.school2021.hw18.util.asString
 import java.util.*
 
 class EventCreateActivity : AppCompatActivity() {
     private lateinit var binding: EventCreateActivityBinding
-    private lateinit var viewModel: EventCreateOrUpdateViewModel
+    private lateinit var viewModel: EventCreateViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = EventCreateActivityBinding.inflate(layoutInflater)
@@ -34,7 +34,7 @@ class EventCreateActivity : AppCompatActivity() {
         val factory = (applicationContext as HolidayApiApplication)
             .holidayMain(this)
             .eventCreateOrUpdateViewModelFactory()
-        viewModel = ViewModelProvider(this, factory).get(EventCreateOrUpdateViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(EventCreateViewModel::class.java)
         viewModel.success.observe(this, { finish() })
         viewModel.errorMessages.observe(this) {
             Snackbar.make(binding.root, it, BaseTransientBottomBar.LENGTH_LONG).show()
@@ -81,7 +81,7 @@ class EventCreateActivity : AppCompatActivity() {
     private fun initButton() {
         binding.eventCreateButton.setOnClickListener {
             if (inputsIsValid()) {
-                viewModel.createOrUpdate(
+                viewModel.create(
                     EventView(
                         binding.eventCreateNameInput.text.toString(),
                         binding.eventCreateDateInput.text.toString(),

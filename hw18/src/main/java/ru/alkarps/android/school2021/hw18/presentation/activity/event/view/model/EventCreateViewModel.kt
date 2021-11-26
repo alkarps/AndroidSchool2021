@@ -9,20 +9,26 @@ import ru.alkarps.android.school2021.hw18.presentation.provider.EventsController
 import ru.alkarps.android.school2021.hw18.presentation.provider.SchedulersProvider
 
 /**
- * Event create view model
+ * [ViewModel] для создания событий
  *
- * @property schedulersProvider
- * @property eventsController
+ * @property schedulersProvider провайдер для управления потоками
+ * @property eventsController контроллер для работы с событиями
  * @constructor Create empty Event create view model
  */
-class EventCreateOrUpdateViewModel(
+class EventCreateViewModel(
     private val schedulersProvider: SchedulersProvider,
     private val eventsController: EventsController
 ) : ViewModel() {
     private var disposable: Disposable? = null
     val success = MutableLiveData<Boolean>()
     val errorMessages = MutableLiveData<String>()
-    fun createOrUpdate(event: EventView) {
+
+    /**
+     * Метод создания события
+     *
+     * @param event описание нового события
+     */
+    fun create(event: EventView) {
         disposable = eventsController.createOrUpdate(event)
             .subscribeOn(schedulersProvider.back())
             .observeOn(schedulersProvider.main())
