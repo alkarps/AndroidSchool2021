@@ -5,7 +5,7 @@ package ru.alkarps.android.school2021.hw18.data.storage
  */
 object HolidayApiDbContract {
     const val DB_FILE_NAME: String = "holiday_api.db"
-    const val DB_VERSION = 2
+    const val DB_VERSION = 3
 
     /**
      * Список текущих таблиц
@@ -14,6 +14,7 @@ object HolidayApiDbContract {
         const val LANGUAGE = "language"
         const val COUNTRY = "country"
         const val SUBDIVISION = "subdivision"
+        const val EVENT = "event"
     }
 
     /**
@@ -42,5 +43,16 @@ object HolidayApiDbContract {
         const val COUNTRY_CODE = "country_code"
         const val NAME = "name"
         const val LANGUAGES = "language_codes"
+    }
+
+    /**
+     * Описание таблицы с Событиями
+     */
+    object Event {
+        const val UUID = "uuid"
+        const val NAME = "name"
+        const val DATE = "date"
+        const val START_TIME = "start_time"
+        const val LOCATION = "location"
     }
 }

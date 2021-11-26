@@ -9,6 +9,8 @@ import ru.alkarps.android.school2021.hw18.data.country.api.impl.ImplCountryApi
 import ru.alkarps.android.school2021.hw18.data.country.converter.CountryConverter
 import ru.alkarps.android.school2021.hw18.data.country.converter.impl.ImplCountryConverter
 import ru.alkarps.android.school2021.hw18.data.event.ImplEventRepository
+import ru.alkarps.android.school2021.hw18.data.event.converter.EventConverter
+import ru.alkarps.android.school2021.hw18.data.event.converter.impl.ImplEventConverter
 import ru.alkarps.android.school2021.hw18.data.holiday.ImplHolidayClient
 import ru.alkarps.android.school2021.hw18.data.holiday.api.HolidayApi
 import ru.alkarps.android.school2021.hw18.data.holiday.api.impl.ImplHolidayApi
@@ -72,4 +74,7 @@ interface DataBindsModule {
 
     @Binds
     fun bindsEventRepository(impl: ImplEventRepository): EventRepository
+
+    @Binds
+    fun bindsEventConverter(impl: ImplEventConverter): EventConverter
 }
