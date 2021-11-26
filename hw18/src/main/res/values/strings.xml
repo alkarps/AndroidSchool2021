@@ -6,5 +6,6 @@
     <string name="holiday_public_label">Government holiday</string>
     <string name="settings_label">Настройки</string>
     <string name="show_holidays_at_this_day_label">Показать</string>
-    <string name="event_create_button_label">Создать</string>
+    <string name="event_create_button_label">Создать событие</string>
+    <string name="event_change_button_label">Обновить событие</string>
 </resources>

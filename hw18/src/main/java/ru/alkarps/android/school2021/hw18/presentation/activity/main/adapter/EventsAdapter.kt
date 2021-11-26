@@ -1,11 +1,13 @@
 package ru.alkarps.android.school2021.hw18.presentation.activity.main.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.alkarps.android.school2021.hw18.R
 import ru.alkarps.android.school2021.hw18.databinding.MainEventsFragmentRecycleItemBinding
+import ru.alkarps.android.school2021.hw18.presentation.activity.event.EventChangeActivity
 import ru.alkarps.android.school2021.hw18.presentation.model.EventView
 
 /**
@@ -32,17 +34,17 @@ class EventsAdapter(
 
     class EventsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = MainEventsFragmentRecycleItemBinding.bind(itemView)
-//        private val context = itemView.context
+        private val context = itemView.context
 
         fun onBind(event: EventView) {
             binding.eventTime.text = event.startTime
             binding.eventName.text = event.name
-//            binding.eventsFragmentRecyclerItem.setOnClickListener {
-//                val intent = Intent(context, HolidaysDayActivity::class.java).apply {
-//                    putExtra(HolidaysDayActivity.DAY_WITH_HOLIDAYS_KEY, event)
-//                }
-//                context.startActivity(intent)
-//            }
+            binding.eventsFragmentRecyclerItem.setOnClickListener {
+                val intent = Intent(context, EventChangeActivity::class.java).apply {
+                    putExtra(EventChangeActivity.EVENT_CHANGE_KEY, event)
+                }
+                context.startActivity(intent)
+            }
         }
     }
 }

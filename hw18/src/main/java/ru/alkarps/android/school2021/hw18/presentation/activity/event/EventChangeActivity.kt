@@ -11,20 +11,24 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import ru.alkarps.android.school2021.hw18.HolidayApiApplication
-import ru.alkarps.android.school2021.hw18.databinding.EventCreateActivityBinding
-import ru.alkarps.android.school2021.hw18.presentation.activity.event.view.model.EventCreateViewModel
+import ru.alkarps.android.school2021.hw18.databinding.EventChangeActivityBinding
+import ru.alkarps.android.school2021.hw18.presentation.activity.event.view.model.EventChangeViewModel
 import ru.alkarps.android.school2021.hw18.presentation.model.EventView
 import ru.alkarps.android.school2021.hw18.util.asString
 import ru.alkarps.android.school2021.hw18.util.toStringTime
 import java.util.*
 
-class EventCreateActivity : AppCompatActivity() {
-    private lateinit var binding: EventCreateActivityBinding
-    private lateinit var viewModel: EventCreateViewModel
+class EventChangeActivity : AppCompatActivity() {
+    private lateinit var binding: EventChangeActivityBinding
+    private lateinit var viewModel: EventChangeViewModel
+    private lateinit var event: EventView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = EventCreateActivityBinding.inflate(layoutInflater)
+        binding = EventChangeActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        intent.getParcelableExtra<EventView>(EVENT_CHANGE_KEY)?.apply { event = this } ?: finish()
+        binding.eventChangeNameInput.setText(event.name)
+        event.location?.apply { binding.eventChangeLocationInput.setText(this) }
         initViewModel()
         initDateInput()
         initTimeInput()
@@ -34,8 +38,8 @@ class EventCreateActivity : AppCompatActivity() {
     private fun initViewModel() {
         val factory = (applicationContext as HolidayApiApplication)
             .holidayMain(this)
-            .eventCreateViewModelFactory()
-        viewModel = ViewModelProvider(this, factory).get(EventCreateViewModel::class.java)
+            .eventChangeViewModelFactory()
+        viewModel = ViewModelProvider(this, factory).get(EventChangeViewModel::class.java)
         viewModel.success.observe(this, { finish() })
         viewModel.errorMessages.observe(this) {
             Snackbar.make(binding.root, it, BaseTransientBottomBar.LENGTH_LONG).show()
@@ -43,10 +47,11 @@ class EventCreateActivity : AppCompatActivity() {
     }
 
     private fun initDateInput() {
-        binding.eventCreateDateInput.inputType = InputType.TYPE_NULL
-        binding.eventCreateDateInput.keyListener = null
-        binding.eventCreateDateInput.setOnClickListener { showDataPicker() }
-        binding.eventCreateDateInput.setOnFocusChangeListener { _, f -> if (f) showDataPicker() }
+        binding.eventChangeDateInput.setText(event.date)
+        binding.eventChangeDateInput.inputType = InputType.TYPE_NULL
+        binding.eventChangeDateInput.keyListener = null
+        binding.eventChangeDateInput.setOnClickListener { showDataPicker() }
+        binding.eventChangeDateInput.setOnFocusChangeListener { _, f -> if (f) showDataPicker() }
     }
 
     private fun showDataPicker() {
@@ -56,16 +61,17 @@ class EventCreateActivity : AppCompatActivity() {
             .build()
         dataPicker.addOnPositiveButtonClickListener {
             val cal = Calendar.getInstance().apply { timeInMillis = it }
-            binding.eventCreateDateInput.setText(cal.asString())
+            binding.eventChangeDateInput.setText(cal.asString())
         }
         dataPicker.show(supportFragmentManager, dataPicker.toString())
     }
 
     private fun initTimeInput() {
-        binding.eventCreateTimeInput.inputType = InputType.TYPE_NULL
-        binding.eventCreateTimeInput.keyListener = null
-        binding.eventCreateTimeInput.setOnClickListener { showTimePicker() }
-        binding.eventCreateTimeInput.setOnFocusChangeListener { _, f -> if (f) showTimePicker() }
+        binding.eventChangeTimeInput.setText(event.startTime)
+        binding.eventChangeTimeInput.inputType = InputType.TYPE_NULL
+        binding.eventChangeTimeInput.keyListener = null
+        binding.eventChangeTimeInput.setOnClickListener { showTimePicker() }
+        binding.eventChangeTimeInput.setOnFocusChangeListener { _, f -> if (f) showTimePicker() }
     }
 
     private fun showTimePicker() {
@@ -74,20 +80,20 @@ class EventCreateActivity : AppCompatActivity() {
             .setTimeFormat(TimeFormat.CLOCK_24H)
             .build()
         dataPicker.addOnPositiveButtonClickListener {
-            binding.eventCreateTimeInput.setText("${dataPicker.hour.toStringTime()}:${dataPicker.minute.toStringTime()}")
+            binding.eventChangeTimeInput.setText("${dataPicker.hour.toStringTime()}:${dataPicker.minute.toStringTime()}")
         }
         dataPicker.show(supportFragmentManager, dataPicker.toString())
     }
 
     private fun initButton() {
-        binding.eventCreateButton.setOnClickListener {
+        binding.eventChangeButton.setOnClickListener {
             if (inputsIsValid()) {
-                viewModel.create(
-                    EventView(
-                        binding.eventCreateNameInput.text.toString(),
-                        binding.eventCreateDateInput.text.toString(),
-                        binding.eventCreateTimeInput.text.toString(),
-                        binding.eventCreateLocationInput.text?.toString()
+                viewModel.update(
+                    event.copy(
+                        name = binding.eventChangeNameInput.text.toString(),
+                        date = binding.eventChangeDateInput.text.toString(),
+                        startTime = binding.eventChangeTimeInput.text.toString(),
+                        location = binding.eventChangeLocationInput.text?.toString()
                     )
                 )
             }
@@ -95,9 +101,9 @@ class EventCreateActivity : AppCompatActivity() {
     }
 
     private fun inputsIsValid(): Boolean {
-        val validName = validateField(binding.eventCreateNameInput)
-        val validDate = validateField(binding.eventCreateDateInput)
-        val validTime = validateField(binding.eventCreateTimeInput)
+        val validName = validateField(binding.eventChangeNameInput)
+        val validDate = validateField(binding.eventChangeDateInput)
+        val validTime = validateField(binding.eventChangeTimeInput)
         return validDate && validName && validTime
     }
 
@@ -105,5 +111,9 @@ class EventCreateActivity : AppCompatActivity() {
         val invalid = filed.text?.toString().isNullOrBlank()
         if (invalid) filed.error = "Обязательное поле."
         return !invalid
+    }
+
+    companion object {
+        const val EVENT_CHANGE_KEY = "EventChangeKey"
     }
 }

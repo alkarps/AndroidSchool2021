@@ -29,3 +29,10 @@ fun Calendar.asString(): String =
 fun String.toCalendar(): Calendar = Calendar.getInstance()
     .also { it.time = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).parse(this) }
 
+/**
+ * Метод конвертации времени (часы или минуты) в строку с лидирующим 0
+ *
+ * @return часы или минуты в строковом представлении
+ */
+fun Int.toStringTime() = toString().padStart(2, '0')
+

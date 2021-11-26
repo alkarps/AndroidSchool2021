@@ -22,5 +22,6 @@
         <activity android:name=".presentation.activity.day.HolidaysDayActivity" />
         <activity android:name=".presentation.activity.settings.SettingsActivity" />
         <activity android:name=".presentation.activity.event.EventCreateActivity" />
+        <activity android:name=".presentation.activity.event.EventChangeActivity" />
     </application>
 </manifest>
