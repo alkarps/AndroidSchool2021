@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">My little calendar</string>
-    <string name="loading_process">Please, wait…</string>
-    <string name="holiday_date_label">Holiday date:</string>
-    <string name="holiday_observed_label">Observed date:</string>
-    <string name="holiday_public_label">Government holiday</string>
+    <string name="loading_process">Загрузка…</string>
+    <string name="holiday_date_label">Официальная дата:</string>
+    <string name="holiday_observed_label">Дата празднования:</string>
+    <string name="holiday_public_label">Государственный праздник</string>
     <string name="settings_label">Настройки</string>
     <string name="event_change_delete_label">Удалить</string>
     <string name="show_holidays_at_this_day_label">Показать</string>

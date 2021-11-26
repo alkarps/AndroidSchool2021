@@ -38,7 +38,7 @@ class HolidaysDayAdapter(
             binding.holidayName.text = holidayView.name
             binding.holidayDate.text = holidayView.date
             binding.holidayObserved.text = holidayView.observed
-            binding.holidayPublic.text = if (holidayView.public) "Yes" else "No"
+            binding.holidayPublic.visibility = if (holidayView.public) View.VISIBLE else View.GONE
         }
     }
 }
