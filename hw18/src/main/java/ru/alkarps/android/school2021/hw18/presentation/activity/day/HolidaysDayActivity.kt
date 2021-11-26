@@ -1,6 +1,7 @@
 package ru.alkarps.android.school2021.hw18.presentation.activity.day
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -27,15 +28,16 @@ class HolidaysDayActivity : AppCompatActivity() {
         ResourcesCompat.getDrawable(resources, R.drawable.divider, theme)?.apply {
             divider.setDrawable(this)
         }
-        binding.holidays.addItemDecoration(divider)
+//        binding.holidays.addItemDecoration(divider)
+        binding.holidays.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL))
 
         intent.getParcelableExtra<DayWithHolidaysView>(DAY_WITH_HOLIDAYS_KEY)?.apply {
-            binding.selectedDay.text = this.date
             binding.holidays.adapter = HolidaysDayAdapter(this.holidays)
         }
     }
 
     companion object {
         const val DAY_WITH_HOLIDAYS_KEY = "DayWithHolidays"
+        const val SELECTED_DATE_KEY = "DayWithHolidays"
     }
 }

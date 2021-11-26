@@ -1,14 +1,16 @@
 package ru.alkarps.android.school2021.hw18.presentation.activity.main.view.model
 
 import android.util.Log
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.disposables.Disposable
 import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
 import ru.alkarps.android.school2021.hw18.presentation.provider.HolidaysProvider
 import ru.alkarps.android.school2021.hw18.presentation.provider.SchedulersProvider
 import ru.alkarps.android.school2021.hw18.util.toPeriod
-import java.util.*
+import java.util.Calendar
 
 /**
  * [ViewModel] для главного экрана приложения
@@ -22,9 +24,16 @@ class MainViewModel constructor(
     private val holidaysProvider: HolidaysProvider
 ) : ViewModel() {
     private var holidayDisposable: Disposable? = null
-    val progress = MutableLiveData<Boolean>()
+    private val holidayProgress = MutableLiveData<Boolean>()
     val holidays = MutableLiveData<List<DayWithHolidaysView>>()
     val errorMessages = MutableLiveData<String>()
+    val progress = MediatorLiveData<Boolean>().apply {
+        val doCalculation = Observer<Boolean> {
+            value = holidayProgress.value == true// && countriesProgressLiveData.value == true
+        }
+        addSource(holidayProgress, doCalculation)
+        //addSource(countriesProgressLiveData, doCalculation)
+    }
 
     /**
      * Загрузка праздников за указанный день
