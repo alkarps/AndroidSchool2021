@@ -2,6 +2,8 @@ package ru.alkarps.android.school2021.hw18.presentation.activity.event
 
 import android.os.Bundle
 import android.text.InputType
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -113,6 +115,19 @@ class EventChangeActivity : AppCompatActivity() {
         val invalid = filed.text?.toString().isNullOrBlank()
         if (invalid) filed.error = "Обязательное поле."
         return !invalid
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.event_change_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.event_change_delete_menu) {
+            viewModel.delete(event)
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
