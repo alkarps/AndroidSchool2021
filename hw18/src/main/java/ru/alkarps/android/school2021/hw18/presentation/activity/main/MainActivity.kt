@@ -42,9 +42,8 @@ class MainActivity : AppCompatActivity() {
 
         initViewModel()
 
-        if (savedInstanceState == null) {
-            viewModel.loadDataByDate(selectedDate)
-        }
+        if (savedInstanceState == null) viewModel.loadDataByDate(selectedDate)
+        else getDateFromSavedInstanceState(savedInstanceState)
     }
 
     private fun changeCurrentDate() {
@@ -53,11 +52,15 @@ class MainActivity : AppCompatActivity() {
             .setSelection(selectedDate.timeInMillis)
             .build()
         dataPicker.addOnPositiveButtonClickListener {
-            selectedDate.timeInMillis = it - TimeZone.getDefault().getOffset(Date().time)
-            binding.currentDateLabel.text = selectedDate.asString()
+            changeSelectedDate(it - TimeZone.getDefault().getOffset(Date().time))
             viewModel.loadDataByDate(selectedDate)
         }
         dataPicker.show(supportFragmentManager, dataPicker.toString())
+    }
+
+    private fun changeSelectedDate(time: Long) {
+        selectedDate.timeInMillis = time
+        binding.currentDateLabel.text = selectedDate.asString()
     }
 
     private fun initViewModel() {
@@ -104,5 +107,25 @@ class MainActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putLong(SELECTED_DATE_KEY, selectedDate.timeInMillis)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        getDateFromSavedInstanceState(savedInstanceState)
+    }
+
+    private fun getDateFromSavedInstanceState(savedInstanceState: Bundle) {
+        if (savedInstanceState.containsKey(SELECTED_DATE_KEY)) {
+            changeSelectedDate(savedInstanceState.getLong(SELECTED_DATE_KEY))
+        }
+    }
+
+    companion object {
+        private const val SELECTED_DATE_KEY = "SelectedDateKey"
     }
 }
