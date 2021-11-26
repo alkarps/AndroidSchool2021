@@ -23,8 +23,8 @@ import ru.alkarps.android.school2021.hw18.data.holiday.model.DateInfoDTO
 import ru.alkarps.android.school2021.hw18.data.holiday.model.HolidayDTO
 import ru.alkarps.android.school2021.hw18.data.holiday.model.HolidayResponseDTO
 import ru.alkarps.android.school2021.hw18.data.holiday.model.WeekdayDTO
-import ru.alkarps.android.school2021.hw18.domen.model.exception.HolidayApiException
 import ru.alkarps.android.school2021.hw18.domen.model.Period
+import ru.alkarps.android.school2021.hw18.domen.model.exception.HolidayApiException
 
 class ImplHolidayApiTest {
     private val language = "RU"
@@ -131,6 +131,27 @@ class ImplHolidayApiTest {
         assertThatCode { testApi.getHolidays(Period(2020, 11, 22), country, language) }
             .isInstanceOf(HolidayApiException::class.java)
             .hasNoCause()
+        verify {
+            okHttpClient.newCall(withArg {
+                assertThat(it).isNotNull
+                    .hasFieldOrPropertyWithValue("url", buildExpectedUrl(month = true, day = true))
+            })
+        }
+        verify { call.execute() }
+        verify { response.code }
+        verify { response.body }
+        verify { body.close() }
+        verify(exactly = 0) { jsonSerializer.decodeFromString<HolidayResponseDTO>(any()) }
+    }
+
+    @Test
+    fun getHolidays_whenStatusIs402AndBodyExist_thenCloseBodyAndReturnEmptyList() {
+        every { call.execute() } returns response
+        every { response.code } returns 402
+        every { response.body } returns body
+        justRun { body.close() }
+        assertThat(testApi.getHolidays(Period(2020, 11, 22), country, language))
+            .isNotNull.isEmpty()
         verify {
             okHttpClient.newCall(withArg {
                 assertThat(it).isNotNull

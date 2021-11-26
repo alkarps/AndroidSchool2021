@@ -9,12 +9,14 @@ import ru.alkarps.android.school2021.hw18.data.api.ApiConst
 import ru.alkarps.android.school2021.hw18.data.holiday.api.HolidayApi
 import ru.alkarps.android.school2021.hw18.data.holiday.model.HolidayDTO
 import ru.alkarps.android.school2021.hw18.data.holiday.model.HolidayResponseDTO
-import ru.alkarps.android.school2021.hw18.domen.model.exception.HolidayApiException
 import ru.alkarps.android.school2021.hw18.domen.model.Period
+import ru.alkarps.android.school2021.hw18.domen.model.exception.HolidayApiException
 import javax.inject.Inject
 
 /**
  * Реализация [HolidayApi]
+ *
+ * Бесплатная версия ограничена прошлым годом, поэтому при получении 402 кода - возвращаем пустойсписок.
  *
  * @property okHttpClient [OkHttpClient] для вызова HolidayApi
  * @property jsonSerializer [Json] для десериализации ответа
@@ -37,6 +39,7 @@ class ImplHolidayApi @Inject constructor(
                     ?.holidays ?: throw HolidayApiException()
             } else {
                 response.body?.close()
+                if (response.code == 402) return emptyList()
                 throw HolidayApiException()
             }
         } catch (e: HolidayApiException) {
