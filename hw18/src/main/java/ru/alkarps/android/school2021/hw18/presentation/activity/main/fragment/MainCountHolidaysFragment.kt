@@ -18,8 +18,7 @@ import ru.alkarps.android.school2021.hw18.presentation.model.DayWithHolidaysView
 class MainCountHolidaysFragment : Fragment(R.layout.main_count_holidays_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.getParcelable<DayWithHolidaysView>(DAY_WITH_HOLIDAYS_KEY)?.apply {
-            view.findViewById<MaterialTextView>(R.id.count_holidays_fragment_label).text =
-                "Количество праздников сегодня: ${this.holidays.size}"
+            setCountHolidays(view, holidays.size)
             if (this.holidays.isNotEmpty()) {
                 val button = view.findViewById<MaterialButton>(R.id.show_holidays_at_this_day)
                 button.visibility = View.VISIBLE
@@ -32,7 +31,12 @@ class MainCountHolidaysFragment : Fragment(R.layout.main_count_holidays_fragment
                         startActivity(intent)
                     }
             }
-        }
+        } ?: setCountHolidays(view, 0)
+    }
+
+    private fun setCountHolidays(view: View, count: Int) {
+        view.findViewById<MaterialTextView>(R.id.count_holidays_fragment_label).text =
+            getString(R.string.count_holidays_fragment_label, count)
     }
 
     companion object {
