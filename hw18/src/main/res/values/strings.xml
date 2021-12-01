@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">My little calendar</string>
+    <string name="loading_process">Загрузка…</string>
+    <string name="holiday_date_label">Официальная дата:</string>
+    <string name="holiday_observed_label">Дата празднования:</string>
+    <string name="holiday_public_label">Государственный праздник</string>
+    <string name="settings_label">Настройки</string>
+    <string name="event_change_delete_label">Удалить</string>
+    <string name="show_holidays_at_this_day_label">Показать</string>
+    <string name="event_create_button_label">Создать событие</string>
+    <string name="event_change_button_label">Обновить событие</string>
+    <string name="event_name_label">Название события</string>
+    <string name="event_date_label">Дата события</string>
+    <string name="event_start_time_label">Время начала события</string>
+    <string name="event_location_label">Место проведения события</string>
+    <string name="event_create_title">Создание события</string>
+    <string name="event_change_title">Изменение события</string>
+    <string name="settings_title">Настройки</string>
+    <string name="main_events_fragment_label">События за выбранный день:</string>
+    <string name="count_holidays_fragment_label">Количество праздников сегодня: %d</string>
+</resources>

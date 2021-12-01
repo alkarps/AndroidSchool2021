@@ -1,0 +1,20 @@
+@startuml
+participant "Клиент" as C
+participant "Интерактор доступных языков" as LI
+database    SQLite as DB
+participant "Клиент для получения доступных языков" as CLI
+participant HolidayApi as SHA
+C -> LI : Метод получени доступных языков
+LI -> DB : Получение описания доступных языков
+alt В БД сохранены доступные языки
+  DB -> LI : Описание доступных языков
+else
+  DB -> LI : null значение как факт отсутствия доступных языков
+  LI -> CLI : Запрос на получение доступных языков с серверов HolidayApi
+  CLI -> SHA : GET /v1/languages
+  SHA -> CLI : Список доступных языков
+  CLI -> LI : Список доступных языков
+  LI -> DB : Сохранение доступных языков
+  end
+ LI -> C : Список доступных языков
+@enduml

@@ -10,3 +10,4 @@ rootProject.name = "AndroidSchool2021"
 
 
 include(":hw01")
+include(":hw18")
