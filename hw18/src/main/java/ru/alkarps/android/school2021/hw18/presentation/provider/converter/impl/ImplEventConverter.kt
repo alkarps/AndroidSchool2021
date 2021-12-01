@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 class ImplEventConverter @Inject constructor() : EventConverter {
     override fun fromView(event: EventView): Event =
-        Event(event.uuid, event.name, event.date, event.startTime, event.startTime)
+        Event(event.uuid, event.name, event.date, event.startTime, event.location)
 
     override fun toView(events: List<Event>): List<EventView> = events.map { toView(it) }
 
